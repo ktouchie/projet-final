@@ -20,8 +20,7 @@ public class Computer {
 
     }
 
-    public Computer(Integer id, String brand, String serial) {
-	this.id = id;
+    public Computer(String brand, String serial) {
 	this.brand = brand;
 	this.serial = serial;
     }
