@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd ">
 
-	<context:component-scan base-package="co.simplon.exercise.web" />
+	<context:component-scan base-package="co.simplon.reserve.web" />
 
 	<mvc:annotation-driven />
 
