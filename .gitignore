@@ -3,6 +3,7 @@
 .project
 .settings
 .idea
+.tern-project
 *.iml
 /bin/
 /src/main/webapp/node_modules/
