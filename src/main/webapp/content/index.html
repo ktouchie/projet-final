@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<script src="./lib/jquery-3.1.1.min.js"></script>
+		
+		<script>
+			$( document ).ready(function() {
+				
+				$.getJSON('http://localhost:8080/api/user', null, function(data) {
+    				$.each(data, function(index, element) {
+        				$('#userList').append($('<li>', {
+            				text: user.name
+        				}));
+    				});
+				});
+
+			});
+    	</script>
+
+	</head>
+	<body>
+	
+		<div class="jumbotron">
+			<h1>Users in database :<h1>
+			<ul id="userList"></ul>
+		</div>
+		
+	</body> 
+</html>
