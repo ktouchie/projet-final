@@ -11,6 +11,11 @@
             				text: user.name
         				}));
     				});
+    				$.each(data, function(index, element) {
+        				$('#computerList').append($('<li>', {
+            				text: computer.brand
+        				}));
+    				});
 				});
 
 			});

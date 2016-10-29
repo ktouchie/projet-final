@@ -24,9 +24,11 @@ public class JspController {
     private ComputerService computerService;
 
     @RequestMapping("/main")
-    public ModelAndView getUserList(ModelMap model) {
+    public ModelAndView getAllLists(ModelMap model) {
 	List<User> userList = userService.getAll();
 	model.addAttribute("userList", userList);
+	List<Computer> computerList = computerService.getAll();
+	model.addAttribute("computerList", computerList);
 	return new ModelAndView("main", model);
     }
 
@@ -42,13 +44,6 @@ public class JspController {
     public ModelAndView deletePerson(@RequestParam("id") Integer id, ModelMap model) {
 	userService.delete(id);
 	return new ModelAndView("redirect:/main");
-    }
-
-    @RequestMapping("/computer")
-    public ModelAndView getComputerList(ModelMap model) {
-	List<Computer> computerList = computerService.getAll();
-	model.addAttribute("computerList", computerList);
-	return new ModelAndView("computers", model);
     }
 
     @RequestMapping("/addComputer")
