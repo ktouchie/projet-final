@@ -32,10 +32,9 @@ public class UserService {
     }
 
     public List<User> findByName(String name) {
-	User user = new User(name, null, null);
+	User user = new User(name, null, null, null);
 	Example<User> example = Example.of(user);
 	return userRepository.findAll(example);
-
     }
 
 }
