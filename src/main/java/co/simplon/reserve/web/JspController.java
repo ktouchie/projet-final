@@ -20,11 +20,14 @@ public class JspController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/user")
+    @Autowired
+    private ComputerService computerService;
+
+    @RequestMapping("/main")
     public ModelAndView getUserList(ModelMap model) {
 	List<User> userList = userService.getAll();
 	model.addAttribute("userList", userList);
-	return new ModelAndView("users", model);
+	return new ModelAndView("main", model);
     }
 
     @RequestMapping("/addUser")
@@ -32,17 +35,14 @@ public class JspController {
 	    @RequestParam("email") String email, @RequestParam("password") String password, ModelMap model) {
 	User user = new User(name, surname, email, password);
 	userService.add(user);
-	return new ModelAndView("redirect:/user");
+	return new ModelAndView("redirect:/main");
     }
 
     @RequestMapping("/deleteUser")
     public ModelAndView deletePerson(@RequestParam("id") Integer id, ModelMap model) {
 	userService.delete(id);
-	return new ModelAndView("redirect:/user");
+	return new ModelAndView("redirect:/main");
     }
-
-    @Autowired
-    private ComputerService computerService;
 
     @RequestMapping("/computer")
     public ModelAndView getComputerList(ModelMap model) {
@@ -56,7 +56,13 @@ public class JspController {
 	    ModelMap model) {
 	Computer computer = new Computer(brand, serial);
 	computerService.add(computer);
-	return new ModelAndView("redirect:/computer");
+	return new ModelAndView("redirect:/main");
+    }
+
+    @RequestMapping("/deleteComputer")
+    public ModelAndView deleteComputer(@RequestParam("id") Integer id, ModelMap model) {
+	computerService.delete(id);
+	return new ModelAndView("redirect:/main");
     }
 
 }
