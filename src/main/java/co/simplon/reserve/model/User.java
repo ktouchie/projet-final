@@ -19,7 +19,6 @@ public class User {
     private String email;
 
     public User() {
-	// FOR HIBERNATE
     }
 
     public User(String name, String surname, String email) {

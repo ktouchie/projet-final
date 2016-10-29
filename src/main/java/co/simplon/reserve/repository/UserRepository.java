@@ -4,9 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import co.simplon.reserve.model.Person;
+import co.simplon.reserve.model.User;
 
 @Resource
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
 }
