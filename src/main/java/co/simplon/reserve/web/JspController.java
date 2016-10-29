@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import co.simplon.reserve.model.Computer;
+import co.simplon.reserve.model.Room;
 import co.simplon.reserve.model.User;
 import co.simplon.reserve.service.ComputerService;
+import co.simplon.reserve.service.RoomService;
 import co.simplon.reserve.service.UserService;
 
 @Controller
@@ -23,12 +25,17 @@ public class JspController {
     @Autowired
     private ComputerService computerService;
 
+    @Autowired
+    private RoomService roomService;
+
     @RequestMapping("/main")
     public ModelAndView getAllLists(ModelMap model) {
 	List<User> userList = userService.getAll();
 	model.addAttribute("userList", userList);
 	List<Computer> computerList = computerService.getAll();
 	model.addAttribute("computerList", computerList);
+	List<Room> roomList = roomService.getAll();
+	model.addAttribute("roomList", roomList);
 	return new ModelAndView("main", model);
     }
 
@@ -57,6 +64,20 @@ public class JspController {
     @RequestMapping("/deleteComputer")
     public ModelAndView deleteComputer(@RequestParam("id") Integer id, ModelMap model) {
 	computerService.delete(id);
+	return new ModelAndView("redirect:/main");
+    }
+
+    @RequestMapping("/addRoom")
+    public ModelAndView addRoom(@RequestParam("name") String name, @RequestParam("capacity") Integer capacity,
+	    ModelMap model) {
+	Room room = new Room(name, capacity);
+	roomService.add(room);
+	return new ModelAndView("redirect:/main");
+    }
+
+    @RequestMapping("/deleteRoom")
+    public ModelAndView deleteRoom(@RequestParam("id") Integer id, ModelMap model) {
+	roomService.delete(id);
 	return new ModelAndView("redirect:/main");
     }
 

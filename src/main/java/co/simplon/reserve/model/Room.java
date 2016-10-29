@@ -20,8 +20,7 @@ public class Room {
 
     }
 
-    public Room(Integer id, String name, Integer capacity) {
-	this.id = id;
+    public Room(String name, Integer capacity) {
 	this.name = name;
 	this.capacity = capacity;
     }
