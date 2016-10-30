@@ -22,7 +22,7 @@
 		<div>
 			Name<input type="text" name="name"></br>
 			Surname<input type="text" name="surname"></br>
-			Email<input type="text" name="email"></br>
+			Email<input type="email" name="email"></br>
 			Password<input type="text" name="password"></br>
 			<p><input type="submit" value="Submit"></p></br>
 		</div>
