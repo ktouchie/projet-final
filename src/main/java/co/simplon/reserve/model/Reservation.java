@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Reservation {
@@ -17,38 +19,43 @@ public class Reservation {
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
-
-    private Integer idComputer;
-
-    private Integer idRoom;
-
-    private Integer idUser;
+    
+    @ManyToOne
+    @JoinColumn(name = "computer_id")
+    private Computer computer;
+    
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     public Reservation() {
 
     }
 
-    public Reservation(Integer idComputer, Integer idUser, LocalDateTime startTime, LocalDateTime endTime) {
+    public Reservation(LocalDateTime startTime, LocalDateTime endTime, Computer computer, User user) {
 	this.startTime = startTime;
 	this.endTime = endTime;
-	this.idComputer = idComputer;
-	this.idUser = idUser;
+	this.computer = computer;
+	this.user = user;
     }
 
-    public Reservation(LocalDateTime startTime, LocalDateTime endTime, Integer idRoom, Integer idUser) {
+    public Reservation(LocalDateTime startTime, LocalDateTime endTime, Room room, User user) {
 	this.startTime = startTime;
 	this.endTime = endTime;
-	this.idRoom = idRoom;
-	this.idUser = idUser;
+	this.room = room;
+	this.user = user;
     }
 
-    public Reservation(LocalDateTime startTime, LocalDateTime endTime, Integer idComputer, Integer idRoom,
-	    Integer idUser) {
+    public Reservation(LocalDateTime startTime, LocalDateTime endTime, Computer computer, Room room, User user) {
 	this.startTime = startTime;
 	this.endTime = endTime;
-	this.idComputer = idComputer;
-	this.idRoom = idRoom;
-	this.idUser = idUser;
+	this.computer = computer;
+	this.room = room;
+	this.user = user;
     }
 
 }

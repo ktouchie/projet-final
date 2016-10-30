@@ -1,9 +1,13 @@
 package co.simplon.reserve.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -19,6 +23,10 @@ public class User {
     private String email;
 
     private String password;
+    
+    @OneToMany(mappedBy = "user")
+    private Set<Reservation> reservations = new HashSet<Reservation>();
+    
 
     public User() {
     }
