@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping("/users")
-    public ModelAndView getAllLists(ModelMap model) {
+    public ModelAndView getAll(ModelMap model) {
 	List<User> userList = userService.getAll();
 	model.addAttribute("userList", userList);
 	return new ModelAndView("users", model);
@@ -35,7 +35,7 @@ public class UserController {
     }
 
     @RequestMapping("/deleteUser")
-    public ModelAndView deletePerson(@RequestParam("id") Integer id, ModelMap model) {
+    public ModelAndView deleteUser(@RequestParam("id") Integer id, ModelMap model) {
 	userService.delete(id);
 	return new ModelAndView("redirect:/users");
     }

@@ -20,7 +20,7 @@ public class ComputerController {
     private ComputerService computerService;
 
     @RequestMapping("/computers")
-    public ModelAndView getAllLists(ModelMap model) {
+    public ModelAndView getAll(ModelMap model) {
 	List<Computer> computerList = computerService.getAll();
 	model.addAttribute("computerList", computerList);
 	return new ModelAndView("computers", model);

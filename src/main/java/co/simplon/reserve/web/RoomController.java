@@ -20,7 +20,7 @@ public class RoomController {
     private RoomService roomService;
 
     @RequestMapping("/rooms")
-    public ModelAndView getAllLists(ModelMap model) {
+    public ModelAndView getAll(ModelMap model) {
 	List<Room> roomList = roomService.getAll();
 	model.addAttribute("roomList", roomList);
 	return new ModelAndView("rooms", model);
