@@ -14,7 +14,7 @@
 
 	<mvc:annotation-driven />
 
-	<mvc:resources location="/content/" mapping="/**"></mvc:resources>
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
 	<bean id="viewResolver"
           class="org.springframework.web.servlet.view.UrlBasedViewResolver">
