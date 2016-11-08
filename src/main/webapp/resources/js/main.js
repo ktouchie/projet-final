@@ -2,9 +2,11 @@ $(document).ready(function(){
 	$.datetimepicker.setLocale('en');
 	
 	$('#startTimePicker').datetimepicker({
+		// disable reservations on weekends
 		onGenerate:function(ct){
 			$(this).find('.xdsoft_date.xdsoft_weekend').addClass('xdsoft_disabled');
 		},
+		// start date is before end date
 		onShow:function(ct){
 			this.setOptions({
 				maxDate:$('#endTimePicker').val()?$('#endTimePicker').val():false
@@ -21,7 +23,7 @@ $(document).ready(function(){
 			$(this).find('.xdsoft_date.xdsoft_weekend').addClass('xdsoft_disabled');
 		},
 		onShow:function(ct){
-			console.log($('#startTimePicker').val());
+		// end date is after start date
 			this.setOptions({
 				minDate:$('#startTimePicker').val()?$('#startTimePicker').val():false
 			});
