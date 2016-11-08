@@ -39,7 +39,7 @@
     <form method="get" action="addReservation">
     	<p>Select User:</p>
     	<select name="userId">
-    		<option value="null">Select a user</option>
+    		<option value="">Select a user</option>
 			<c:forEach items="${userList}" var="user">
 				<option value="${user.id}">${user.name}${user.surname}</option>
 			</c:forEach>
@@ -47,7 +47,7 @@
 		
 	    <p>Select Computer:</p>
     	<select name="computerId">
-    		<option value="null">Select a computer</option>
+    		<option value="">Select a computer</option>
 			<c:forEach items="${computerList}" var="computer">
 				<option value="${computer.id}">${computer.brand}${computer.serial}</option>
 			</c:forEach>
@@ -55,7 +55,7 @@
 					
 	    <p>Select Room:</p>	
 		<select name="roomId">
-    		<option value="null">Select a room</option>
+    		<option value="">Select a room</option>
 			<c:forEach items="${roomList}" var="room">
 				<option value="${room.id}">${room.name}${room.capacity}</option>
 			</c:forEach>

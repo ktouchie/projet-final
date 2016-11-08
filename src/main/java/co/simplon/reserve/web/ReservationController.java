@@ -56,10 +56,11 @@ public class ReservationController {
 
     @RequestMapping("/addReservation")
     public ModelAndView addReservation(
-	    @RequestParam("startTime") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH") Date startTime,
-	    @RequestParam("endTime") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH") Date endTime,
-	    @RequestParam("computerId") Integer computerId, @RequestParam("roomId") Integer roomId,
-	    @RequestParam("userId") Integer userId, ModelMap model) {
+	    @RequestParam("startTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH") Date startTime,
+	    @RequestParam("endTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH") Date endTime,
+	    @RequestParam(name = "computerId", defaultValue = "-1") Integer computerId,
+	    @RequestParam(name = "roomId", defaultValue = "-1") Integer roomId, @RequestParam("userId") Integer userId,
+	    ModelMap model) {
 	Computer computer = computerService.getById(computerId);
 	Room room = roomService.getById(roomId);
 	User user = userService.getById(userId);
