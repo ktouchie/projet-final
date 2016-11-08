@@ -62,11 +62,10 @@
 		</select>
 		
 		<p>From:</p>
-			<input id="startTimePicker" type="text" >
-<%-- 		<input id="startTimePicker" type="datetime-local" name="startTime" min="${today}"> --%>
+			<input id="startTimePicker" type="text" name="startTime">
 		
 		<p>To:</p>	
-			<input id="endTimePicker" type="text">
+			<input id="endTimePicker" type="text" name="endTime">
 		
 		<input type="submit" value="Submit">
 
