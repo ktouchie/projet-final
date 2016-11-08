@@ -38,7 +38,7 @@
     
     <form method="get" action="addReservation">
     	<p>Select User:</p>
-    	<select name="userId">
+    	<select name="userId" required>
     		<option value="">Select a user</option>
 			<c:forEach items="${userList}" var="user">
 				<option value="${user.id}">${user.name}${user.surname}</option>
@@ -62,10 +62,10 @@
 		</select>
 		
 		<p>From:</p>
-			<input id="startTimePicker" type="text" name="startTime">
+			<input id="startTimePicker" type="text" name="startTime" required>
 		
 		<p>To:</p>	
-			<input id="endTimePicker" type="text" name="endTime">
+			<input id="endTimePicker" type="text" name="endTime" required>
 		
 		<input type="submit" value="Submit">
 
