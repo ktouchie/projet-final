@@ -48,7 +48,7 @@ public class ReservationController {
 	List<Reservation> reservationList = reservationService.getAll();
 	model.addAttribute("reservationList", reservationList);
 	Date date = new Date();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH");
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH");
 	String today = sdf.format(date);
 	model.addAttribute("today", today);
 	return new ModelAndView("reservations", model);
