@@ -7,6 +7,17 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
 	<display-name>angular-spring-hibernate</display-name>
 
+	<!-- Chargement du filter pour spring security -->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- Chargement du contexte Spring MVC -->
 	<servlet>
 		<servlet-name>springmvc-servlet</servlet-name>
