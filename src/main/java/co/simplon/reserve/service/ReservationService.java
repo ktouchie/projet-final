@@ -1,5 +1,6 @@
 package co.simplon.reserve.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,4 +31,11 @@ public class ReservationService {
 	return reservationRepository.findOne(id);
     }
 
+    public boolean computerAvailable(Integer computerId, Date startTime, Date endTime) {
+	return reservationRepository.computerConflicts(computerId, startTime, endTime).isEmpty();
+    }
+
+    public boolean roomAvailable(Integer roomId, Date startTime, Date endTime) {
+	return reservationRepository.roomConflicts(roomId, startTime, endTime).isEmpty();
+    }
 }

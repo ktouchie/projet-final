@@ -35,6 +35,7 @@
 	      	</c:forEach>
 	      	
 		</table>
+		<div>${error}</div>
     
     <form method="get" action="addReservation">
     	<p>Select User:</p>

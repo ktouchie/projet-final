@@ -11,6 +11,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.simplon.reserve.model.Computer;
 import co.simplon.reserve.model.Reservation;
@@ -60,12 +61,28 @@ public class ReservationController {
 	    @RequestParam("endTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH") Date endTime,
 	    @RequestParam(name = "computerId", defaultValue = "-1") Integer computerId,
 	    @RequestParam(name = "roomId", defaultValue = "-1") Integer roomId, @RequestParam("userId") Integer userId,
-	    ModelMap model) {
-	Computer computer = computerService.getById(computerId);
-	Room room = roomService.getById(roomId);
-	User user = userService.getById(userId);
-	Reservation reservation = new Reservation(startTime, endTime, computer, room, user);
-	reservationService.add(reservation);
+	    RedirectAttributes redirectAttrs) {
+	boolean computerIsAvailable = reservationService.computerAvailable(computerId, startTime, endTime);
+	boolean roomIsAvailable = reservationService.roomAvailable(roomId, startTime, endTime);
+
+	if (computerIsAvailable && roomIsAvailable) {
+	    Computer computer = computerService.getById(computerId);
+	    Room room = roomService.getById(roomId);
+	    User user = userService.getById(userId);
+	    Reservation reservation = new Reservation(startTime, endTime, computer, room, user);
+	    reservationService.add(reservation);
+	} else if (!computerIsAvailable) {
+	    redirectAttrs.addFlashAttribute("error",
+		    // Add list of conflicting times or suggest available
+		    // computers?
+		    "Reservation conflict: Computer is already reserved at this time.");
+	} else if (!roomIsAvailable) {
+	    redirectAttrs.addFlashAttribute("error",
+		    // Add list of conflicting times or suggest available
+		    // computers?
+		    "Reservation conflict: Room is already reserved at this time.");
+	}
+
 	return new ModelAndView("redirect:/reservations");
     }
 
