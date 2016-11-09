@@ -3,13 +3,12 @@ package co.simplon.reserve.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import co.simplon.reserve.model.User;
 import co.simplon.reserve.repository.UserRepository;
 
-@Repository
+@Service
 public class UserService {
 
     @Autowired
@@ -29,12 +28,6 @@ public class UserService {
 
     public User getById(int id) {
 	return userRepository.findOne(id);
-    }
-
-    public List<User> findByName(String name) {
-	User user = new User(name, null, null, null);
-	Example<User> example = Example.of(user);
-	return userRepository.findAll(example);
     }
 
 }
