@@ -14,15 +14,15 @@
         	 	<input name="id" value="${room.id}" type="hidden" />
         	 	<input type="submit" value="Delete" />
         	 </form>
-        	</br>
+        	
        	</c:forEach>
        	
       <form method="get" action="addRoom">
 			<p>Add Room</p>
 		<div>
-			Name<input type="text" name="name"></br>
-			Capacity<input type="text" name="capacity"></br>
-			<p><input type="submit" value="Submit"></p></br>
+			Name<input type="text" name="name">
+			Capacity<input type="text" name="capacity">
+			<p><input type="submit" value="Submit"></p>
 		</div>
 		</form>
 		
