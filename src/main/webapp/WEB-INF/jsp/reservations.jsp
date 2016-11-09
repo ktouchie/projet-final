@@ -74,7 +74,7 @@
     
 		
     </body>
-    <link rel="stylesheet" type="text/css" href="/resources/css/jquery.datetimepicker.css"/ >
+    <link rel="stylesheet" type="text/css" href="/resources/css/jquery.datetimepicker.css"/>
 	<script src="/resources/js/lib/jquery-3.1.1.min.js"></script>
 	<script src="/resources/js/jquery.datetimepicker.full.js"></script>
 </html>

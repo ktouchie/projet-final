@@ -45,10 +45,11 @@
 					Surname<input type="text" name="surname">
 					Email<input type="email" name="email">
 					Password<input type="text" name="password">
-					Role<select name="role" >
+					Role<select name="role">
 							<option value="USER">USER</option>
 							<option value="ADMIN">ADMIN</option>
-					<p><input type="submit" value="Submit"></p>
+						</select>
+					<input type="submit" value="Submit">
 				</div>
 			</form>
 		</security:authorize>
