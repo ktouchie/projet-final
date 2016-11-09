@@ -3,12 +3,12 @@ package co.simplon.reserve.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import co.simplon.reserve.model.Room;
 import co.simplon.reserve.repository.RoomRepository;
 
-@Repository
+@Service
 public class RoomService {
 
     @Autowired

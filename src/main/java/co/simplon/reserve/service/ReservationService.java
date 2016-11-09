@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import co.simplon.reserve.model.Reservation;
 import co.simplon.reserve.repository.ReservationRepository;
 
-@Repository
+@Service
 public class ReservationService {
 
     @Autowired
