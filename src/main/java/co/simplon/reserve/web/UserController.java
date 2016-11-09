@@ -29,7 +29,16 @@ public class UserController {
     @RequestMapping("/addUser")
     public ModelAndView addUser(@RequestParam("name") String name, @RequestParam("surname") String surname,
 	    @RequestParam("email") String email, @RequestParam("password") String password, ModelMap model) {
-	User user = new User(name, surname, email, password);
+	User user = new User(name, surname, email, password, User.Role.USER, true);
+	userService.add(user);
+	return new ModelAndView("redirect:/users");
+    }
+
+    @RequestMapping("/addAnyUser")
+    public ModelAndView addAnyUser(@RequestParam("name") String name, @RequestParam("surname") String surname,
+	    @RequestParam("email") String email, @RequestParam("password") String password,
+	    @RequestParam("role") User.Role role, ModelMap model) {
+	User user = new User(name, surname, email, password, role, true);
 	userService.add(user);
 	return new ModelAndView("redirect:/users");
     }

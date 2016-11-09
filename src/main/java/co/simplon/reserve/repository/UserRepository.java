@@ -11,7 +11,7 @@ import co.simplon.reserve.model.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
     // return list of users with particular email
-    @Query("select u from User where u.email = ?1")
+    @Query("select u from User u where u.email = ?1")
     public User findByEmail(String email);
 
 }

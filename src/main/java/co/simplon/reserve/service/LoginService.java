@@ -9,11 +9,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.simplon.reserve.model.User;
 import co.simplon.reserve.repository.UserRepository;
 
+@Service
 public class LoginService implements UserDetailsService {
 
     @Autowired
