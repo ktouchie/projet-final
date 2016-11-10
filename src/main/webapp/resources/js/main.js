@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	
 	$.datetimepicker.setLocale('en');
 	
 	$('#startTimePicker').datetimepicker({

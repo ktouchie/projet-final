@@ -19,19 +19,19 @@
  			</tr>
  			
 			<c:forEach items="${reservationList}" var="reservation">
-				<tr>
-					<td>${reservation.user.name} ${reservation.user.surname}</td>
-					<td>${reservation.computer.brand} - ${reservation.computer.serial}</td>
-					<td>${reservation.room.name}</td>
-	       	 		<td>${reservation.startTime}</td>
-	       	 		<td>${reservation.endTime}</td>
-					<td>
-						<form action="deleteReservation">
-			       	 		<input name="id" value="${reservation.id}" type="hidden" />
-			       	 		<input type="submit" value="Delete" />
-			       	 	</form>
-					</td>
-				</tr>
+			<tr>
+				<td>${reservation.user.name} ${reservation.user.surname}</td>
+				<td>${reservation.computer.brand}-${reservation.computer.serial}</td>
+				<td>${reservation.room.name}</td>
+				<td>${reservation.startTime}</td>
+				<td>${reservation.endTime}</td>
+				<td>
+					<form action="deleteReservation">
+						<input name="id" value="${reservation.id}" type="hidden" />
+						<input type="submit" value="Delete" />
+					</form>
+				</td>
+			</tr>
 	      	</c:forEach>
 	      	
 		</table>
