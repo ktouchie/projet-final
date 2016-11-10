@@ -1,4 +1,5 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+<body>
 <div>
 	<div class="logo">
 	</div>
@@ -6,11 +7,19 @@
 	<security:authorize access="isAuthenticated()">
 		Logged in as: 
 		<security:authentication property="principal.username" />
+		<security:authorize access="hasAuthority('ADMIN')">
+			(ADMIN)
+		</security:authorize>
 	</security:authorize>
     <div class="menu">
     	<ul class="nav nav-tabs nav-justified">
-    	</ul>
-    </div>
+    		<security:authorize access="hasAuthority('ADMIN')">
+	    		<li><a href="/users">Users</a></li>
+	    		<li><a href="/rooms">Rooms</a></li>
+	    		<li><a href="/reservations">Reservations</a></li>
+	    	</security:authorize>
+		</ul>
+	</div>
 	<security:authorize access="!isAuthenticated()">
 		<a href="/login">Login</a>
 		<a href="/users">Sign Up</a>
@@ -19,3 +28,4 @@
 		<a href="/logout">Logout</a>
 	</security:authorize>
 </div>
+</body>
