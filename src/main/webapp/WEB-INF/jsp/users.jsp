@@ -32,10 +32,22 @@
 				${user.name}
 				${user.surname}
 				${user.email}
-				<form action="deleteUser">
-					<input name="id" value="${user.id}" type="hidden" />
-					<input type="submit" value="Delete" />
-				</form>
+				<c:if test="${user.enabled}">
+					<form action="updateUserStatus">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input name="id" value="${user.id}" type="hidden" />
+						<input name="enabled" value="${!user.enabled}" type="hidden" />
+						<input type="submit" value="Disable" />
+					</form>
+				</c:if>
+				<c:if test="${!user.enabled}">
+					<form action="updateUserStatus">
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						<input name="id" value="${user.id}" type="hidden" />
+						<input name="enabled" value="${!user.enabled}" type="hidden" />
+						<input type="submit" value="Enable" />
+					</form>
+				</c:if>
 			</c:forEach>		
 		
 			<form method="get" action="addAnyUser">
