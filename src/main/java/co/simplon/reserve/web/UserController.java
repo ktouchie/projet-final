@@ -3,6 +3,7 @@ package co.simplon.reserve.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,19 @@ public class UserController {
 	user.updateUserStatus(enabled);
 	userService.add(user);
 	return new ModelAndView("redirect:/users");
+    }
+
+    @RequestMapping("/password")
+    public ModelAndView password(ModelMap model) {
+	return new ModelAndView("password", model);
+    }
+
+    @RequestMapping("/changePassword")
+    public ModelAndView changePassword(@RequestParam("currentPasswordInput") String currentPasswordInput,
+	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
+	    ModelMap model) {
+	System.out.println(SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
+	return new ModelAndView("redirect:/password", model);
     }
 
     // @RequestMapping("/userById")

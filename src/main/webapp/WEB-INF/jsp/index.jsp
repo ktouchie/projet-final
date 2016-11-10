@@ -18,6 +18,9 @@
 	    		<li><a href="/rooms">Rooms</a></li>
 	    		<li><a href="/reservations">Reservations</a></li>
 	    	</security:authorize>
+	    	<security:authorize access="isAuthenticated()">
+	    		<li><a href="/password">Change Password</a></li>
+	    	</security:authorize>
 		</ul>
 	</div>
 	<security:authorize access="!isAuthenticated()">
