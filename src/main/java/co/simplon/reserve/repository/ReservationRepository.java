@@ -21,4 +21,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     // idem rooms
     @Query("select r from Reservation r where r.room.id = ?1 and not(r.endTime<=?2 or r.startTime>=?3)")
     public List<Reservation> roomConflicts(Integer roomId, Date startTime, Date endTime);
+
+    // returns list of reservations given a user
+    @Query("select r from Reservation r where r.user.id =?1")
+    public List<Reservation> userReservations(Integer userId);
 }

@@ -43,9 +43,12 @@ public class UserController {
 	return new ModelAndView("redirect:/users");
     }
 
-    @RequestMapping("/deleteUser")
-    public ModelAndView deleteUser(@RequestParam("id") Integer id, ModelMap model) {
-	userService.delete(id);
+    @RequestMapping("/updateUserStatus")
+    public ModelAndView updateUserStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
+	    ModelMap model) {
+	User user = userService.getById(id);
+	user.updateUserStatus(enabled);
+	userService.add(user);
 	return new ModelAndView("redirect:/users");
     }
 

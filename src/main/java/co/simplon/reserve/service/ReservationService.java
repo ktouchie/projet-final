@@ -38,4 +38,8 @@ public class ReservationService {
     public boolean roomAvailable(Integer roomId, Date startTime, Date endTime) {
 	return reservationRepository.roomConflicts(roomId, startTime, endTime).isEmpty();
     }
+
+    public List<Reservation> userReservations(Integer userId) {
+	return reservationRepository.userReservations(userId);
+    }
 }

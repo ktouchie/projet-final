@@ -78,4 +78,8 @@ public class User {
 	return role;
     }
 
+    public void updateUserStatus(boolean enabled) {
+	this.enabled = enabled;
+    }
+
 }
