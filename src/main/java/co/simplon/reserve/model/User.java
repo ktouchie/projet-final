@@ -82,4 +82,7 @@ public class User {
 	this.enabled = enabled;
     }
 
+    public void setPassword(String password) {
+	this.password = password;
+    }
 }
