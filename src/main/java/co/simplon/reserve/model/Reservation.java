@@ -21,15 +21,15 @@ public class Reservation {
 
     private Date endTime;
 
-    @ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = Computer.class)
+    @ManyToOne(cascade = { CascadeType.ALL }, targetEntity = Computer.class)
     @JoinColumn(name = "computerId")
     private Computer computer;
 
-    @ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = Room.class)
+    @ManyToOne(cascade = { CascadeType.ALL }, targetEntity = Room.class)
     @JoinColumn(name = "roomId")
     private Room room;
 
-    @ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = User.class)
+    @ManyToOne(cascade = { CascadeType.ALL }, targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
 
