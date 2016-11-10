@@ -19,7 +19,7 @@
 					Name<input type="text" name="name">
 					Surname<input type="text" name="surname">
 					Email<input type="email" name="email">
-					Password<input type="text" name="password">
+					Password<input type="password" name="password">
 					<p><input type="submit" value="Submit"></p>
 				</div>
 			</form>
@@ -56,7 +56,7 @@
 					Name<input type="text" name="name">
 					Surname<input type="text" name="surname">
 					Email<input type="email" name="email">
-					Password<input type="text" name="password">
+					Password<input type="password" name="password">
 					Role<select name="role">
 							<option value="USER">USER</option>
 							<option value="ADMIN">ADMIN</option>
