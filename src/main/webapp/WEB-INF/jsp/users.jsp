@@ -32,6 +32,7 @@
 				${user.name}
 				${user.surname}
 				${user.email}
+				${user.role}
 				<c:if test="${user.enabled}">
 					<form action="updateUserStatus">
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

@@ -1,6 +1,7 @@
 package co.simplon.reserve.web;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +10,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import co.simplon.reserve.model.User;
 import co.simplon.reserve.service.UserService;
@@ -61,9 +63,22 @@ public class UserController {
     @RequestMapping("/changePassword")
     public ModelAndView changePassword(@RequestParam("currentPasswordInput") String currentPasswordInput,
 	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
-	    ModelMap model) {
-	System.out.println(SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
-	return new ModelAndView("redirect:/password", model);
+	    RedirectAttributes redirectAttrs) {
+	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+	System.out.println(currentEmail);
+	User user = userService.getByEmail(currentEmail);
+	System.out.println(user);
+	String currentPassword = (SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
+	System.out.println(currentPassword);
+	if (Objects.equals(currentPassword, currentPasswordInput) && Objects.equals(newPassword, confirmPassword)) {
+	    user.setPassword(newPassword);
+	    userService.add(user);
+	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
+	    return new ModelAndView("redirect:/users");
+	} else {
+	    redirectAttrs.addFlashAttribute("error", "Error Password Confirmation: Please re-enter your password.");
+	    return new ModelAndView("password");
+	}
     }
 
     // @RequestMapping("/userById")
