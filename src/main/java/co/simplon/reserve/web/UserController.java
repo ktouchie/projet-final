@@ -64,20 +64,18 @@ public class UserController {
     public ModelAndView changePassword(@RequestParam("currentPasswordInput") String currentPasswordInput,
 	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
 	    RedirectAttributes redirectAttrs) {
+	// get current User
 	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-	System.out.println(currentEmail);
 	User user = userService.getByEmail(currentEmail);
-	System.out.println(user);
 	String currentPassword = (SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
-	System.out.println(currentPassword);
 	if (Objects.equals(currentPassword, currentPasswordInput) && Objects.equals(newPassword, confirmPassword)) {
 	    user.setPassword(newPassword);
 	    userService.add(user);
 	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
-	    return new ModelAndView("redirect:/users");
+	    return new ModelAndView("redirect:/password");
 	} else {
 	    redirectAttrs.addFlashAttribute("error", "Error Password Confirmation: Please re-enter your password.");
-	    return new ModelAndView("password");
+	    return new ModelAndView("redirect:/password");
 	}
     }
 
