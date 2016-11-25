@@ -21,6 +21,7 @@
 				<li><a href="/reservations">Reservations</a></li>
 	    		<li><a href="/password">Change Password</a></li>
 	    	</security:authorize>
+				<li><a href="/planning">Planning</a></li>
 		</ul>
 	</div>
 	<security:authorize access="!isAuthenticated()">
