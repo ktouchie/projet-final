@@ -13,12 +13,12 @@
 	</security:authorize>
     <div class="menu">
     	<ul class="nav nav-tabs nav-justified">
-    		<security:authorize access="hasAuthority('ADMIN')">
+			<security:authorize access="hasAuthority('ADMIN')">
 	    		<li><a href="/users">Users</a></li>
 	    		<li><a href="/rooms">Rooms</a></li>
-	    		<li><a href="/reservations">Reservations</a></li>
 	    	</security:authorize>
 	    	<security:authorize access="isAuthenticated()">
+				<li><a href="/reservations">Reservations</a></li>
 	    		<li><a href="/password">Change Password</a></li>
 	    	</security:authorize>
 		</ul>

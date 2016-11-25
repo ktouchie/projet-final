@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +41,7 @@ public class ReservationController {
 
     @RequestMapping("/reservations")
     public ModelAndView getAll(ModelMap model) {
+	// for Admin to view all reservations
 	List<Computer> computerList = computerService.getAll();
 	model.addAttribute("computerList", computerList);
 	List<User> userList = userService.getAll();
@@ -52,6 +54,12 @@ public class ReservationController {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH");
 	String today = sdf.format(date);
 	model.addAttribute("today", today);
+
+	// for User to view own reservations
+	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+	User user = userService.getByEmail(currentEmail);
+	List<Reservation> userReservationList = reservationService.userReservations(user.getId());
+	model.addAttribute("userReservationList", userReservationList);
 	return new ModelAndView("reservations", model);
     }
 

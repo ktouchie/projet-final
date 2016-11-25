@@ -1,3 +1,4 @@
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
     <head>
@@ -18,6 +19,7 @@
  				<th></th>
  			</tr>
  			
+			<security:authorize access="hasAuthority('ADMIN')">
 			<c:forEach items="${reservationList}" var="reservation">
 			<tr>
 				<td>${reservation.user.name} ${reservation.user.surname}</td>
@@ -33,6 +35,25 @@
 				</td>
 			</tr>
 	      	</c:forEach>
+			</security:authorize>
+
+			<security:authorize access="hasAuthority('USER')">
+			<c:forEach items="${userReservationList}" var="reservation">
+			<tr>
+				<td>${reservation.computer.brand}-${reservation.computer.serial}</td>
+				<td>${reservation.room.name}</td>
+				<td>${reservation.startTime}</td>
+				<td>${reservation.endTime}</td>
+				<td>
+					<form action="deleteReservation">
+						<input name="id" value="${reservation.id}" type="hidden" />
+						<input type="submit" value="Delete" />
+					</form>
+				</td>
+			</tr>
+			</c:forEach>
+			</security:authorize>
+
 	      	
 		</table>
 		<div>${error}</div>
