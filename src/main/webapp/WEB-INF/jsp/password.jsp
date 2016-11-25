@@ -5,4 +5,6 @@
 		Confirm New Password:<input name="confirmPassword" type="password">
 		<input type="submit" value="Submit">
 	</form>
+	<div>${success}</div>
+	<div>${error}</div>
 </div>
