@@ -25,7 +25,7 @@ public class LoginService implements UserDetailsService {
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-	User user = userRepository.findByEmail(email);
+	User user = userRepository.findByEmail(email).get(0);
 	if (user == null) {
 	    throw new UsernameNotFoundException("User name not found");
 	}

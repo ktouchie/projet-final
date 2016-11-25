@@ -30,4 +30,9 @@ public class UserService {
 	return userRepository.findOne(id);
     }
 
+    public User getByEmail(String email) {
+	List<User> userList = userRepository.findByEmail(email);
+	return userList.get(0);
+    }
+
 }
