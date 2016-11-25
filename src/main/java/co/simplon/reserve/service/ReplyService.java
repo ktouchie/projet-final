@@ -3,6 +3,7 @@ package co.simplon.reserve.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import co.simplon.reserve.model.Reply;
@@ -28,6 +29,14 @@ public class ReplyService {
 
     public Reply getById(Integer id) {
     	return replyRepository.findOne(id);
+    }
+    
+    public List<Reply> getUnreadRepliesFromUsers(Integer messageId){
+    	return replyRepository.getUnreadRepliesFromUsers(messageId);
+    }
+	
+    public List<Reply> getUnreadRepliesFromAdmins(Integer userId){
+    	return replyRepository.getUnreadRepliesFromAdmins(userId);
     }
 	
 }

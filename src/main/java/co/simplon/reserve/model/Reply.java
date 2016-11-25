@@ -17,11 +17,11 @@ public class Reply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	@ManyToOne(/*cascade = { CascadeType.ALL }, */targetEntity = Message.class)
+	@ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = Message.class)
     @JoinColumn(name = "messageId")
 	private Message message;
 	
-	@ManyToOne(targetEntity = User.class)
+	@ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
 	
@@ -29,30 +29,30 @@ public class Reply {
 	
 	private Date replyDate;
 	
-	private boolean read;
+	private boolean opened;
 	
 	
 	public Reply() {
 		
 	}
 
-	public Reply(Message message, User user, String content, Date replyDate, boolean read) {
+	public Reply(Message message, User user, String content, Date replyDate, boolean opened) {
 		super();
 		this.message = message;
 		this.user = user;
 		this.content = content;
 		this.replyDate = replyDate;
-		this.read = read;
+		this.opened = opened;
 	}
 
 
-	public boolean isRead() {
-		return read;
+	public boolean isOpened() {
+		return opened;
 	}
 
 
-	public void setRead(boolean read) {
-		this.read = read;
+	public void setOpened(boolean opened) {
+		this.opened = opened;
 	}
 
 
@@ -65,12 +65,19 @@ public class Reply {
 		return message;
 	}
 
+	public int getMessageId()
+	{
+		return message.getId();
+	}
 
 	public User getUser() {
 		return user;
 	}
 
-
+	public Integer getUserId() {
+		return user.getId();
+	}
+	
 	public String getContent() {
 		return content;
 	}

@@ -17,36 +17,37 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
+	@ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = User.class)
+    @JoinColumn(name = "userId") 
+    private User user;
+	
 	private String title;
 	
 	private String content;
 	
-	//private Date creationDate;
+	private Date creationDate;
 	
-	private boolean read;
+	private boolean opened;
 	
-	@ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "userId") 
-    private User user;
 
 	public Message() {
 		
 	}
 
-	public Message(String title, String content,/*Date creationDate,*/ boolean read, User user) {
+	public Message(User user, String title, String content, Date creationDate, boolean opened) {
+		this.user = user;
 		this.title = title;
 		this.content = content;
-//		this.creationDate = creationDate;
-		this.read = read;
-		this.user = user;
+		this.creationDate = creationDate;
+		this.opened = opened;
 	}
 
-	public boolean isRead() {
-		return read;
+	public boolean isOPened() {
+		return opened;
 	}
 
-	public void setRead(boolean read) {
-		this.read = read;
+	public void setRead(boolean opened) {
+		this.opened = opened;
 	}
 
 	public Integer getId() {
@@ -65,11 +66,8 @@ public class Message {
 		return content;
 	}
 
-//	public Date getCreationDate() {
-//		return creationDate;
-//	}
-	
-	
-	
-	
+	public Date getCreationDate() {
+		return creationDate;
+	}
+		
 }

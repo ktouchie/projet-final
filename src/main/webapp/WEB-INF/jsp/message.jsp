@@ -2,72 +2,40 @@
 
 <html>
 <head>
-	<title>Messages</title>
+	<title>Message</title>
 </head>
 
 <body>
-
-   	<p>Messages:</p>
- 		<table>
- 			<tr>
- 				<th><div></div></th>
- 				<th>Topic</th>
- 				<th>From</th>
- 				<th>At</th>
- 			</tr>
- 			
-			<c:forEach items="${messageUnreadList}" var="message">
-			<tr>
-				<td><div id="logoUnreadMail"></</div></td>
-				<td>${message.title}</td>
-				<td>${message.user.name} ${message.user.surname}</td>
-				<td>${message.creationDate}</td>
-				<td>
-					<form action="readMail">
-						<input name="id" value="${message.id}" type="hidden" />
-						<input type="submit" value="Read" />
-					</form>
-				</td>
-			</tr>
-	      	</c:forEach>
-	      	
-		</table>
-		<div>${error}</div>
-    
-    <form method="get" action="addReservation">
-    	<p>Select User:</p>
-    	<select name="userId" required>
-    		<option value="">Select a user</option>
-			<c:forEach items="${userList}" var="user">
-				<option value="${user.id}">${user.name}${user.surname}</option>
-			</c:forEach>
-		</select>
+		<div id="title">
+		<p>${messageRead.title}</p>
+		</div>
+		<div id="messageInfos">
+		<p>the ${messageRead.creationDate} from ${messageRead.user.name} ${messageRead.user.surname}</p>
+		</div>
+		<div id="messageContent">
+		<p>${messageRead.content}</p>
+		</div>
+ 		<br/>
+ 		
+		<c:forEach items="${replyList}" var="reply">
+			<div id="replyInfos">
+			<p>the ${reply.replyDate} from ${reply.user.name} ${reply.user.surname}</p>
+			</div>
+			<div id="replyContent">
+			<p>${reply.content}</p>
+			</div>
+			<br/>
+      	</c:forEach>
 		
-	    <p>Select Computer:</p>
-    	<select name="computerId">
-    		<option value="">Select a computer</option>
-			<c:forEach items="${computerList}" var="computer">
-				<option value="${computer.id}">${computer.brand}${computer.serial}</option>
-			</c:forEach>
-		</select>
-					
-	    <p>Select Room:</p>	
-		<select name="roomId">
-    		<option value="">Select a room</option>
-			<c:forEach items="${roomList}" var="room">
-				<option value="${room.id}">${room.name}${room.capacity}</option>
-			</c:forEach>
-		</select>
+		<form method="post" action="addReply" id="replyMessage">
+		<p>Reply to ${messageRead.user.name} ${messageRead.user.surname} :</p>
+		<div>
+			<textarea name="content" form="replyMessage" required="true" cols="30" rows="10"></textarea>
+			<input type="hidden" name="messageId" value="${messageRead.id}">
+			<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+			<p><input type="submit" value="Reply"></p>
+		</div>
+		</form>
 		
-		<p>From:</p>
-			<input id="startTimePicker" type="text" name="startTime" required>
-		
-		<p>To:</p>	
-			<input id="endTimePicker" type="text" name="endTime" required>
-		
-		<input type="submit" value="Submit">
-
-    </form>
-
 </body>
 </html>

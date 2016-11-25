@@ -29,4 +29,12 @@ public class MessageService {
     public Message getById(Integer id) {
     	return messageRepository.findOne(id);
     }
+    
+    public List<Message> getUnopenedMessages(){
+    	return messageRepository.getUnopenedMessages();
+    }
+    
+    public List<Message> getOpenedMessages(){
+    	return messageRepository.getOpenedMessages();
+    }
 }
