@@ -30,11 +30,27 @@ public class MessageService {
     	return messageRepository.findOne(id);
     }
     
-    public List<Message> getUnopenedMessages(){
-    	return messageRepository.getUnopenedMessages();
+    public List<Message> getUnopenedMessageList(){
+    	return messageRepository.getUnopenedMessageList();
     }
     
-    public List<Message> getOpenedMessages(){
-    	return messageRepository.getOpenedMessages();
+    public List<Message> getOpenedMessageList(){
+    	return messageRepository.getOpenedMessageList();
+    }
+    
+    public List<Message> getAdminMessageRepliedList(){
+    	return messageRepository.getAdminMessageRepliedList();
+    }
+
+    public List<Message> getUnopenedRepliedMessageList(Integer userId){
+    	return messageRepository.getUnopenedRepliedMessageList(userId);
+    }
+    
+    public List<Message> getOpenedRepliedMessageList(Integer userId){
+    	return messageRepository.getOpenedRepliedMessageList(userId);
+    }
+
+    public List<Message> getMessageFromUserList(Integer userId){
+    	return messageRepository.getMessageFromUserList(userId);
     }
 }

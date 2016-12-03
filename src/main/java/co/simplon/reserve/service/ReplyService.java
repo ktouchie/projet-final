@@ -31,12 +31,11 @@ public class ReplyService {
     	return replyRepository.findOne(id);
     }
     
-    public List<Reply> getUnreadRepliesFromUsers(Integer messageId){
-    	return replyRepository.getUnreadRepliesFromUsers(messageId);
+    public List<Reply> getAdminUnopenedMails(){
+    	return replyRepository.getAdminUnopenedMails();
     }
-	
-    public List<Reply> getUnreadRepliesFromAdmins(Integer userId){
-    	return replyRepository.getUnreadRepliesFromAdmins(userId);
+
+    public List<Reply> getUserUnopenedMails(Integer userId){
+    	return replyRepository.getUserUnopenedMails(userId);
     }
-	
 }

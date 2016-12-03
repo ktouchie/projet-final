@@ -28,10 +28,11 @@
       	</c:forEach>
 		
 		<form method="post" action="addReply" id="replyMessage">
-		<p>Reply to ${messageRead.user.name} ${messageRead.user.surname} :</p>
+		<p>Add a comment :</p>
 		<div>
 			<textarea name="content" form="replyMessage" required="true" cols="30" rows="10"></textarea>
 			<input type="hidden" name="messageId" value="${messageRead.id}">
+			<input name="mailBoxSource" value="${mailBoxSource}" type="hidden" />
 			<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 			<p><input type="submit" value="Reply"></p>
 		</div>

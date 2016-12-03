@@ -29,25 +29,23 @@ public class Message {
 	
 	private boolean opened;
 	
+	private boolean delByUser;
+	
+	private boolean delByAdmin;
+	
 
 	public Message() {
 		
 	}
 
-	public Message(User user, String title, String content, Date creationDate, boolean opened) {
+	public Message(User user, String title, String content, Date creationDate) {
 		this.user = user;
 		this.title = title;
 		this.content = content;
 		this.creationDate = creationDate;
-		this.opened = opened;
-	}
-
-	public boolean isOPened() {
-		return opened;
-	}
-
-	public void setRead(boolean opened) {
-		this.opened = opened;
+		this.opened = false;
+		this.delByUser = false;
+		this.delByAdmin = false;
 	}
 
 	public Integer getId() {
@@ -56,6 +54,10 @@ public class Message {
 
 	public User getUser() {
 		return user;
+	}
+	
+	public Integer getUserId(){
+		return user.getId();
 	}
 
 	public String getTitle() {
@@ -69,5 +71,29 @@ public class Message {
 	public Date getCreationDate() {
 		return creationDate;
 	}
-		
+	
+	public boolean isOpened() {
+		return opened;
+	}
+	
+	public boolean isDelByUser() {
+		return delByUser;
+	}
+	
+	public boolean isDelByAdmin() {
+		return delByAdmin;
+	}
+	
+	public void setOpened(boolean opened) {
+		this.opened = opened;
+	}
+	
+	public void setDelByUser(boolean delByUser) {
+		this.delByUser = delByUser;
+	}
+
+	public void setDelByAdmin(boolean delByAdmin) {
+		this.delByAdmin = delByAdmin;
+	}
+
 }

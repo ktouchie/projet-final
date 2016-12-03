@@ -36,13 +36,13 @@ public class Reply {
 		
 	}
 
-	public Reply(Message message, User user, String content, Date replyDate, boolean opened) {
+	public Reply(Message message, User user, String content, Date replyDate) {
 		super();
 		this.message = message;
 		this.user = user;
 		this.content = content;
 		this.replyDate = replyDate;
-		this.opened = opened;
+		this.opened = false;
 	}
 
 
@@ -65,7 +65,7 @@ public class Reply {
 		return message;
 	}
 
-	public int getMessageId()
+	public Integer getMessageId()
 	{
 		return message.getId();
 	}
@@ -73,20 +73,17 @@ public class Reply {
 	public User getUser() {
 		return user;
 	}
-
-	public Integer getUserId() {
-		return user.getId();
-	}
 	
 	public String getContent() {
 		return content;
 	}
 
-
 	public Date getReplyDate() {
 		return replyDate;
 	}
 	
-	
+	public Integer getUserId(){
+		return user.getId();
+	}
 
 }
