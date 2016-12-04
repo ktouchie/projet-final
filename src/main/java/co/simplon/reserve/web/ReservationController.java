@@ -107,7 +107,7 @@ public class ReservationController {
     @RequestMapping("/planning")
     public ModelAndView showCalendar(ModelMap model) {
 
-	// Set up calendar for current month
+	// configure current month
 	Locale locale = Locale.ENGLISH;
 	Calendar calendar = Calendar.getInstance();
 	int currentMonth = calendar.get(Calendar.MONTH);
@@ -118,7 +118,6 @@ public class ReservationController {
 	model.addAttribute("currentMonthName", currentMonthName);
 	model.addAttribute("maxDays", maxDays);
 
-	// Show reservations
 	Calendar resStartDate = Calendar.getInstance();
 	Calendar resEndDate = Calendar.getInstance();
 	List<Reservation> reservationList = reservationService.getAll();
