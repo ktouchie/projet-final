@@ -19,41 +19,41 @@ import co.simplon.reserve.service.UserService;
 @Controller
 @RequestMapping
 public class IndexController {
-	
-	@Autowired
+
+    @Autowired
     private UserService userService;
-	
-	@Autowired
+
+    @Autowired
     private ReplyService replyService;
-	
+
     @RequestMapping("/")
     public ModelAndView index(ModelMap model) {
-    	
-    	// check for unopened messages
-    	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-    	User user = userService.getByEmail(currentEmail);
-    	List<Reply> unopenedMails = new ArrayList<Reply>();
-    	
-    	if (user.getRole() == Role.ADMIN) {
-    		unopenedMails = replyService.getAdminUnopenedMails();
-		}
-    	else {
-    		unopenedMails = replyService.getUserUnopenedMails(user.getId());
-    	}
-    	
-    	// alert on if unread replies
-    	model.addAttribute("alertMailOn", isAlertMailOn(unopenedMails));
 
-    	return new ModelAndView("index", model);
+	// check for unopened messages
+	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+	if (!currentEmail.equals("anonymousUser")) {
+	    User user = userService.getByEmail(currentEmail);
+	    List<Reply> unopenedMails = new ArrayList<Reply>();
+
+	    if (user.getRole() == Role.ADMIN) {
+		unopenedMails = replyService.getAdminUnopenedMails();
+	    } else {
+		unopenedMails = replyService.getUserUnopenedMails(user.getId());
+	    }
+	    // alert on if unread replies
+	    model.addAttribute("alertMailOn", isAlertMailOn(unopenedMails));
+	}
+
+	return new ModelAndView("index", model);
     }
-    
-    public boolean isAlertMailOn (List<Reply> unopenedMails){
-    	if (unopenedMails.size() != 0){
-    		return true;
-    	}
-    	else {
-    		return false;
-    	}
+
+    public boolean isAlertMailOn(List<Reply> unopenedMails) {
+	if (unopenedMails.size() != 0) {
+	    return true;
+	} else {
+	    return false;
+	}
     }
- 
+
 }
