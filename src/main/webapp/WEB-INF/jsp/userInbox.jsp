@@ -85,7 +85,12 @@
 	<br/>
 	<br/>
 	<br/>
-	<a href="/contact">Contact Us</a><a href="/userOutbox">Outbox</a>
+	<div>
+		<a href="/contact">Contact Us</a>
+	</div>
+	<div>
+		<a href="/userOutbox">Outbox</a>
+	</div>
 	
 </body>
 </html>

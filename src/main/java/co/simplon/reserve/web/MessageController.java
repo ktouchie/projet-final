@@ -92,7 +92,12 @@ public class MessageController {
 
 		Message message = new Message(user, title, content, new Date());
 		messageService.add(message);
-		return new ModelAndView("redirect:/contactConfirmation");
+		return new ModelAndView("redirect:/confirmcontact");
+	}
+	
+	@RequestMapping("/confirmcontact")
+	public ModelAndView getContactConfirmation(ModelMap model){
+		return new ModelAndView("confirmcontact", model);
 	}
 	
 	@RequestMapping("/message")
