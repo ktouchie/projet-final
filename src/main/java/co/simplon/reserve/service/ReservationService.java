@@ -42,4 +42,16 @@ public class ReservationService {
     public List<Reservation> userReservations(Integer userId) {
 	return reservationRepository.userReservations(userId);
     }
+
+    public List<Reservation> computerReservations(Integer computerId) {
+	return reservationRepository.computerReservations(computerId);
+    }
+
+    public List<Reservation> roomReservations(Integer roomId) {
+	return reservationRepository.roomReservations(roomId);
+    }
+
+    public List<Reservation> doubleReservations(Integer computerId, Integer roomId) {
+	return reservationRepository.doubleReservations(computerId, roomId);
+    }
 }

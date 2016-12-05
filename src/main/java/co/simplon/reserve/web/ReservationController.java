@@ -2,11 +2,13 @@ package co.simplon.reserve.web;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -42,6 +44,24 @@ public class ReservationController {
 
     @Autowired
     private ReservationService reservationService;
+
+    // Set up calendar for current month
+    Locale locale = Locale.ENGLISH;
+    Calendar calendar = Calendar.getInstance();
+    int currentMonth = calendar.get(Calendar.MONTH);
+    int currentYear = calendar.get(Calendar.YEAR);
+    int thisYear = calendar.get(Calendar.YEAR);
+    int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    DateFormatSymbols dfs = new DateFormatSymbols(locale);
+    String[] months = dfs.getMonths();
+    String currentMonthName = months[currentMonth];
+    Calendar resStartDate = Calendar.getInstance();
+    Calendar resEndDate = Calendar.getInstance();
+    Calendar minReservation = Calendar.getInstance();
+    Calendar maxReservation = Calendar.getInstance();
+    Set<String> resClasses = new HashSet<String>();
+    String startStr = "start";
+    String dayStr = " day";
 
     @RequestMapping("/reservations")
     public ModelAndView getAll(ModelMap model) {
@@ -107,27 +127,55 @@ public class ReservationController {
     @RequestMapping("/planning")
     public ModelAndView showCalendar(ModelMap model) {
 
-	// Set up calendar for current month
-	Locale locale = Locale.ENGLISH;
-	Calendar calendar = Calendar.getInstance();
-	int currentMonth = calendar.get(Calendar.MONTH);
-	int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-	DateFormatSymbols dfs = new DateFormatSymbols(locale);
-	String[] months = dfs.getMonths();
-	String currentMonthName = months[currentMonth];
-	model.addAttribute("currentMonthName", currentMonthName);
-	model.addAttribute("maxDays", maxDays);
+	Calendar selected = Calendar.getInstance();
+	selected.set(Calendar.YEAR, currentYear);
+	selected.set(Calendar.MONTH, currentMonth);
+	maxDays = selected.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-	// Show reservations
-	Calendar resStartDate = Calendar.getInstance();
-	Calendar resEndDate = Calendar.getInstance();
+	List<Computer> computerList = computerService.getAll();
+	model.addAttribute("computerList", computerList);
+
+	List<Room> roomList = roomService.getAll();
+	model.addAttribute("roomList", roomList);
+
+	model.addAttribute("currentMonth", currentMonth);
+	model.addAttribute("months", months);
+	model.addAttribute("currentYear", currentYear);
+	model.addAttribute("maxDays", maxDays);
+	model.addAttribute("resClasses", resClasses);
+	model.addAttribute("thisYear", thisYear);
+
+	return new ModelAndView("/planning", model);
+    }
+
+    @RequestMapping("/updateCalendar")
+    public ModelAndView updateCalendar(ModelMap model,
+	    @RequestParam(name = "computerId", defaultValue = "-1") Integer computerId,
+	    @RequestParam(name = "roomId", defaultValue = "-1") Integer roomId,
+	    @RequestParam(name = "selectedMonth", defaultValue = "-1") Integer selectedMonth,
+	    @RequestParam(name = "selectedYear", defaultValue = "-1") Integer selectedYear) {
+
+	resClasses.clear();
 	List<Reservation> reservationList = reservationService.getAll();
-	List<String> resClasses = new ArrayList<String>();
-	String startStr = "start";
-	String dayStr = " day";
+
+	if (selectedMonth > -1) {
+	    currentMonth = selectedMonth;
+	}
+	if (selectedYear > -1) {
+	    currentYear = selectedYear;
+	}
+	if (computerId > -1 && roomId == -1) {
+	    reservationList = reservationService.computerReservations(computerId);
+	} else if (computerId == -1 && roomId > -1) {
+	    reservationList = reservationService.roomReservations(roomId);
+	} else if (computerId > -1 && roomId > -1) {
+	    reservationList = reservationService.doubleReservations(computerId, roomId);
+	}
+
 	for (Reservation r : reservationList) {
 	    resStartDate.setTime(r.getStartTime());
 	    resEndDate.setTime(r.getEndTime());
+
 	    int resStartMonth = resStartDate.get(Calendar.MONTH);
 	    int resEndMonth = resEndDate.get(Calendar.MONTH);
 	    int resStartDay = resStartDate.get(Calendar.DAY_OF_MONTH);
@@ -135,6 +183,8 @@ public class ReservationController {
 	    int resStartHour = resStartDate.get(Calendar.HOUR_OF_DAY);
 	    int resEndHour = resEndDate.get(Calendar.HOUR_OF_DAY);
 
+	    // if (resStartDate.get(Calendar.YEAR) == currentYear ||
+	    // resEndDate.get(Calendar.YEAR) == currentYear) {
 	    if (resStartMonth == currentMonth) {
 		if (resStartMonth == resEndMonth) {
 		    addReservationClass(resClasses, resStartDay, resEndDay, resStartHour, resEndHour, startStr, dayStr);
@@ -147,13 +197,12 @@ public class ReservationController {
 		addReservationClass(resClasses, 1, resEndDay, resStartHour, resEndHour, startStr, dayStr);
 	    }
 	}
-	model.addAttribute("resClasses", resClasses);
 
-	return new ModelAndView("/planning");
+	return new ModelAndView("redirect:/planning");
     }
 
-    public List<String> addReservationClass(List<String> resClasses, int resStartDay, int resEndDay, int resStartHour,
-	    int resEndHour, String startStr, String dayStr) {
+    public Collection<String> addReservationClass(Collection<String> resClasses, int resStartDay, int resEndDay,
+	    int resStartHour, int resEndHour, String startStr, String dayStr) {
 	String res;
 	if (resStartDay == resEndDay) {
 	    for (int i = resStartHour; i < resEndHour; ++i) {
