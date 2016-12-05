@@ -25,4 +25,16 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("select r from Reservation r where r.user.id =?1")
     public List<Reservation> userReservations(Integer userId);
 
+    // list of Reservations given a Computer
+    @Query("select r from Reservation r where r.computer.id =?1")
+    public List<Reservation> computerReservations(Integer computerId);
+
+    // list of Reservations given a Room
+    @Query("select r from Reservation r where r.room.id =?1")
+    public List<Reservation> roomReservations(Integer roomId);
+
+    // list of Reservations given a Computer and Room
+    @Query("select r from Reservation r where r.computer.id = ?1 and r.room.id = ?2")
+    public List<Reservation> doubleReservations(Integer computerId, Integer roomId);
+
 }
