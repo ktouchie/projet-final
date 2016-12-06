@@ -14,6 +14,10 @@
 		<h2.version>1.3.166</h2.version>
 		<hibernate.version>3.6.9.Final</hibernate.version>
 		<spring.security.version>4.1.3.RELEASE</spring.security.version>
+		
+		<!-- Force UTF 8 in order to avoid issues between different OS -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
 	</properties>
 
 	<build>
