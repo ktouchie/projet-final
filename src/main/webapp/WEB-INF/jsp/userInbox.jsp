@@ -2,11 +2,12 @@
 
 <html>
 <head>
-	<title>Send in Messages</title>
+	<title>Messages Inbox</title>
+	<link rel="stylesheet" href="/resources/css/style.css">
 </head>
 
 <body>
-
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
    	<p>New Replies from support :</p>
    	<!--
    	<c:if test=""></c:if>

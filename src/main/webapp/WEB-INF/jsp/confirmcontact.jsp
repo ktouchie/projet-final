@@ -3,10 +3,12 @@
 
 <html>
 <head>
-	<title>Request sent confirmation</title>
+	<title>Message Sent!</title>
+	<link rel="stylesheet" href="/resources/css/style.css">
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 	<h3>Your request has been recorded correctly!</h3>
 	<p>We will knock at you through our windows when we get answer</p>
 	<br/>

@@ -2,7 +2,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 	<div class="top">
-		<img id="logo" src="../../resources/images/simplonlogo.png" alt="Simplon Logo">
+		<img id="logo" src="/resources/images/simplonlogo.png" alt="Simplon Logo">
 		<h1 id="title">RESERVATIONS</h1>
 	</div>
 	

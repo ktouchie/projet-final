@@ -2,11 +2,12 @@
 
 <html>
 <head>
-	<title>Send out Messages</title>
+	<title>Messages Outbox</title>
+	<link rel="stylesheet" href="/resources/css/style.css">
 </head>
 
 <body>
-
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
    	<p>Replied Requests :</p>
  		<table>
  			<tr>

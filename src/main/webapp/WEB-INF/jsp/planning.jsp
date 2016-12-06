@@ -1,12 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<head>
-		<title>Planning</title>
+		<title>Reservations at a Glance</title>
 		<script type="text/javascript" src="/resources/js/lib/jquery-3.1.1.min.js"></script>
-		<link rel="stylesheet" href="/resources/css/style.css" />
 		<script type="text/javascript" src="/resources/js/main.js"></script>
+		<link rel="stylesheet" href="/resources/css/style.css">
 	</head>
 	<body>
+	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 		<form method="get" action="updateCalendar">
 			<select name="computerId">
 				<option value="">Select a computer</option>

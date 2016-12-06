@@ -3,9 +3,11 @@
     
     <head>
         <title>Support</title>
+        <link rel="stylesheet" href="/resources/css/style.css">
     </head>
     
     <body>
+    <jsp:include page="/WEB-INF/jsp/header.jsp"/>
    	<p>Administrator Contact</p>
     
 	<form method="post" action="addMessage" id="supportContact">

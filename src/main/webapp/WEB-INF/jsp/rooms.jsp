@@ -1,10 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
     <head>
-        <title>Rooms</title>
+        <title>Manage Rooms</title>
+        <link rel="stylesheet" href="/resources/css/style.css">
     </head>
     <body>
- 	
+ 	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 		<p>Rooms:</p>		
 		<c:forEach items="${roomList}" var="room">
         	 ${room.id}

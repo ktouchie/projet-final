@@ -8,9 +8,10 @@
 		<security:authorize access="hasAuthority('ADMIN')">
 			<title>Create and Manage Users</title>
 		</security:authorize>
+		<link rel="stylesheet" href="/resources/css/style.css">
 	</head>
 	<body>
-
+	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 
 		<security:authorize access="!isAuthenticated()">
 			<form method="get" action="addUser">

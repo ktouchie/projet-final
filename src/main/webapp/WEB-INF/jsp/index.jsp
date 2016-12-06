@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div class="top">
-	<img src="/resources/images/simplonlogo.png" />
+	<img src="/resources/images/simplonlogo.png" width="25%"/>
 	<h1 id="title"> Reservations</h1>
 	</div>
 	<security:authorize access="isAuthenticated()">

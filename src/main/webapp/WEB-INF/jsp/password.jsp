@@ -1,3 +1,5 @@
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+<link rel="stylesheet" href="/resources/css/style.css">
 <div>
 	<form action="/changePassword">
 		Current Password:<input name="currentPasswordInput" type="password">

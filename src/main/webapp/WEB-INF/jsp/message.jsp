@@ -3,9 +3,11 @@
 <html>
 <head>
 	<title>Message</title>
+	<link rel="stylesheet" href="/resources/css/style.css">
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 		<div id="title">
 		<p>${messageRead.title}</p>
 		</div>
