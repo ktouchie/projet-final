@@ -11,9 +11,11 @@
 
 	<context:component-scan base-package="co.simplon.reserve" />
 	<context:annotation-config />
-
+	
+	
 	<import resource="spring-security-config.xml" />
-
+	<import resource="mail-bean.xml" />
+	
 	<jpa:repositories base-package="co.simplon.reserve.repository" />
 
 
