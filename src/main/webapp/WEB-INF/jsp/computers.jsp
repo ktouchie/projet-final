@@ -6,6 +6,7 @@
     </head>
     <body>
     <jsp:include page="/WEB-INF/jsp/header.jsp"/>
+    <div class="page">
  	<p>Computers:</p>		
 		<c:forEach items="${computerList}" var="computer">
         	 ${computer.id}
@@ -26,6 +27,7 @@
 			<p><input type="submit" value="Submit"></p>
 		</div>
 		</form>
+		</div>
 		
     </body>
 </html>

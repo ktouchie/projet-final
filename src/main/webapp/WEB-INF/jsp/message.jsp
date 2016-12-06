@@ -8,6 +8,7 @@
 
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
+<div class="page">
 		<div id="title">
 		<p>${messageRead.title}</p>
 		</div>
@@ -32,13 +33,13 @@
 		<form method="post" action="addReply" id="replyMessage">
 		<p>Add a comment :</p>
 		<div>
-			<textarea name="content" form="replyMessage" required="true" cols="30" rows="10"></textarea>
+			<textarea name="content" form="replyMessage" required cols="30" rows="10"></textarea>
 			<input type="hidden" name="messageId" value="${messageRead.id}">
 			<input name="mailBoxSource" value="${mailBoxSource}" type="hidden" />
 			<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 			<p><input type="submit" value="Reply"></p>
 		</div>
 		</form>
-		
+</div>		
 </body>
 </html>

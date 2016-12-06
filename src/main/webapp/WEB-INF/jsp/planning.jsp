@@ -8,6 +8,7 @@
 	</head>
 	<body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+		<div class="page">
 		<form method="get" action="updateCalendar">
 			<select name="computerId">
 				<option value="">Select a computer</option>
@@ -72,6 +73,6 @@
 			</tr>
 			</c:forEach>
 		</table>
-
+		</div>
 
 </html>

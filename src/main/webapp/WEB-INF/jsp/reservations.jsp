@@ -9,6 +9,7 @@
     </head>
     <body>
     <jsp:include page="/WEB-INF/jsp/header.jsp"/>
+    <div class="page">
    	<p>Reservations:</p>
  		<table>
  			<tr>
@@ -93,7 +94,7 @@
 		<input type="submit" value="Submit">
 
     </form>
-    
+    </div>
 		
     </body>
     <link rel="stylesheet" type="text/css" href="/resources/css/jquery.datetimepicker.css"/>

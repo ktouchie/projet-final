@@ -6,6 +6,7 @@
     </head>
     <body>
  	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
+ 	<div class="page">
 		<p>Rooms:</p>		
 		<c:forEach items="${roomList}" var="room">
         	 ${room.id}
@@ -26,7 +27,7 @@
 			<p><input type="submit" value="Submit"></p>
 		</div>
 		</form>
-		
+	</div>
 		
     </body>
 </html>

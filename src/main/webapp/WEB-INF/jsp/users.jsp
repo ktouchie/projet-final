@@ -12,7 +12,7 @@
 	</head>
 	<body>
 	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
-
+	<div class="page">
 		<security:authorize access="!isAuthenticated()">
 			<form method="get" action="addUser">
 				<p>Sign Up</p>
@@ -67,6 +67,6 @@
 				</div>
 			</form>
 		</security:authorize>
-		
+	</div>	
 	</body>
 </html>

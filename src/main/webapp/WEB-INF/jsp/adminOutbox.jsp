@@ -8,6 +8,7 @@
 
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
+<div class="page">
    	<p>Replied Requests :</p>
  		<table>
  			<tr>
@@ -21,7 +22,7 @@
  			
 			<c:forEach items="${adminMessageRepliedList}" var="message">
 			<tr>
-				<td><div id="logoReadMail"></</div></td>
+				<td><div id="logoReadMail"></div></td>
 				<td>${message.title}</td>
 				<td>${message.user.name} ${message.user.surname}</td>
 				<td>${message.creationDate}</td>
@@ -47,5 +48,6 @@
 	<br/>
 	<br/>
 	<a href="/adminInbox">Inbox</a>
+</div>
 </body>
 </html>

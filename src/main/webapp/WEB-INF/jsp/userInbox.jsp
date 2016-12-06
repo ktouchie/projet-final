@@ -8,6 +8,7 @@
 
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
+<div class="page">
    	<p>New Replies from support :</p>
    	<!--
    	<c:if test=""></c:if>
@@ -24,7 +25,7 @@
 			
 		<c:forEach items="${unopenedRepliedMessageList}" var="uMessage">
 		<tr>
-			<td><div id="logoUnreadMail"></</div></td>
+			<td><div id="logoUnreadMail"></div></td>
 			<td>${uMessage.title}</td>
 			<td>${uMessage.user.name} ${uMessage.user.surname}</td>
 			<td>${uMessage.creationDate}</td>
@@ -60,7 +61,7 @@
 			
 		<c:forEach items="${openedRepliedMessageList}" var="oMessage">
 		<tr>
-			<td><div id="logoUnreadMail"></</div></td>
+			<td><div id="logoUnreadMail"></div></td>
 			<td>${oMessage.title}</td>
 			<td>${oMessage.user.name} ${oMessage.user.surname}</td>
 			<td>${oMessage.creationDate}</td>
@@ -92,6 +93,6 @@
 	<div>
 		<a href="/userOutbox">Outbox</a>
 	</div>
-	
+</div>	
 </body>
 </html>

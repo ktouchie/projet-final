@@ -16,7 +16,9 @@ public class LoginController {
 
     @RequestMapping(path = "/login")
     public ModelAndView login(ModelMap model) {
-	return new ModelAndView("login");
+	boolean isLoginPage = true;
+	model.addAttribute("isLoginPage", isLoginPage);
+	return new ModelAndView("login", model);
     }
 
     @RequestMapping(path = "/logout")
