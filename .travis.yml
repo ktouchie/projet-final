@@ -1,0 +1,8 @@
+language: java
+
+script: mvn install -DskipTests=true
+
+notifications:
+  email:
+    - loic.alves@gmail.com
+    - ktouchie@gmail.com
