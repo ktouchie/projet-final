@@ -1,14 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-<head>
-<title>Simplon.co Reservations</title>
-<link rel="stylesheet" href="/resources/css/style.css">
-</head>
-<body>
+
 	<div class="top">
-	<img src="/resources/images/simplonlogo.png" />
-	<h1 id="title"> Reservations</h1>
+		<img id="logo" src="../../resources/images/simplonlogo.png" alt="Simplon Logo">
+		<h1 id="title">RESERVATIONS</h1>
 	</div>
+	
+	<div>
 	<security:authorize access="isAuthenticated()">
 		Logged in as: 
 		<security:authentication property="principal.username" />
@@ -16,27 +14,28 @@
 			(ADMIN)
 		</security:authorize>
 	</security:authorize>
+	</div>
     <div class="menu">
-    	<ul class="nav nav-tabs nav-justified">
+    	<ul class="nav nav-tabs nav-left">
     		<security:authorize access="isAuthenticated()">
 			<security:authorize access="hasAuthority('ADMIN')">
 	    		<li><a class="button" href="/users">Users</a></li>
 	    		<li><a class="button" href="/rooms">Rooms</a></li>
 	    		<li>
-	    			<a class="button" href="/adminInbox">Messages<c:if test="${alertMailOn}"> !!! </c:if></a>
+	    			<a class="button" href="/adminInbox"><c:if test="${alertMailOn}">&#8226;</c:if> Messages<c:if test="${alertMailOn}"> &#8226;</c:if></a>
 	    		</li>
 	    	</security:authorize>
 	    	</security:authorize>
 	    	<security:authorize access="isAuthenticated()">
 	    		<security:authorize access="hasAuthority('USER')">
 	    			<li> 
-	    				<a class="button" href="/userInbox" >Support<c:if test="${alertMailOn}"> !!! </c:if></a>
+	    				<a class="button" href="/userInbox" ><c:if test="${alertMailOn}">&#8226;</c:if> Support<c:if test="${alertMailOn}"> &#8226; </c:if></a>
 		    		</li>
 	    		</security:authorize>	
 				<li><a class="button" href="/reservations">Reservations</a></li>
 	    		<li><a class="button" href="/password">Change Password</a></li>
 	    	</security:authorize>
-				<li><a class="button" href="/planning">Planning</a></li>
+				<li><a class="button" href="/tiles/planning">Planning</a></li>
 		</ul>
 	</div>
 	<security:authorize access="!isAuthenticated()">
@@ -46,5 +45,3 @@
 	<security:authorize access="isAuthenticated()">
 		<a href="/logout">Logout</a>
 	</security:authorize>
-</div>
-</body>
