@@ -26,6 +26,8 @@ public class UserController {
     public ModelAndView getAll(ModelMap model) {
 	List<User> userList = userService.getAll();
 	model.addAttribute("userList", userList);
+	boolean isUsersPage = true;
+	model.addAttribute("isUsersPage", isUsersPage);
 	return new ModelAndView("users", model);
     }
 
@@ -57,6 +59,8 @@ public class UserController {
 
     @RequestMapping("/password")
     public ModelAndView password(ModelMap model) {
+	boolean isPasswordPage = true;
+	model.addAttribute("isPasswordPage", isPasswordPage);
 	return new ModelAndView("password", model);
     }
 

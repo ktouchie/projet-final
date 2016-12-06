@@ -52,8 +52,9 @@
 			<tr>
 				<th></th>
 				<c:forEach var="i" begin="1" end="${maxDays}">
-				<th><c:out value="${i}"/></th>
+				<th class="column"><c:out value="${i}"/></th>
 				</c:forEach>
+				<th></th>
 			</tr>
 			<c:forEach var="i" begin="9" end="17">
 			<tr>
@@ -64,12 +65,10 @@
 					<c:if test="${resClasses.contains(id) }">
 						<c:set var="reserved" value="background-color:#d8dfe5"/>
 					</c:if>
-
-
-
 					
-					<td id="start${i} day${j}" style="${reserved}" ></td>
+					<td id="start${i} day${j}" style="${reserved}"></td>
 				</c:forEach>
+				<td><c:out value="${i}"/>h - <c:out value="${i+1}"/>h</td>
 			</tr>
 			</c:forEach>
 		</table>

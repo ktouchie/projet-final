@@ -23,6 +23,8 @@ public class ComputerController {
     public ModelAndView getAll(ModelMap model) {
 	List<Computer> computerList = computerService.getAll();
 	model.addAttribute("computerList", computerList);
+	boolean isComputersPage = true;
+	model.addAttribute("isComputersPage", isComputersPage);
 	return new ModelAndView("computers", model);
     }
 

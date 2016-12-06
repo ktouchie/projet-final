@@ -6,7 +6,11 @@ body {
 }
 
 #principal {
-	color: 
+	color: #919191;
+	float: right;
+	vertical-align: top;
+	padding: 10px 5px;
+	font-size: 13px;
 }
 
 .navbar {
@@ -17,12 +21,12 @@ body {
 .clearfix {
     overflow: auto;
 }
-a.button {
+a.button,
+.navtitle {
 	float: left;
 	display: block;
 	text-decoration: none;
 	border: 0 none;
-	padding: 10px 0px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -35,18 +39,21 @@ a.button {
 	line-height: 1.1;
 	margin: 0px;
 	font-size: 14px;
-	cursor: pointer;
 }
 
 a.nav {
 	padding: 10px 30px;
 	background: #c30044;
+	cursor: pointer;
 }
 
 a.login {
+	padding: 10px 0px;
 	width: 70px;
 	background: #5b5b5b;
 	border-radius: 10px;
+	margin: 5px;
+	cursor: pointer;
 }
 
 a.nav:hover {
@@ -61,6 +68,13 @@ a.login:hover {
 
 .header {
 	display: block;
+}
+
+.navtitle {
+	float: right;
+	padding: 6px 20px 5px 0px;
+	font-weight: bold;
+	font-size: 20px;
 }
 
 .page {
@@ -84,4 +98,16 @@ a.login:hover {
 #login-links {
 	float: right;
 	vertical-align: top; 
+}
+
+table {
+    border-spacing: 5px 2px;
+}
+
+th.column {
+	width: 25px;
+}
+
+td {
+	height: 25px;
 }

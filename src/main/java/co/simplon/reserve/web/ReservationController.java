@@ -84,6 +84,8 @@ public class ReservationController {
 	User user = userService.getByEmail(currentEmail);
 	List<Reservation> userReservationList = reservationService.userReservations(user.getId());
 	model.addAttribute("userReservationList", userReservationList);
+	boolean isReservationsPage = true;
+	model.addAttribute("isReservationsPage", isReservationsPage);
 	return new ModelAndView("reservations", model);
     }
 
@@ -144,6 +146,9 @@ public class ReservationController {
 	model.addAttribute("maxDays", maxDays);
 	model.addAttribute("resClasses", resClasses);
 	model.addAttribute("thisYear", thisYear);
+
+	boolean isPlanningPage = true;
+	model.addAttribute("isPlanningPage", isPlanningPage);
 
 	return new ModelAndView("/planning", model);
     }

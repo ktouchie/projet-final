@@ -23,6 +23,8 @@ public class RoomController {
     public ModelAndView getAll(ModelMap model) {
 	List<Room> roomList = roomService.getAll();
 	model.addAttribute("roomList", roomList);
+	boolean isRoomsPage = true;
+	model.addAttribute("isRoomsPage", isRoomsPage);
 	return new ModelAndView("rooms", model);
     }
 
