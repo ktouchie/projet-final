@@ -62,6 +62,9 @@ public class ReservationController {
     Set<String> resClasses = new HashSet<String>();
     String startStr = "start";
     String dayStr = " day";
+    String searchRes;
+    String searchCompRes;
+    String searchRoomRes;
 
     @RequestMapping("/reservations")
     public ModelAndView getAll(ModelMap model) {
@@ -150,6 +153,10 @@ public class ReservationController {
 	boolean isPlanningPage = true;
 	model.addAttribute("isPlanningPage", isPlanningPage);
 
+	model.addAttribute("searchCompRes", searchCompRes);
+	model.addAttribute("searchRoomRes", searchRoomRes);
+	model.addAttribute("searchRes", searchRes);
+
 	return new ModelAndView("/planning", model);
     }
 
@@ -161,6 +168,9 @@ public class ReservationController {
 	    @RequestParam(name = "selectedYear", defaultValue = "-1") Integer selectedYear) {
 
 	resClasses.clear();
+	searchRes = null;
+	searchCompRes = null;
+	searchRoomRes = null;
 	List<Reservation> reservationList = reservationService.getAll();
 
 	if (selectedMonth > -1) {
@@ -171,10 +181,18 @@ public class ReservationController {
 	}
 	if (computerId > -1 && roomId == -1) {
 	    reservationList = reservationService.computerReservations(computerId);
+	    searchCompRes = computerService.getById(computerId).getBrand().concat("-")
+		    .concat(computerService.getById(computerId).getSerial());
 	} else if (computerId == -1 && roomId > -1) {
 	    reservationList = reservationService.roomReservations(roomId);
+	    searchRoomRes = roomService.getById(roomId).getName();
 	} else if (computerId > -1 && roomId > -1) {
+	    searchCompRes = computerService.getById(computerId).getBrand().concat("-")
+		    .concat(computerService.getById(computerId).getSerial());
+	    searchRoomRes = roomService.getById(roomId).getName();
 	    reservationList = reservationService.doubleReservations(computerId, roomId);
+	} else if (computerId == -1 && roomId == -1) {
+	    searchRes = ("All Reservations");
 	}
 
 	for (Reservation r : reservationList) {

@@ -47,7 +47,17 @@
 		</form>
 		
 		<h1>${months[currentMonth]} ${currentYear}</h1>
-
+		<p>
+			<c:if test="${(not empty searchCompRes)}">
+				Searching for: <span>Computer: </span>${searchCompRes}
+			</c:if> 
+			<c:if test="${(not empty searchRoomRes)}">
+				Searching for: <span>Room: </span>${searchRoomRes}
+			</c:if>
+			<c:if test="${(not empty searchRes)}">
+				Searching for: <span>${searchRes}</span>
+			</c:if>
+		</p>
 		<table>
 			<tr>
 				<th></th>
