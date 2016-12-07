@@ -16,6 +16,7 @@ import co.simplon.reserve.model.Message;
 import co.simplon.reserve.model.Reply;
 import co.simplon.reserve.model.User;
 import co.simplon.reserve.model.User.Role;
+import co.simplon.reserve.service.EmailService;
 import co.simplon.reserve.service.MessageService;
 import co.simplon.reserve.service.ReplyService;
 import co.simplon.reserve.service.UserService;
@@ -33,6 +34,9 @@ public class MessageController {
     @Autowired
     private ReplyService replyService;
 
+    @Autowired
+    private EmailService emailService;
+
     @RequestMapping("/adminInbox")
     public ModelAndView getAdminInbox(ModelMap model) {
 	List<Message> unopenedMessageList = messageService.getUnopenedMessageList();
@@ -41,6 +45,7 @@ public class MessageController {
 	model.addAttribute("openedMessageList", openedMessageList);
 	boolean isMessageInbox = true;
 	model.addAttribute("isMessageInbox", isMessageInbox);
+
 	return new ModelAndView("adminInbox", model);
     }
 
@@ -62,6 +67,7 @@ public class MessageController {
 	model.addAttribute("unopenedRepliedMessageList", unopenedRepliedMessageList);
 	List<Message> openedRepliedMessageList = messageService.getOpenedRepliedMessageList(user.getId());
 	model.addAttribute("openedRepliedMessageList", openedRepliedMessageList);
+
 	boolean isMessageInbox = true;
 	model.addAttribute("isMessageInbox", isMessageInbox);
 
@@ -75,6 +81,7 @@ public class MessageController {
 
 	List<Message> messageFromUserList = messageService.getMessageFromUserList(user.getId());
 	model.addAttribute("messageFromUserList", messageFromUserList);
+
 	boolean isMessageOutbox = true;
 	model.addAttribute("isMessageOutbox", isMessageOutbox);
 
@@ -170,33 +177,36 @@ public class MessageController {
 	Reply reply = new Reply(message, user, content, new Date());
 	replyService.add(reply);
 
-	// read status actualisation
+	// status refresh and notification according to Role
+	// reply from user
 	if (user.getRole() == Role.USER) {
+	    // read status actualization
 	    // condition in order not to save for peanuts
 	    if (message.isOpened()) {
 		message.setOpened(false);
 		messageService.add(message);
 	    }
-	}
-
-	// del status actualisation
-	// reply from admin
-	if (user.getRole() == Role.ADMIN) {
-	    System.out.println("no problème condition role");
-	    // check in order not to save for peanuts
-	    if (message.isDelByUser()) {
-		System.out.println("no problème condition delbyUser");
-		message.setDelByUser(false);
-		messageService.add(message);
-	    }
-	}
-	// reply from user
-	else {
+	    // del status actualization
 	    // check in order not to save for peanuts
 	    if (message.isDelByAdmin()) {
 		message.setDelByAdmin(false);
 		messageService.add(message);
 	    }
+	}
+
+	// reply from admin
+	else if (user.getRole() == Role.ADMIN) {
+	    // no read status actualization (read status only changes if user
+	    // replies)
+	    // del status actualization
+	    // check in order not to save for peanuts
+	    if (message.isDelByUser()) {
+		message.setDelByUser(false);
+		messageService.add(message);
+	    }
+
+	    // Mail notification
+	    sendMail(message, reply);
 	}
 
 	System.out.println(mailBoxSource);
@@ -208,6 +218,20 @@ public class MessageController {
 	    return new ModelAndView("redirect:/userInbox");
 	else
 	    return new ModelAndView("redirect:/userOutbox");
+    }
+
+    // Mail notification
+    public void sendMail(Message message, Reply reply) {
+	String toAddr = message.getUser().getEmail();
+	String fromAddr = "simplon.reservation.assistance@gmail.com";
+
+	// email subject
+	String subject = "New reply from Simplon Reservation Services";
+
+	// email body
+	String body = "You've received a new reply to your Request : " + message.getTitle() + ".\n"
+		+ reply.getContent();
+	emailService.readyToSendEmail(toAddr, fromAddr, subject, body);
     }
 
     @RequestMapping("/disableThread")
