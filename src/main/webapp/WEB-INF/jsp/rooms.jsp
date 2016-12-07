@@ -31,9 +31,9 @@
 			<p class="heading">EXISTING ROOMS</p>
 			<table class="room">
 				<tr>
-					<th class="w100">Room</th>
-					<th>Capacity</th>
-					<th class="w80"></th>
+					<th class="w200">Room</th>
+					<th class="w80">Max.</th>
+					<th></th>
 				</tr>
 				<c:forEach items="${roomList}" var="room">
 					<tr>
