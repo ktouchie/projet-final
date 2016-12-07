@@ -165,7 +165,9 @@ a.login:hover {
 	font-weight: bold;
 }
 
-#addUser {
+#addUser,
+#addRoom,
+#addComputer {
 	display: none;
 }
 
@@ -184,7 +186,8 @@ table.form td {
 	height: 25px;
 }
 
-table.user td {
+table.user td,
+table.room td {
 	height: 40px;
 }
 
