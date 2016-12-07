@@ -48,6 +48,15 @@ public class UserController {
 	return new ModelAndView("redirect:/users");
     }
 
+    @RequestMapping("/changeRole")
+    public ModelAndView changeRole(@RequestParam("userRole") User.Role userRole, @RequestParam("userId") Integer userId,
+	    ModelMap model) {
+	User user = userService.getById(userId);
+	user.changeUserRole(userRole);
+	userService.add(user);
+	return new ModelAndView("redirect:/users");
+    }
+
     @RequestMapping("/updateUserStatus")
     public ModelAndView updateUserStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
 	    ModelMap model) {

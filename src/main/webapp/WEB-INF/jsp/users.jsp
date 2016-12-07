@@ -27,30 +27,56 @@
 		</security:authorize>
 
 		<security:authorize access="hasAuthority('ADMIN')">
-			<p>Manage Users:</p>
-			<c:forEach items="${userList}" var="user">
-				${user.id}
-				${user.name}
-				${user.surname}
-				${user.email}
-				${user.role}
-				<c:if test="${user.enabled}">
-					<form action="updateUserStatus">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-						<input name="id" value="${user.id}" type="hidden" />
-						<input name="enabled" value="${!user.enabled}" type="hidden" />
-						<input type="submit" value="Disable" />
-					</form>
-				</c:if>
-				<c:if test="${!user.enabled}">
-					<form action="updateUserStatus">
-						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-						<input name="id" value="${user.id}" type="hidden" />
-						<input name="enabled" value="${!user.enabled}" type="hidden" />
-						<input type="submit" value="Enable" />
-					</form>
-				</c:if>
-			</c:forEach>		
+			<table>
+				<tr>
+					<th></th>
+					<th>Name</th>
+					<th>Surname</th>
+					<th>Email</th>
+					<th>Role</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<c:forEach items="${userList}" var="user">
+					<tr>
+						<td>${user.id}</td>
+						<td>${user.name}</td>
+						<td>${user.surname}</td>
+						<td>${user.email}</td>
+						<td>${user.role}</td>
+						<td>
+							<form action="changeRole">
+								<input name="userId" value="${user.id}" type="hidden" />
+								<c:if test="${user.role eq 'ADMIN'}">
+									<input name="userRole" value="USER" type="hidden" />
+									<input type="submit" value="Make USER">
+								</c:if>
+								<c:if test="${user.role eq 'USER'}">
+									<input name="userRole" value="ADMIN" type="hidden" />
+									<input type="submit" value="Make ADMIN">
+								</c:if>
+							</form>
+						</td>
+						<td>
+							<c:if test="${user.enabled}">
+								<form action="updateUserStatus">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+									<input name="id" value="${user.id}" type="hidden" />
+									<input name="enabled" value="${!user.enabled}" type="hidden" />
+									<input type="submit" value="Disable" />
+								</form>
+							</c:if>
+							<c:if test="${!user.enabled}">
+								<form action="updateUserStatus">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+									<input name="id" value="${user.id}" type="hidden" />
+									<input name="enabled" value="${!user.enabled}" type="hidden" />
+									<input type="submit" value="Enable" />
+								</form>
+							</c:if>
+						</td>
+					</tr>
+				</c:forEach>		
 		
 			<form method="get" action="addAnyUser">
 				<p>Add User</p>
@@ -67,6 +93,6 @@
 				</div>
 			</form>
 		</security:authorize>
-	</div>	
+	</div>
 	</body>
 </html>

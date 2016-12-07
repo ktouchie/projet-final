@@ -62,7 +62,12 @@
 			<c:if test="${isPlanningPage}">RESERVATIONS AT A GLANCE</c:if>
 			<c:if test="${isRoomsPage}">MANAGE ROOMS</c:if>
 			<c:if test="${isPasswordPage}">CHANGE PASSWORD</c:if>
-			<c:if test="${isUsersPage}">MANAGE USERS</c:if>
+			<security:authorize access="!isAuthenticated()">
+				<c:if test="${isUsersPage}">SIGN UP</c:if>
+			</security:authorize>
+			<security:authorize access="hasAuthority('ADMIN')">
+				<c:if test="${isUsersPage}">MANAGE USERS</c:if>
+			</security:authorize>
 		</div>	
 	</div>
 </div>
