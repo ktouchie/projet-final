@@ -21,78 +21,112 @@
 					Surname<input type="text" name="surname">
 					Email<input type="email" name="email">
 					Password<input type="password" name="password">
-					<p><input type="submit" value="Submit"></p>
+					<p><input class="button" type="submit" value="Submit"></p>
 				</div>
 			</form>
 		</security:authorize>
 
 		<security:authorize access="hasAuthority('ADMIN')">
-			<table>
-				<tr>
-					<th></th>
-					<th>Name</th>
-					<th>Surname</th>
-					<th>Email</th>
-					<th>Role</th>
-					<th></th>
-					<th></th>
-				</tr>
-				<c:forEach items="${userList}" var="user">
+			<div class="display" id="displayAddUser" onclick="display('addUser');">&#10010; ADD NEW USER</div>
+			<div id="addUser">
+				<p class="heading">ADD NEW USER</p>
+				<form method="get" action="addAnyUser">
+					<table class="form">
+						<tr>
+							<td>Name</td>
+							<td class="w200"><input type="text" name="name"></td>
+							<td>Email</td>
+							<td><input type="email" name="email"></td>
+						</tr>
+						<tr>
+							<td>Surname</td>
+							<td class="w200"><input type="text" name="surname"></td>
+							<td>Password</td>
+							<td><input type="password" name="password"></td>
+						</tr>
+						<tr>
+							<td>Role</td>
+							<td>
+								<select name="role">
+									<option value="USER">USER</option>
+									<option value="ADMIN">ADMIN</option>
+								</select>
+							</td>
+							<td></td>
+							<td class="right"><input class="button right" type="submit" value="Submit"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class ="section">				
+				<p class="heading">EXISTING USERS</p>
+				<table class="user">
 					<tr>
-						<td>${user.id}</td>
-						<td>${user.name}</td>
-						<td>${user.surname}</td>
-						<td>${user.email}</td>
-						<td>${user.role}</td>
-						<td>
-							<form action="changeRole">
-								<input name="userId" value="${user.id}" type="hidden" />
-								<c:if test="${user.role eq 'ADMIN'}">
-									<input name="userRole" value="USER" type="hidden" />
-									<input type="submit" value="Make USER">
-								</c:if>
-								<c:if test="${user.role eq 'USER'}">
-									<input name="userRole" value="ADMIN" type="hidden" />
-									<input type="submit" value="Make ADMIN">
-								</c:if>
-							</form>
-						</td>
-						<td>
-							<c:if test="${user.enabled}">
-								<form action="updateUserStatus">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-									<input name="id" value="${user.id}" type="hidden" />
-									<input name="enabled" value="${!user.enabled}" type="hidden" />
-									<input type="submit" value="Disable" />
-								</form>
-							</c:if>
-							<c:if test="${!user.enabled}">
-								<form action="updateUserStatus">
-									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-									<input name="id" value="${user.id}" type="hidden" />
-									<input name="enabled" value="${!user.enabled}" type="hidden" />
-									<input type="submit" value="Enable" />
-								</form>
-							</c:if>
-						</td>
+						<th class="w100">Name</th>
+						<th class="w100">Surname</th>
+						<th class="w200">Email</th>
+						<th class="w80">Role</th>
+						<th class="w80"></th>
+						<th class="w80"></th>
 					</tr>
-				</c:forEach>		
-		
-			<form method="get" action="addAnyUser">
-				<p>Add User</p>
-				<div>
-					Name<input type="text" name="name">
-					Surname<input type="text" name="surname">
-					Email<input type="email" name="email">
-					Password<input type="password" name="password">
-					Role<select name="role">
-							<option value="USER">USER</option>
-							<option value="ADMIN">ADMIN</option>
-						</select>
-					<input type="submit" value="Submit">
-				</div>
-			</form>
+					<c:forEach items="${userList}" var="user">
+						<c:set var="enableStyle" value=""/>
+						<c:if test="${!user.enabled}">
+							<c:set var="enableStyle" value="opacity:.60;font-style:italic;"/>
+						</c:if>
+						<c:set var="adminStyle" value=""/>
+						<c:if test="${user.role eq 'ADMIN'}">
+							<c:set var="adminStyle" value="color:#990035;font-weight:bold;"/>
+						</c:if>
+						<tr>
+							<td style="${enableStyle}${adminStyle}">${user.name}</td>
+							<td style="${enableStyle}${adminStyle}">${user.surname}</td>
+							<td style="${enableStyle}${adminStyle}">${user.email}</td>
+							<td style="${enableStyle}${adminStyle}">${user.role}</td>
+							<td>
+								<form action="changeRole">
+									<input name="userId" value="${user.id}" type="hidden" />
+									<c:if test="${user.role eq 'ADMIN'}">
+										<input name="userRole" value="USER" type="hidden" />
+										<input class="button wide" type="submit" value="Make USER">
+									</c:if>
+									<c:if test="${user.role eq 'USER'}">
+										<input name="userRole" value="ADMIN" type="hidden" />
+										<input class="button wide" type="submit" value="Make ADMIN">
+									</c:if>
+								</form>
+							</td>
+							<td>
+								<c:if test="${user.enabled}">
+									<form action="updateUserStatus">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+										<input name="id" value="${user.id}" type="hidden" />
+										<input name="enabled" value="${!user.enabled}" type="hidden" />
+										<input class="button" type="submit" value="Disable" />
+									</form>
+								</c:if>
+								<c:if test="${!user.enabled}">
+									<form action="updateUserStatus">
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+										<input name="id" value="${user.id}" type="hidden" />
+										<input name="enabled" value="${!user.enabled}" type="hidden" />
+										<input class="button" type="submit" value="Enable" />
+									</form>
+								</c:if>
+							</td>
+						</tr>
+					</c:forEach>		
+				</table>
+			</div>
 		</security:authorize>
 	</div>
+	<script type="text/javascript">
+		function display(id) {
+			var e = document.getElementById(id);
+			var f = document.getElementById("displayAddUser");
+			e.style.display = 'block';
+			f.style.display = 'none';
+		}
+	</script>
 	</body>
 </html>

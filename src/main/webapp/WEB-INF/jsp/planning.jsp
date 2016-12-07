@@ -63,11 +63,11 @@
 			</div>			
 			<p id="showingresults">Showing results for:</p>
 		</c:if>
-		<table>
+		<table class="planning">
 			<tr>
 				<th></th>
 				<c:forEach var="i" begin="1" end="${maxDays}">
-				<th class="column"><c:out value="${i}"/></th>
+				<th class="25"><c:out value="${i}"/></th>
 				</c:forEach>
 				<th></th>
 			</tr>

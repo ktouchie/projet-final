@@ -16,6 +16,12 @@ body {
     overflow: auto;
 }
 
+.right {
+	text-align: right;
+	align: right;
+	float: right;
+}
+
 #principal {
 	color: #919191;
 	float: right;
@@ -26,7 +32,9 @@ body {
 
 /* BUTTONS */
 a.button,
-.navtitle {
+.navtitle,
+input.button,
+div.display {
 	float: left;
 	display: block;
 	text-decoration: none;
@@ -51,12 +59,34 @@ a.nav {
 	cursor: pointer;
 }
 
-a.login {
-	padding: 10px 0px;
+a.login,
+input.button {
 	width: 70px;
+	cursor: pointer;
+}
+
+a.login {
 	background: #5b5b5b;
+	padding: 10px 0px;
 	border-radius: 10px;
 	margin: 5px;
+	
+}
+
+input.button,
+div.display {
+	background: #c30044;
+	padding: 5px 0px;
+	border-radius: 5px;
+	margin: 2px;
+}
+
+input.wide {
+	width: 100px;
+}
+
+div.display {
+	width: 150px;
 	cursor: pointer;
 }
 
@@ -126,15 +156,54 @@ a.login:hover {
 	margin-right: 50px;
 }
 
+.section {
+	margin-top: 60px;
+}
+
+.heading {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+#addUser {
+	display: none;
+}
+
+/* TABLES */
 table {
 	clear: left;
     border-spacing: 5px 2px;
 }
 
-th.column {
+th {
+	text-align: left;
+}
+
+table.planning td,
+table.form td {
+	height: 25px;
+}
+
+table.user td {
+	height: 40px;
+}
+
+th.w25,
+td.w25 {
 	width: 25px;
 }
 
-td {
-	height: 25px;
+th.w80,
+td.w80 {
+	width: 80px;
+}
+
+th.w100,
+td.w100 {
+	width: 100px;
+}
+
+th.w200,
+td.w200 {
+	width: 200px;
 }
