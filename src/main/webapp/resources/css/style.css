@@ -1,16 +1,10 @@
 @CHARSET "ISO-8859-1";
 
+
+/* GENERAL */
 body {
 	font-family: Helvetica;
 	background: #efefef;
-}
-
-#principal {
-	color: #919191;
-	float: right;
-	vertical-align: top;
-	padding: 10px 5px;
-	font-size: 13px;
 }
 
 .navbar {
@@ -21,6 +15,16 @@ body {
 .clearfix {
     overflow: auto;
 }
+
+#principal {
+	color: #919191;
+	float: right;
+	vertical-align: top;
+	padding: 10px 5px;
+	font-size: 13px;
+}
+
+/* BUTTONS */
 a.button,
 .navtitle {
 	float: left;
@@ -81,18 +85,26 @@ a.login:hover {
 	clear: left;
 	display: block;
 	padding-top: 50px;
+	padding-left: 100px;
 	align-items: center;
 	justify-content: center;
 }
 
+.resource {
+	clear: left;
+	display: block;
+	font-weight: bold;
+}
+
 #logo {
 	display: inline-block;
-	width: 25%;
+	width: 400px;
 }
 
 #title {
 	display: inline-block;
 	vertical-align: top;
+	padding-top: 5px;
 }
 
 #login-links {
@@ -100,7 +112,22 @@ a.login:hover {
 	vertical-align: top; 
 }
 
+#currentMonth {
+	float: left;
+}
+
+#showingresults,
+#resources {
+	float: right;
+}
+
+#resources {
+	margin-left: 20px;
+	margin-right: 50px;
+}
+
 table {
+	clear: left;
     border-spacing: 5px 2px;
 }
 

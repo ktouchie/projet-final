@@ -3,7 +3,7 @@
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <div class="header">
 	<div class="top">
-		<img src="/resources/images/simplonlogo.png" width="25%"/>
+		<img src="/resources/images/simplonlogo.png" width="390px"/>
 		<h1 id="title"> Reservations</h1>
 		<div id="login-links">
 			<security:authorize access="!isAuthenticated()">

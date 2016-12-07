@@ -46,18 +46,23 @@
 			<input type="submit" value="View Reservations">
 		</form>
 		
-		<h1>${months[currentMonth]} ${currentYear}</h1>
-		<p>
-			<c:if test="${(not empty searchCompRes)}">
-				Searching for: <span>Computer: </span>${searchCompRes}
-			</c:if> 
-			<c:if test="${(not empty searchRoomRes)}">
-				Searching for: <span>Room: </span>${searchRoomRes}
-			</c:if>
-			<c:if test="${(not empty searchRes)}">
-				Searching for: <span>${searchRes}</span>
-			</c:if>
-		</p>
+		<h1 id="currentMonth">${months[currentMonth]} ${currentYear}</h1>
+		<c:if test="${(not empty searchCompRes) || (not empty searchRoomRes) || (not empty searchRes)}">
+			<div id="resources">
+		</c:if>
+		<c:if test="${(not empty searchCompRes)}">
+			<p><span class="resource">Computer: </span>${searchCompRes}</p>
+		</c:if> 
+		<c:if test="${(not empty searchRoomRes)}">
+			<p><span class="resource">Room: </span>${searchRoomRes}</p>
+		</c:if>
+		<c:if test="${(not empty searchRes)}">
+			<p class="resource">${searchRes}</p>
+		</c:if>
+		<c:if test="${(not empty searchCompRes) || (not empty searchRoomRes) || (not empty searchRes)}">
+			</div>			
+			<p id="showingresults">Showing results for:</p>
+		</c:if>
 		<table>
 			<tr>
 				<th></th>
