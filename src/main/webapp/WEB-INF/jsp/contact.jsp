@@ -8,20 +8,26 @@
     
     <body>
     <jsp:include page="/WEB-INF/jsp/header.jsp"/>
-    <div class="page">
-   	<p>Administrator Contact</p>
-    
-	<form method="post" action="addMessage" id="supportContact">
-		<p>Please chose a relevant short title for your issue and describe your request :</p>
-		<div>
-			<br/>
-			Title<input type="text" name="title" required>
-			<br/>
-			Request<textarea name="content" form="supportContact" required cols="30" rows="10"></textarea>
-			<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
-			<p><input type="submit" value="Submit"></p>
-		</div>
-	</form>
+	<div class="page">
+		<p class="heading">CONTACT ADMINISTRATOR</p>
+		<form method="post" action="addMessage" id="supportContact">
+			<p>Please choose a relevant short title for your issue and describe your request :</p>
+			<table>
+				<tr>
+					<td>Title</td>
+					<td><input type="text" name="title" required></td>
+				</tr>
+				<tr>
+					<td>Request</td>
+					<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+					<td><textarea name="content" form="supportContact" required cols="30" rows="10"></textarea></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="right"><input class="button submit" type="submit" value="Submit"></td>
+				</tr>
+			</table>
+		</form>
     </div>
 		
     </body>

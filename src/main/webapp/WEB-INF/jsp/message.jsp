@@ -39,7 +39,7 @@
 			<input type="hidden" name="messageId" value="${messageRead.id}">
 			<input name="mailBoxSource" value="${mailBoxSource}" type="hidden" />
 			<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
-			<p><input class="button" type="submit" value="Reply"></p>
+			<p><input class="button submit" type="submit" value="Reply"></p>
 		</div>
 		</form>
 </div>		

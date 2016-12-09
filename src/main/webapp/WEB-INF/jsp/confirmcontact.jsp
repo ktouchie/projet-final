@@ -13,10 +13,6 @@
 	<h3>Your request has been recorded correctly!</h3>
 	<p>We will knock at you through our windows when we get answer</p>
 	<br/>
-	<a href="/index">Home</a>
-	<security:authorize access="isAuthenticated()">
-		<a href="/logout">Logout</a>
-	</security:authorize>
 </div>
 </body>
 </html>
