@@ -3,15 +3,20 @@ package co.simplon.reserve.web;
 import java.util.List;
 import java.util.Objects;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import co.simplon.reserve.model.Subscriber;
 import co.simplon.reserve.model.User;
 import co.simplon.reserve.service.UserService;
 
@@ -31,12 +36,28 @@ public class UserController {
 	return new ModelAndView("users", model);
     }
 
+    /*
     @RequestMapping("/addUser")
     public ModelAndView addUser(@RequestParam("name") String name, @RequestParam("surname") String surname,
 	    @RequestParam("email") String email, @RequestParam("password") String password, ModelMap model) {
 	User user = new User(name, surname, email, password, User.Role.USER, true);
 	userService.add(user);
 	return new ModelAndView("redirect:/users");
+    }
+    */
+    
+    @RequestMapping(value="/addUser", method=RequestMethod.POST)
+    public ModelAndView addUser(@Valid Subscriber subscriber, BindingResult result, ModelMap model) {
+    	System.out.println(subscriber.toString());
+    	if(result.hasErrors()){
+    		System.out.println("Result has errors");
+    		return new ModelAndView("users", model);
+    	}
+    	else {
+			User user = new User(subscriber.getName(), subscriber.getSurname(), subscriber.getEmail(), subscriber.getPassword(), User.Role.USER, true);
+			userService.add(user);
+			return new ModelAndView("redirect:/users");
+    	}
     }
 
     @RequestMapping("/addAnyUser")

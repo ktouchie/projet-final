@@ -14,16 +14,34 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 	<div class="page">
 		<security:authorize access="!isAuthenticated()">
-			<form method="get" action="addUser">
 				<p>Sign Up</p>
 				<div>
-					Name<input type="text" name="name">
-					Surname<input type="text" name="surname">
-					Email<input type="email" name="email">
-					Password<input type="password" name="password">
-					<p><input class="button submit" type="submit" value="Submit"></p>
+					<form method="post" action="addUser" modelattribute="subscriber">
+						<label for="nameInput">Name</label>
+						<input type="text" path="name" id="nameInput"></input>
+						<form:errors path="name" cssclass="error"></form:errors>
+						<br/>
+						
+						<label for="surnameInput">Surname</label>
+						<input type="text" path="surname" id="surnameInput"></input>
+						<form:errors path="surname" cssclass="error"></form:errors>
+						<br/>
+						
+						<form:label for="emailInput">Email</form:label>
+						<input type="text" path="email" id="emailInput"></input>
+						<form:errors path="email" cssclass="error"></form:errors>
+						<br/>
+						
+						<form:label for="pwdInput">Password</form:label>
+						<input type="text" path="password" id="pwdInput"></input>
+						<form:errors path="password" cssclass="error"></form:errors>
+						<br/>
+						
+						<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"></input>
+						<p><input class="button" type="submit" value="Submit"></input></p>
+					</form>
 				</div>
-			</form>
+			
 		</security:authorize>
 
 		<security:authorize access="hasAuthority('ADMIN')">
