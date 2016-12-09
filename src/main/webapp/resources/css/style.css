@@ -34,7 +34,8 @@ body {
 a.button,
 .navtitle,
 input.button,
-div.display {
+div.display,
+a.contact {
 	float: left;
 	display: block;
 	text-decoration: none;
@@ -59,9 +60,13 @@ a.nav {
 	cursor: pointer;
 }
 
-a.login,
-input.button {
-	width: 70px;
+a.contact {
+	width: 100px;
+	cursor: pointer;
+}
+
+a.enable {
+	width: 100px;
 	cursor: pointer;
 }
 
@@ -70,10 +75,24 @@ a.login {
 	padding: 10px 0px;
 	border-radius: 10px;
 	margin: 5px;
+	width: 70px;
+}
+
+a.contact {
+	background: #5b5b5b;
+	padding: 10px 0px;
+	border-radius: 10px;
+	margin: 5px;
 	
 }
 
-input.button,
+input.button {
+	background: #c30044;
+	padding: 5px 0px;
+	border-radius: 5px;
+	margin: 2px;
+}
+
 div.display {
 	background: #c30044;
 	padding: 5px 0px;
@@ -81,8 +100,28 @@ div.display {
 	margin: 2px;
 }
 
-input.wide {
+.view {
+	width: 150px;
+	cursor: pointer;
+	color: #fff;
+	background: #c30044;
+	padding: 5px 10px;
+	border-radius: 10px;
+	margin: 5px;
+}
+
+.wide {
 	width: 100px;
+	cursor: pointer;
+}
+
+a.login
+.contact,
+.enable,
+.submit,
+.msg {
+	width: 70px;
+	cursor: pointer;
 }
 
 div.display {
@@ -95,6 +134,7 @@ a.nav:hover {
 	transition: all 60ms ease;
 }
 
+a.contact:hover,
 a.login:hover {
 	opacity: .70;
 	transition: all 60ms ease;
@@ -123,6 +163,14 @@ a.login:hover {
 .resource {
 	clear: left;
 	display: block;
+	font-weight: bold;
+}
+
+select {
+	width: 200px;
+}
+
+option {
 	font-weight: bold;
 }
 
@@ -160,14 +208,16 @@ a.login:hover {
 	margin-top: 60px;
 }
 
-.heading {
+.heading,
+.msgtitle {
 	font-size: 18px;
 	font-weight: bold;
 }
 
 #addUser,
 #addRoom,
-#addComputer {
+#addComputer,
+#addReservation {
 	display: none;
 }
 
@@ -187,7 +237,10 @@ table.form td {
 }
 
 table.user td,
-table.room td {
+table.room td,
+table.message td,
+table.computer td,
+table.reservation td {
 	height: 40px;
 }
 
@@ -206,7 +259,35 @@ td.w100 {
 	width: 100px;
 }
 
+th.w150,
+td.w150 {
+	width: 150px;
+}
+
 th.w200,
 td.w200 {
 	width: 200px;
+}
+
+th.w250,
+td.w250 {
+	width: 250px;
+}
+
+/* MESSAGES */
+.messageContent,
+.replyContent {
+	color: #fff;
+	background: #5b5b5b;
+	padding: 10px 10px;
+	border-radius: 10px;
+	margin-right: 50px;
+}
+
+.blink {
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: .50; }
 }

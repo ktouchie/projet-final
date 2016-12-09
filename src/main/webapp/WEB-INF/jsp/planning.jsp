@@ -43,7 +43,7 @@
 					<option value="${i}">${i}</option>
 				</c:forEach>
 			</select>
-			<input type="submit" value="View Reservations">
+			<input class="view" type="submit" value="View Reservations">
 		</form>
 		
 		<h1 id="currentMonth">${months[currentMonth]} ${currentYear}</h1>
@@ -67,7 +67,7 @@
 			<tr>
 				<th></th>
 				<c:forEach var="i" begin="1" end="${maxDays}">
-				<th class="25"><c:out value="${i}"/></th>
+				<th class="w25"><c:out value="${i}"/></th>
 				</c:forEach>
 				<th></th>
 			</tr>

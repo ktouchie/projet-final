@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -9,45 +10,46 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 <div class="page">
-   	<p>Replied Requests :</p>
- 		<table>
+	<c:if test="${not empty adminMessageRepliedList}">
+   	<p class="heading">REPLIES</p>
+ 		<table class="message">
  			<tr>
  				<th><div></div></th>
- 				<th>Topic</th>
- 				<th>From</th>
- 				<th>At</th>
- 				<th></th>
- 				<th></th>
+				<th class="w200">From</th>
+				<th class="w250">Subject</th>
+				<th class="w150">Date</th>
+				<th class="w80"></th>
+				<th class="w80"></th>
  			</tr>
  			
 			<c:forEach items="${adminMessageRepliedList}" var="message">
 			<tr>
 				<td><div id="logoReadMail"></div></td>
-				<td>${message.title}</td>
 				<td>${message.user.name} ${message.user.surname}</td>
-				<td>${message.creationDate}</td>
+				<td>${message.title}</td>
+				<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${uMessage.creationDate}"/></td>
 				<td>
 					<form action="readMail">
 						<input name="messageId" value="${message.id}" type="hidden" />
 						<input name="mailBoxSource" value="adminOutbox" type="hidden" />
-						<input type="submit" value="Read" />
+						<input class="button" type="submit" value="Read" />
 					</form>
 				</td>
 				<td>
 					<form action="disableThread">
 						<input name="messageId" value="${message.id}" type="hidden" />
 						<input name="mailBoxSource" value="adminOutbox" type="hidden" />
-						<input type="submit" value="Delete" />
+						<input class="button" type="submit" value="Delete" />
 					</form>
 				</td>
 			</tr>
 	      	</c:forEach>
 	      	
 		</table>
-		
+	</c:if>	
 	<br/>
 	<br/>
-	<a href="/adminInbox">Inbox</a>
+	<a class="button login" href="/adminInbox">Inbox</a>
 </div>
 </body>
 </html>

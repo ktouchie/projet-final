@@ -22,7 +22,7 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td class="right"><input class="button right"  type="submit" value="Submit"></td>
+						<td class="right"><input class="button submit"  type="submit" value="Submit"></td>
 					</tr>
 				</table>
 			</form>
@@ -36,16 +36,20 @@
 					<th></th>
 				</tr>
 				<c:forEach items="${roomList}" var="room">
+					<c:set var="enableStyle" value=""/>
+					<c:if test="${!room.enabled}">
+						<c:set var="enableStyle" value="opacity:.60;font-style:italic;"/>
+					</c:if>
 					<tr>
-						<td>${room.name}</td>
-						<td>${room.capacity}</td>
+						<td style="${enableStyle}">${room.name}</td>
+						<td style="${enableStyle}">${room.capacity}</td>
 						<td>
 							<c:if test="${room.enabled}">
 								<form action="updateRoomStatus">
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 									<input name="id" value="${room.id}" type="hidden" />
 									<input name="enabled" value="${!room.enabled}" type="hidden" />
-									<input class="button" type="submit" value="Disable" />
+									<input class="button enable" type="submit" value="Disable" />
 								</form>
 							</c:if>
 							<c:if test="${!room.enabled}">
@@ -53,7 +57,7 @@
 									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 									<input name="id" value="${room.id}" type="hidden" />
 									<input name="enabled" value="${!room.enabled}" type="hidden" />
-									<input class="button" type="submit" value="Enable" />
+									<input class="button enable" type="submit" value="Enable" />
 								</form>
 							</c:if>
 						</td>

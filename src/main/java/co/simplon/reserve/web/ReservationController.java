@@ -85,6 +85,7 @@ public class ReservationController {
 	// for User to view own reservations
 	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 	User user = userService.getByEmail(currentEmail);
+	model.addAttribute("currentUserId", user.getId());
 	List<Reservation> userReservationList = reservationService.userReservations(user.getId());
 	model.addAttribute("userReservationList", userReservationList);
 	boolean isReservationsPage = true;

@@ -21,7 +21,7 @@
 					Surname<input type="text" name="surname">
 					Email<input type="email" name="email">
 					Password<input type="password" name="password">
-					<p><input class="button" type="submit" value="Submit"></p>
+					<p><input class="button submit" type="submit" value="Submit"></p>
 				</div>
 			</form>
 		</security:authorize>
@@ -53,7 +53,7 @@
 								</select>
 							</td>
 							<td></td>
-							<td class="right"><input class="button right" type="submit" value="Submit"></td>
+							<td class="right"><input class="button submit" type="submit" value="Submit"></td>
 						</tr>
 					</table>
 				</form>
@@ -102,7 +102,7 @@
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 										<input name="id" value="${user.id}" type="hidden" />
 										<input name="enabled" value="${!user.enabled}" type="hidden" />
-										<input class="button" type="submit" value="Disable" />
+										<input class="button enable" type="submit" value="Disable" />
 									</form>
 								</c:if>
 								<c:if test="${!user.enabled}">
@@ -110,7 +110,7 @@
 										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 										<input name="id" value="${user.id}" type="hidden" />
 										<input name="enabled" value="${!user.enabled}" type="hidden" />
-										<input class="button" type="submit" value="Enable" />
+										<input class="button enable" type="submit" value="Enable" />
 									</form>
 								</c:if>
 							</td>

@@ -31,17 +31,21 @@
 
 	</div>
     <div class="navbar clearfix">
+    	<c:set var="msgclass" value=""/>
+    	<c:if test="${alertMailOn}">
+    		<c:set var="msgclass" value="blink"/>
+    	</c:if>
     	<security:authorize access="isAuthenticated()">
 			<security:authorize access="hasAuthority('ADMIN')">
 	    		<a class="button nav" href="/users">Users</a>
 	    		<a class="button nav" href="/rooms">Rooms</a>
 	    		<a class="button nav" href="/computers">Computers</a>
-	    		<a class="button nav" href="/adminInbox">Messages<c:if test="${alertMailOn}"> !!! </c:if></a>
+	    		<a class="button nav ${msgclass}" href="/adminInbox">Messages</a>
 	    	</security:authorize>
 	    </security:authorize>
 	    <security:authorize access="isAuthenticated()">
     		<security:authorize access="hasAuthority('USER')">
-    			 <a class="button nav" href="/userInbox" >Support<c:if test="${alertMailOn}"> !!! </c:if></a>
+    			 <a class="button nav ${msgclass}" href="/userInbox">Support</a>
 	    	</security:authorize>	
 			<a class="button nav" href="/reservations">Reservations</a>
     		<a class="button nav" id="password" href="/password">Change Password</a>

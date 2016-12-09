@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -9,84 +10,87 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 <div class="page">
-   	<p>New Mails :</p>
-   	<!--
-   	<c:if test=""></c:if>
-   	-->
-		<table>
+	<c:if test="${not empty unopenedMessageList}">
+	<p class="heading">NEW MESSAGES</p>
+		<table class="message">
 			<tr>
 				<th><div></div></th>
-				<th>Topic</th>
-				<th>From</th>
-				<th>At</th>
-				<th></th>
-				<th></th>
+				<th class="w200">From</th>
+				<th class="w250">Subject</th>
+				<th class="w150">Date</th>
+				<th class="w80"></th>
+				<th class="w80"></th>
 			</tr>
 			
 		<c:forEach items="${unopenedMessageList}" var="uMessage">
 		<tr>
 			<td><div id="logoUnreadMail"></div></td>
-			<td>${uMessage.title}</td>
 			<td>${uMessage.user.name} ${uMessage.user.surname}</td>
-			<td>${uMessage.creationDate}</td>
+			<td>${uMessage.title}</td>
+			<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${uMessage.creationDate}"/></td>
 			<td>
 				<form action="readMail">
 					<input name="messageId" value="${uMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="adminInbox" type="hidden" />
-					<input type="submit" value="Read" />
+					<input class="button msg" type="submit" value="Read" />
 				</form>
 			</td>
 			<td>
 				<form action="disableThread">
 					<input name="messageId" value="${uMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="adminInbox" type="hidden" />
-					<input type="submit" value="Delete" />
+					<input class="button msg" type="submit" value="Delete" />
 				</form>
 			</td>
 		</tr>
-      	</c:forEach>
-      	
+      	</c:forEach>      	
 	</table>
-
-   	<p>Opened Mails :</p>
-		<table>
+	</c:if>
+	<c:if test="${empty unopenedMessageList}">
+		<p class="heading">You have no new messages</p>
+	</c:if>
+	<c:if test="${not empty openedMessageList}">
+		<div class="section">
+	   	<p class="heading">OLD MESSAGES</p>
+			<table>
+				<tr>
+					<th><div></div></th>
+					<th class="w200">From</th>
+					<th class="w250">Subject</th>
+					<th class="w150">Date</th>
+					<th class="w80"></th>
+					<th class="w80"></th>
+				</tr>
+				
+			<c:forEach items="${openedMessageList}" var="oMessage">
 			<tr>
-				<th><div></div></th>
-				<th>Topic</th>
-				<th>From</th>
-				<th>At</th>
-				<th></th>
-				<th></th>
+				<td><div id="logoReadMail"></div></td>
+				<td>${oMessage.user.name} ${oMessage.user.surname}</td>
+				<td>${oMessage.title}</td>
+				<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${oMessage.creationDate}"/></td>
+				<td>
+					<form action="readMail">
+						<input name="messageId" value="${oMessage.id}" type="hidden" />
+						<input name="mailBoxSource" value="adminInbox" type="hidden" />
+						<input class="button msg" type="submit" value="Read" />
+					</form>
+				</td>
+				<td>
+					<form action="disableThread">
+						<input name="messageId" value="${oMessage.id}" type="hidden" />
+						<input name="mailBoxSource" value="adminInbox" type="hidden" />
+						<input class="button msg" type="submit" value="Delete" />
+					</form>
+				</td>
 			</tr>
-			
-		<c:forEach items="${openedMessageList}" var="oMessage">
-		<tr>
-			<td><div id="logoUnreadMail"></div></td>
-			<td>${oMessage.title}</td>
-			<td>${oMessage.user.name} ${oMessage.user.surname}</td>
-			<td>${oMessage.creationDate}</td>
-			<td>
-				<form action="readMail">
-					<input name="messageId" value="${oMessage.id}" type="hidden" />
-					<input name="mailBoxSource" value="adminInbox" type="hidden" />
-					<input type="submit" value="Read" />
-				</form>
-			</td>
-			<td>
-				<form action="disableThread">
-					<input name="messageId" value="${oMessage.id}" type="hidden" />
-					<input name="mailBoxSource" value="adminInbox" type="hidden" />
-					<input type="submit" value="Delete" />
-				</form>
-			</td>
-		</tr>
-      	</c:forEach>
-      	
-	</table>
-	
-	<br/>
-	<br/>
-	<a href="/adminOutbox">Outbox</a>
-</div>	
+	      	</c:forEach>
+	      	
+		</table>
+		</div>
+		</c:if>
+		<br/>
+		<br/>
+		<a class="button login" href="/adminOutbox">Outbox</a>
+	</div>
 </body>
 </html>

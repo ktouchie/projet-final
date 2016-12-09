@@ -8,10 +8,28 @@
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 <div class="page">
 	<form action="/changePassword">
-		Current Password:<input name="currentPasswordInput" type="password">
-		New Password:<input name="newPassword" type="password">
-		Confirm New Password:<input name="confirmPassword" type="password">
-		<input type="submit" value="Submit">
+		<table class="form">
+			<tr>
+				<td>Current Password:</td>
+				<td><input name="currentPasswordInput" type="password"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>New Password:</td>
+				<td><input name="newPassword" type="password"></td>
+			</tr>
+			<tr>
+				<td>Confirm New Password:</td>
+				<td><input name="confirmPassword" type="password"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td class="right"><input class="button submit" type="submit" value="Submit"></td>
+			</tr>
+		</table>
 	</form>
 	<div>${success}</div>
 	<div>${error}</div>

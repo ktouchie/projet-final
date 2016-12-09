@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -9,54 +10,54 @@
 <body>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 <div class="page">
-   	<p>New Replies from support :</p>
-   	<!--
-   	<c:if test=""></c:if>
-   	-->
-		<table>
+	<c:if test="${not empty unopenedRepliedMessageList}">
+   	<p class="heading">SUPPORT HAS RESPONDED TO YOUR REQUEST:</p>
+		<table class="message">
 			<tr>
 				<th><div></div></th>
-				<th>Topic</th>
-				<th>From</th>
-				<th>At</th>
-				<th></th>
-				<th></th>
+				<th class="w200">From</th>
+				<th class="w250">Subject</th>
+				<th class="w150">Date</th>
+				<th class="w80"></th>
+				<th class="w80"></th>
 			</tr>
 			
 		<c:forEach items="${unopenedRepliedMessageList}" var="uMessage">
 		<tr>
 			<td><div id="logoUnreadMail"></div></td>
-			<td>${uMessage.title}</td>
 			<td>${uMessage.user.name} ${uMessage.user.surname}</td>
-			<td>${uMessage.creationDate}</td>
+			<td>${uMessage.title}</td>
+			<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${uMessage.creationDate}"/></td>
 			<td>
 				<form action="readMail">
 					<input name="messageId" value="${uMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="userInbox" type="hidden" />
-					<input type="submit" value="Read" />
+					<input class="button" type="submit" value="Read" />
 				</form>
 			</td>
 			<td>
 				<form action="disableThread">
 					<input name="messageId" value="${uMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="userInbox" type="hidden" />
-					<input type="submit" value="Delete" />
+					<input class="button" type="submit" value="Delete" />
 				</form>
 			</td>
 		</tr>
       	</c:forEach>
       	
 	</table>
-
-   	<p>Opened mails:</p>
+	</c:if>
+	<c:if test="${not empty openedRepliedMessageList}">
+	<div class="section">
+   	<p class="heading">OLD MESSAGES</p>
 		<table>
 			<tr>
 				<th><div></div></th>
-				<th>Topic</th>
-				<th>From</th>
-				<th>At</th>
-				<th></th>
-				<th></th>
+				<th class="w200">From</th>
+				<th class="w250">Subject</th>
+				<th class="w150">Date</th>
+				<th class="w80"></th>
+				<th class="w80"></th>
 			</tr>
 			
 		<c:forEach items="${openedRepliedMessageList}" var="oMessage">
@@ -64,34 +65,35 @@
 			<td><div id="logoUnreadMail"></div></td>
 			<td>${oMessage.title}</td>
 			<td>${oMessage.user.name} ${oMessage.user.surname}</td>
-			<td>${oMessage.creationDate}</td>
+			<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${oMessage.creationDate}"/></td>
 			<td>
 				<form action="readMail">
 					<input name="messageId" value="${oMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="userInbox" type="hidden" />
-					<input type="submit" value="Read" />
+					<input class="button" type="submit" value="Read" />
 				</form>
 			</td>
 			<td>
 				<form action="disableThread">
 					<input name="messageId" value="${oMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="userInbox" type="hidden" />
-					<input type="submit" value="Delete" />
+					<input class="button" type="submit" value="Delete" />
 				</form>
 			</td>
 		</tr>
       	</c:forEach>
       	
 	</table>
-	
+	</div>
+	</c:if>
 	<br/>
 	<br/>
 	<br/>
 	<div>
-		<a href="/contact">Contact Us</a>
+		<a class="button contact" href="/contact">Contact Us</a>
 	</div>
 	<div>
-		<a href="/userOutbox">Outbox</a>
+		<a class="button login" href="/userOutbox">Outbox</a>
 	</div>
 </div>	
 </body>
