@@ -18,6 +18,10 @@ public class ComputerService {
 	return computerRepository.findAll();
     }
 
+    public List<Computer> getAllEnabled() {
+	return computerRepository.getAllEnabled();
+    }
+
     public void delete(Integer id) {
 	computerRepository.delete(id);
     }

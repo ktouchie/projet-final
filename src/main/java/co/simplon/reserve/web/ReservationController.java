@@ -69,11 +69,11 @@ public class ReservationController {
     @RequestMapping("/reservations")
     public ModelAndView getAll(ModelMap model) {
 	// for Admin to view all reservations
-	List<Computer> computerList = computerService.getAll();
+	List<Computer> computerList = computerService.getAllEnabled();
 	model.addAttribute("computerList", computerList);
-	List<User> userList = userService.getAll();
+	List<User> userList = userService.getAllEnabled();
 	model.addAttribute("userList", userList);
-	List<Room> roomList = roomService.getAll();
+	List<Room> roomList = roomService.getAllEnabled();
 	model.addAttribute("roomList", roomList);
 	List<Reservation> reservationList = reservationService.getAll();
 	model.addAttribute("reservationList", reservationList);

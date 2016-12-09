@@ -16,13 +16,16 @@ public class Computer {
 
     private String serial;
 
+    private boolean enabled;
+
     public Computer() {
 
     }
 
-    public Computer(String brand, String serial) {
+    public Computer(String brand, String serial, boolean enabled) {
 	this.brand = brand;
 	this.serial = serial;
+	this.enabled = enabled;
     }
 
     public Integer getId() {
@@ -35,6 +38,14 @@ public class Computer {
 
     public String getSerial() {
 	return serial;
+    }
+
+    public boolean isEnabled() {
+	return enabled;
+    }
+
+    public void updateComputerStatus(boolean enabled) {
+	this.enabled = enabled;
     }
 
 }

@@ -12,10 +12,22 @@
         	 ${computer.id}
         	 ${computer.brand}
         	 ${computer.serial}
-        	 <form action="deleteComputer">
-        	 	<input name="id" value="${computer.id}" type="hidden" />
-        	 	<input type="submit" value="Delete" />
-        	 </form>
+			<c:if test="${computer.enabled}">
+				<form action="updateComputerStatus">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<input name="id" value="${computer.id}" type="hidden" />
+					<input name="enabled" value="${!computer.enabled}" type="hidden" />
+					<input class="button" type="submit" value="Disable" />
+				</form>
+			</c:if>
+			<c:if test="${!computer.enabled}">
+				<form action="updateComputerStatus">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					<input name="id" value="${computer.id}" type="hidden" />
+					<input name="enabled" value="${!computer.enabled}" type="hidden" />
+					<input class="button" type="submit" value="Enable" />
+				</form>
+			</c:if>
         	
        	</c:forEach>
        	

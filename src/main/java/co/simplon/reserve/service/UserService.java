@@ -18,6 +18,10 @@ public class UserService {
 	return userRepository.findAll();
     }
 
+    public List<User> getAllEnabled() {
+	return userRepository.getAllEnabled();
+    }
+
     public void delete(Integer id) {
 	userRepository.delete(id);
     }

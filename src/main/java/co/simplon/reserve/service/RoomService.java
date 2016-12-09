@@ -18,6 +18,10 @@ public class RoomService {
 	return roomRepository.findAll();
     }
 
+    public List<Room> getAllEnabled() {
+	return roomRepository.getAllEnabled();
+    }
+
     public void delete(Integer id) {
 	roomRepository.delete(id);
     }

@@ -16,13 +16,16 @@ public class Room {
 
     private Integer capacity;
 
+    private boolean enabled;
+
     public Room() {
 
     }
 
-    public Room(String name, Integer capacity) {
+    public Room(String name, Integer capacity, boolean enabled) {
 	this.name = name;
 	this.capacity = capacity;
+	this.enabled = enabled;
     }
 
     public Integer getId() {
@@ -35,6 +38,14 @@ public class Room {
 
     public Integer getCapacity() {
 	return capacity;
+    }
+
+    public boolean isEnabled() {
+	return enabled;
+    }
+
+    public void updateRoomStatus(boolean enabled) {
+	this.enabled = enabled;
     }
 
 }

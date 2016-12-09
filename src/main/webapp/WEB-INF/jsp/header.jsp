@@ -35,6 +35,7 @@
 			<security:authorize access="hasAuthority('ADMIN')">
 	    		<a class="button nav" href="/users">Users</a>
 	    		<a class="button nav" href="/rooms">Rooms</a>
+	    		<a class="button nav" href="/computers">Computers</a>
 	    		<a class="button nav" href="/adminInbox">Messages<c:if test="${alertMailOn}"> !!! </c:if></a>
 	    	</security:authorize>
 	    </security:authorize>

@@ -31,7 +31,16 @@ public class RoomController {
     @RequestMapping("/addRoom")
     public ModelAndView addRoom(@RequestParam("name") String name, @RequestParam("capacity") Integer capacity,
 	    ModelMap model) {
-	Room room = new Room(name, capacity);
+	Room room = new Room(name, capacity, true);
+	roomService.add(room);
+	return new ModelAndView("redirect:/rooms");
+    }
+
+    @RequestMapping("/updateRoomStatus")
+    public ModelAndView updateUserStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
+	    ModelMap model) {
+	Room room = roomService.getById(id);
+	room.updateRoomStatus(enabled);
 	roomService.add(room);
 	return new ModelAndView("redirect:/rooms");
     }

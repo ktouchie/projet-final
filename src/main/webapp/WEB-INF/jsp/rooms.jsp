@@ -40,10 +40,22 @@
 						<td>${room.name}</td>
 						<td>${room.capacity}</td>
 						<td>
-							<form action="deleteRoom">
-								<input name="id" value="${room.id}" type="hidden" />
-								<input class="button" type="submit" value="Delete" />
-							</form>
+							<c:if test="${room.enabled}">
+								<form action="updateRoomStatus">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+									<input name="id" value="${room.id}" type="hidden" />
+									<input name="enabled" value="${!room.enabled}" type="hidden" />
+									<input class="button" type="submit" value="Disable" />
+								</form>
+							</c:if>
+							<c:if test="${!room.enabled}">
+								<form action="updateRoomStatus">
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+									<input name="id" value="${room.id}" type="hidden" />
+									<input name="enabled" value="${!room.enabled}" type="hidden" />
+									<input class="button" type="submit" value="Enable" />
+								</form>
+							</c:if>
 						</td>
 					</tr>
 				</c:forEach>

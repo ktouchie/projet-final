@@ -31,7 +31,16 @@ public class ComputerController {
     @RequestMapping("/addComputer")
     public ModelAndView addComputer(@RequestParam("brand") String brand, @RequestParam("serial") String serial,
 	    ModelMap model) {
-	Computer computer = new Computer(brand, serial);
+	Computer computer = new Computer(brand, serial, true);
+	computerService.add(computer);
+	return new ModelAndView("redirect:/computers");
+    }
+
+    @RequestMapping("/updateComputerStatus")
+    public ModelAndView updateUserStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
+	    ModelMap model) {
+	Computer computer = computerService.getById(id);
+	computer.updateComputerStatus(enabled);
 	computerService.add(computer);
 	return new ModelAndView("redirect:/computers");
     }
