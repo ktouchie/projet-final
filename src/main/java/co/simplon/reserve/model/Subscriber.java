@@ -23,6 +23,14 @@ public class Subscriber {
     
     @NotEmpty
     private String password;
+    
+	public Subscriber(String name, String surname, String email, String password) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.email = email;
+		this.password = password;
+	}
 
 	public String getName() {
 		return name;

@@ -1,5 +1,6 @@
 package co.simplon.reserve.web;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -36,22 +37,79 @@ public class UserController {
 	return new ModelAndView("users", model);
     }
 
-    /*
+
     @RequestMapping("/addUser")
     public ModelAndView addUser(@RequestParam("name") String name, @RequestParam("surname") String surname,
-	    @RequestParam("email") String email, @RequestParam("password") String password, ModelMap model) {
-	User user = new User(name, surname, email, password, User.Role.USER, true);
-	userService.add(user);
-	return new ModelAndView("redirect:/users");
+	    @RequestParam("email") String email, @RequestParam("password") String password, ModelMap model, RedirectAttributes redir) {
+    	boolean nameMatches = false;
+    	boolean surnameMatches = false;
+    	boolean emailMatches = false;
+    	boolean passwordMatches = false;
+    	Subscriber subscriber = new Subscriber(name, surname, email, password);
+    	
+    	// RequestParmaters input checks
+	    if (name.matches("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\\s-]{1,35}$")){
+	    	nameMatches = true;
+	    	redir.addFlashAttribute("name", name);
+		} else {
+			redir.addFlashAttribute("nameError", "Beetween 1 and 35 characters required");
+		}
+	    if (surname.matches("^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ.\\s-]{1,35}$")) {
+	    	surnameMatches = true;
+	    	redir.addFlashAttribute("surname", surname);
+	    } else {
+	    	redir.addFlashAttribute("surnameError", "Beetween 1 and 35 characters required");
+	    }
+    	if (email.matches("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b")) {
+    		emailMatches = true;
+    		redir.addFlashAttribute("email", email);
+    	} else {
+    		redir.addFlashAttribute("emailError", "Invalid email adress format");
+    	}
+    	if (pwdPolicy(password).isEmpty()) {
+    		passwordMatches = true;
+		} else {
+    		redir.addFlashAttribute("pwdErrors", pwdPolicy(password));
+    	}
+    	
+    	// Creating user when checks are ok
+    	if (nameMatches && surnameMatches && emailMatches && passwordMatches) {
+			User user = new User(name, surname, email, password, User.Role.USER, true);
+			userService.add(user);
+    	}
+		return new ModelAndView("redirect:/users");
     }
-    */
     
+    public List<String> pwdPolicy(String password) {
+    	List<String> errors = new ArrayList<String>();
+        if (password.length() < 8) {
+        	errors.add("8 or more characters needed");
+        }
+        if (!password.matches(".*[0-9].*")) {
+        	errors.add("At least 1 digit needed");
+        }
+        if (!password.matches(".*[a-z].*")) {
+        	errors.add("At least 1 lowercase charcater needed");
+        }
+        if (!password.matches(".*[A-Z].*")) {
+        	errors.add("At least 1 uppercase character needed");
+        }
+        if (password.matches(".*\\s.*")) {
+        	errors.add("No whitespace allowed");
+        }
+        return errors;
+    }
+    /*
     @RequestMapping(value="/addUser", method=RequestMethod.POST)
-    public ModelAndView addUser(@Valid Subscriber subscriber, BindingResult result, ModelMap model) {
+    public ModelAndView addUser(@Valid Subscriber subscriber, BindingResult result, ModelMap model, RedirectAttributes redir) {
     	System.out.println(subscriber.toString());
     	if(result.hasErrors()){
     		System.out.println("Result has errors");
-    		return new ModelAndView("users", model);
+    		redir.addAttribute(result.getModel());
+    		//ModelAndView mav = new ModelAndView("redirect:/users", model);
+    		//mav.addAllObjects(result.getModel());
+    		//return mav;
+    		return new ModelAndView("redirect:/users");
     	}
     	else {
 			User user = new User(subscriber.getName(), subscriber.getSurname(), subscriber.getEmail(), subscriber.getPassword(), User.Role.USER, true);
@@ -59,6 +117,23 @@ public class UserController {
 			return new ModelAndView("redirect:/users");
     	}
     }
+    */
+    /*
+    @RequestMapping(value="addUser", method=RequestMethod.POST)
+    public String addUser(@Valid Subscriber subscriber, BindingResult result, ModelMap model) {
+    	System.out.println(subscriber.toString());
+    	if(result.hasErrors()){
+    		System.out.println("Result has errors");
+    		return "users";
+    	}
+    	else {
+			User user = new User(subscriber.getName(), subscriber.getSurname(), subscriber.getEmail(), subscriber.getPassword(), User.Role.USER, true);
+			userService.add(user);
+			model.addAttribute("message", "Successfully saved user: " + subscriber.toString());
+			return "users";
+    	}
+    }
+    */
 
     @RequestMapping("/addAnyUser")
     public ModelAndView addAnyUser(@RequestParam("name") String name, @RequestParam("surname") String surname,

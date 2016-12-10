@@ -16,32 +16,32 @@
 		<security:authorize access="!isAuthenticated()">
 				<p>Sign Up</p>
 				<div>
-					<form method="post" action="addUser" modelattribute="subscriber">
+					<form method="post" action="/addUser">
 						<label for="nameInput">Name</label>
-						<input type="text" path="name" id="nameInput"></input>
-						<form:errors path="name" cssclass="error"></form:errors>
-						<br/>
+						<input type="text" name="name" id="nameInput" maxlength="35" value="${name}"/>
 						
 						<label for="surnameInput">Surname</label>
-						<input type="text" path="surname" id="surnameInput"></input>
-						<form:errors path="surname" cssclass="error"></form:errors>
-						<br/>
+						<input type="text" name="surname" id="surnameInput" maxlength="35" value="${surname}"/>
 						
 						<form:label for="emailInput">Email</form:label>
-						<input type="text" path="email" id="emailInput"></input>
-						<form:errors path="email" cssclass="error"></form:errors>
-						<br/>
+						<input type="text" name="email" id="emailInput" value="${email}"/>
 						
 						<form:label for="pwdInput">Password</form:label>
-						<input type="text" path="password" id="pwdInput"></input>
-						<form:errors path="password" cssclass="error"></form:errors>
-						<br/>
+						<input type="password" name="password" id="pwdInput"/>
 						
-						<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"></input>
-						<p><input class="button" type="submit" value="Submit"></input></p>
+						<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"/>
+						<p><input class="button" type="submit" value="Submit"/></p>
 					</form>
 				</div>
-			
+				
+				</div>${nameError}<div>
+				</div>${surnameError}<div>
+				</div>${emailError}<div>
+				</div>
+					<c:forEach items="${pwdErrors}" var="pwdError">
+						<p>${pwdError}</p>
+					</c:forEach>
+				<div>
 		</security:authorize>
 
 		<security:authorize access="hasAuthority('ADMIN')">
