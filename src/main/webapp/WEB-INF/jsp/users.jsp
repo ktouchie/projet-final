@@ -14,25 +14,31 @@
 	<jsp:include page="/WEB-INF/jsp/header.jsp"/>
 	<div class="page">
 		<security:authorize access="!isAuthenticated()">
-				<p>Sign Up</p>
-				<div>
-					<form method="post" action="/addUser">
-						<label for="nameInput">Name</label>
-						<input type="text" name="name" id="nameInput" maxlength="35" value="${name}"/>
-						
-						<label for="surnameInput">Surname</label>
-						<input type="text" name="surname" id="surnameInput" maxlength="35" value="${surname}"/>
-						
-						<form:label for="emailInput">Email</form:label>
-						<input type="text" name="email" id="emailInput" value="${email}"/>
-						
-						<form:label for="pwdInput">Password</form:label>
-						<input type="password" name="password" id="pwdInput"/>
-						
-						<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"/>
-						<p><input class="button" type="submit" value="Submit"/></p>
-					</form>
-				</div>
+				<p class="heading">SIGNUP</p>
+				<form method="post" action="/addUser">
+					<table class="form">
+						<tr>
+							<td><label for="nameInput">Name</label></td>
+							<td><input type="text" name="name" id="nameInput" maxlength="35" value="${name}"/></td>
+						</tr>
+						<tr>
+							<td><label for="surnameInput">Surname</label></td>
+							<td><input type="text" name="surname" id="surnameInput" maxlength="35" value="${surname}"/></td>
+						</tr>
+						<tr>
+							<td><form:label for="emailInput">Email</form:label></td>
+							<td><input type="text" name="email" id="emailInput" value="${email}"/></td>
+						</tr>
+						<tr>
+							<td><form:label for="pwdInput">Password</form:label></td>
+							<td><input type="password" name="password" id="pwdInput"/></td>
+						</tr>
+						<tr>
+							<td><input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"/></td>
+							<td class="right"><input class="button submit" type="submit" value="Submit"/></td>
+						</tr>
+					</table>
+				</form>
 				
 				</div>${nameError}<div>
 				</div>${surnameError}<div>
