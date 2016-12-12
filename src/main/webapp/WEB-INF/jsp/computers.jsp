@@ -10,7 +10,7 @@
 		<div class="display" id="displayAddComputer" onclick="display('addComputer');">&#10010; ADD COMPUTER</div>
 		<div id="addComputer">
 			<p class="heading">ADD COMPUTER</p>
-			<form method="get" action="addRoom">
+			<form method="get" action="addComputer">
 				<table class="form">
 					<tr>
 						<td>Brand</td>
