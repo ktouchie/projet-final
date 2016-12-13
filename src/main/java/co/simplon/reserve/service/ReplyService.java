@@ -30,11 +30,4 @@ public class ReplyService {
 	return replyRepository.findOne(id);
     }
 
-    /*
-     * public List<Reply> getAdminUnopenedMails(){ return
-     * replyRepository.getAdminUnopenedMails(); }
-     * 
-     * public List<Reply> getUserUnopenedMails(Integer userId){ return
-     * replyRepository.getUserUnopenedMails(userId); }
-     */
 }

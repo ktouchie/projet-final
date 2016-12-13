@@ -23,8 +23,7 @@ public class ComputerController {
     public ModelAndView getAll(ModelMap model) {
 	List<Computer> computerList = computerService.getAll();
 	model.addAttribute("computerList", computerList);
-	boolean isComputersPage = true;
-	model.addAttribute("isComputersPage", isComputersPage);
+	model.addAttribute("isComputersPage", true);
 	return new ModelAndView("computers", model);
     }
 
@@ -37,7 +36,7 @@ public class ComputerController {
     }
 
     @RequestMapping("/updateComputerStatus")
-    public ModelAndView updateUserStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
+    public ModelAndView updateComputerStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
 	    ModelMap model) {
 	Computer computer = computerService.getById(id);
 	computer.updateComputerStatus(enabled);

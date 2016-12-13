@@ -46,28 +46,26 @@ public class ReservationController {
     private ReservationService reservationService;
 
     // Set up calendar for current month
-    Locale locale = Locale.ENGLISH;
-    Calendar calendar = Calendar.getInstance();
-    int currentMonth = calendar.get(Calendar.MONTH);
-    int currentYear = calendar.get(Calendar.YEAR);
-    int thisYear = calendar.get(Calendar.YEAR);
-    int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-    DateFormatSymbols dfs = new DateFormatSymbols(locale);
-    String[] months = dfs.getMonths();
-    String currentMonthName = months[currentMonth];
-    Calendar resStartDate = Calendar.getInstance();
-    Calendar resEndDate = Calendar.getInstance();
-    Calendar minReservation = Calendar.getInstance();
-    Calendar maxReservation = Calendar.getInstance();
-    Set<String> resClasses = new HashSet<String>();
-    String startStr = "start";
-    String dayStr = " day";
-    String searchRes;
-    String searchCompRes;
-    String searchRoomRes;
+    private final static Locale locale = Locale.ENGLISH;
+    private Calendar calendar = Calendar.getInstance();
+    private int currentMonth = calendar.get(Calendar.MONTH);
+    private int currentYear = calendar.get(Calendar.YEAR);
+    private int thisYear = calendar.get(Calendar.YEAR);
+    private int maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    private static DateFormatSymbols dfs = new DateFormatSymbols(locale);
+    private static String[] months = dfs.getMonths();
+    private Calendar resStartDate = Calendar.getInstance();
+    private Calendar resEndDate = Calendar.getInstance();
+    private Set<String> resClasses = new HashSet<String>();
+    private String startStr = "start";
+    private String dayStr = " day";
+    private String searchRes;
+    private String searchCompRes;
+    private String searchRoomRes;
 
     @RequestMapping("/reservations")
     public ModelAndView getAll(ModelMap model) {
+
 	// for Admin to view all reservations
 	List<Computer> computerList = computerService.getAllEnabled();
 	model.addAttribute("computerList", computerList);
@@ -103,6 +101,7 @@ public class ReservationController {
 	boolean computerIsAvailable = reservationService.computerAvailable(computerId, startTime, endTime);
 	boolean roomIsAvailable = reservationService.roomAvailable(roomId, startTime, endTime);
 
+	// Check for booking conflicts before adding Reservation
 	if (computerIsAvailable && roomIsAvailable) {
 	    Computer computer = computerService.getById(computerId);
 	    Room room = roomService.getById(roomId);
@@ -111,14 +110,9 @@ public class ReservationController {
 	    reservationService.add(reservation);
 	} else if (!computerIsAvailable) {
 	    redirectAttrs.addFlashAttribute("error",
-		    // Add list of conflicting times or suggest available
-		    // computers?
 		    "Reservation conflict: Computer is already reserved at this time.");
 	} else if (!roomIsAvailable) {
-	    redirectAttrs.addFlashAttribute("error",
-		    // Add list of conflicting times or suggest available
-		    // computers?
-		    "Reservation conflict: Room is already reserved at this time.");
+	    redirectAttrs.addFlashAttribute("error", "Reservation conflict: Room is already reserved at this time.");
 	}
 
 	return new ModelAndView("redirect:/reservations");
@@ -133,27 +127,26 @@ public class ReservationController {
     @RequestMapping("/planning")
     public ModelAndView showCalendar(ModelMap model) {
 
+	// Setup calendar
 	Calendar selected = Calendar.getInstance();
 	selected.set(Calendar.YEAR, currentYear);
 	selected.set(Calendar.MONTH, currentMonth);
 	maxDays = selected.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+	// Display all resources for search filter
 	List<Computer> computerList = computerService.getAll();
 	model.addAttribute("computerList", computerList);
-
 	List<Room> roomList = roomService.getAll();
 	model.addAttribute("roomList", roomList);
 
+	// Show current calendar
 	model.addAttribute("currentMonth", currentMonth);
 	model.addAttribute("months", months);
 	model.addAttribute("currentYear", currentYear);
 	model.addAttribute("maxDays", maxDays);
 	model.addAttribute("resClasses", resClasses);
 	model.addAttribute("thisYear", thisYear);
-
-	boolean isPlanningPage = true;
-	model.addAttribute("isPlanningPage", isPlanningPage);
-
+	model.addAttribute("isPlanningPage", true);
 	model.addAttribute("searchCompRes", searchCompRes);
 	model.addAttribute("searchRoomRes", searchRoomRes);
 	model.addAttribute("searchRes", searchRes);
@@ -168,12 +161,14 @@ public class ReservationController {
 	    @RequestParam(name = "selectedMonth", defaultValue = "-1") Integer selectedMonth,
 	    @RequestParam(name = "selectedYear", defaultValue = "-1") Integer selectedYear) {
 
+	// Refresh calendar and "searching for" Strings
 	resClasses.clear();
 	searchRes = null;
 	searchCompRes = null;
 	searchRoomRes = null;
 	List<Reservation> reservationList = reservationService.getAll();
 
+	// Display search filters with resulting planning
 	if (selectedMonth > -1) {
 	    currentMonth = selectedMonth;
 	}
@@ -196,6 +191,7 @@ public class ReservationController {
 	    searchRes = ("All Reservations");
 	}
 
+	// Display reservations according to search filters
 	for (Reservation r : reservationList) {
 	    resStartDate.setTime(r.getStartTime());
 	    resEndDate.setTime(r.getEndTime());
@@ -207,8 +203,6 @@ public class ReservationController {
 	    int resStartHour = resStartDate.get(Calendar.HOUR_OF_DAY);
 	    int resEndHour = resEndDate.get(Calendar.HOUR_OF_DAY);
 
-	    // if (resStartDate.get(Calendar.YEAR) == currentYear ||
-	    // resEndDate.get(Calendar.YEAR) == currentYear) {
 	    if (resStartMonth == currentMonth) {
 		if (resStartMonth == resEndMonth) {
 		    addReservationClass(resClasses, resStartDay, resEndDay, resStartHour, resEndHour, startStr, dayStr);
@@ -225,6 +219,9 @@ public class ReservationController {
 	return new ModelAndView("redirect:/planning");
     }
 
+    // Creates a collection of classes corresponding to each <td> in the
+    // calendar. Each <td> with a class in the list will be marked as "reserved"
+    // according to the search filters.
     public Collection<String> addReservationClass(Collection<String> resClasses, int resStartDay, int resEndDay,
 	    int resStartHour, int resEndHour, String startStr, String dayStr) {
 	String res;

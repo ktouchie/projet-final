@@ -23,8 +23,7 @@ public class RoomController {
     public ModelAndView getAll(ModelMap model) {
 	List<Room> roomList = roomService.getAll();
 	model.addAttribute("roomList", roomList);
-	boolean isRoomsPage = true;
-	model.addAttribute("isRoomsPage", isRoomsPage);
+	model.addAttribute("isRoomsPage", true);
 	return new ModelAndView("rooms", model);
     }
 
@@ -37,7 +36,7 @@ public class RoomController {
     }
 
     @RequestMapping("/updateRoomStatus")
-    public ModelAndView updateUserStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
+    public ModelAndView updateRoomStatus(@RequestParam("enabled") boolean enabled, @RequestParam("id") Integer id,
 	    ModelMap model) {
 	Room room = roomService.getById(id);
 	room.updateRoomStatus(enabled);

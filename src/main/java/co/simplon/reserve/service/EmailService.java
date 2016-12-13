@@ -7,16 +7,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EmailService {
-	
-	@Autowired
-	private MailSender mail; //  MailSender interface defines a strategy for sending simple mails
-	
-	public void readyToSendEmail(String toAddress, String fromAddress, String subject, String msgBody){
-		SimpleMailMessage simpleMsg = new SimpleMailMessage();
-		simpleMsg.setFrom(fromAddress);
-		simpleMsg.setTo(toAddress);
-		simpleMsg.setSubject(subject);
-		simpleMsg.setText(msgBody);
-		mail.send(simpleMsg);
-	}
+
+    @Autowired
+    private MailSender mail; // MailSender interface defines a strategy for
+			     // sending simple mails
+
+    public void readyToSendEmail(String toAddress, String fromAddress, String subject, String msgBody) {
+	SimpleMailMessage simpleMsg = new SimpleMailMessage();
+	simpleMsg.setFrom(fromAddress);
+	simpleMsg.setTo(toAddress);
+	simpleMsg.setSubject(subject);
+	simpleMsg.setText(msgBody);
+	mail.send(simpleMsg);
+    }
 }

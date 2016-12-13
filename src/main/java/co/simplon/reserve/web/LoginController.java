@@ -16,8 +16,7 @@ public class LoginController {
 
     @RequestMapping(path = "/login")
     public ModelAndView login(ModelMap model) {
-	boolean isLoginPage = true;
-	model.addAttribute("isLoginPage", isLoginPage);
+	model.addAttribute("isLoginPage", true);
 	return new ModelAndView("login", model);
     }
 

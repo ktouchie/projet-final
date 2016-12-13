@@ -10,47 +10,47 @@ import co.simplon.reserve.repository.MessageRepository;
 
 @Service
 public class MessageService {
-	
-	@Autowired
-	private MessageRepository messageRepository;
-	
-	public List<Message> getAll() {
-		return messageRepository.findAll();
-	}
-	
-	public void delete(Integer id) {
-		messageRepository.delete(id);
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    public List<Message> getAll() {
+	return messageRepository.findAll();
+    }
+
+    public void delete(Integer id) {
+	messageRepository.delete(id);
     }
 
     public Message add(Message message) {
-    	return messageRepository.save(message);
+	return messageRepository.save(message);
     }
 
     public Message getById(Integer id) {
-    	return messageRepository.findOne(id);
-    }
-    
-    public List<Message> getUnopenedMessageList(){
-    	return messageRepository.getUnopenedMessageList();
-    }
-    
-    public List<Message> getOpenedMessageList(){
-    	return messageRepository.getOpenedMessageList();
-    }
-    
-    public List<Message> getAdminMessageRepliedList(){
-    	return messageRepository.getAdminMessageRepliedList();
+	return messageRepository.findOne(id);
     }
 
-    public List<Message> getUnopenedRepliedMessageList(Integer userId){
-    	return messageRepository.getUnopenedRepliedMessageList(userId);
-    }
-    
-    public List<Message> getOpenedRepliedMessageList(Integer userId){
-    	return messageRepository.getOpenedRepliedMessageList(userId);
+    public List<Message> getUnopenedMessageList() {
+	return messageRepository.getUnopenedMessageList();
     }
 
-    public List<Message> getMessageFromUserList(Integer userId){
-    	return messageRepository.getMessageFromUserList(userId);
+    public List<Message> getOpenedMessageList() {
+	return messageRepository.getOpenedMessageList();
+    }
+
+    public List<Message> getAdminMessageRepliedList() {
+	return messageRepository.getAdminMessageRepliedList();
+    }
+
+    public List<Message> getUnopenedRepliedMessageList(Integer userId) {
+	return messageRepository.getUnopenedRepliedMessageList(userId);
+    }
+
+    public List<Message> getOpenedRepliedMessageList(Integer userId) {
+	return messageRepository.getOpenedRepliedMessageList(userId);
+    }
+
+    public List<Message> getMessageFromUserList(Integer userId) {
+	return messageRepository.getMessageFromUserList(userId);
     }
 }

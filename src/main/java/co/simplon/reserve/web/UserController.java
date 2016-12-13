@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import co.simplon.reserve.model.Subscriber;
 import co.simplon.reserve.model.User;
 import co.simplon.reserve.service.UserService;
 
@@ -28,8 +27,7 @@ public class UserController {
     public ModelAndView getAll(ModelMap model) {
 	List<User> userList = userService.getAll();
 	model.addAttribute("userList", userList);
-	boolean isUsersPage = true;
-	model.addAttribute("isUsersPage", isUsersPage);
+	model.addAttribute("isUsersPage", true);
 	return new ModelAndView("users", model);
     }
 
@@ -37,41 +35,37 @@ public class UserController {
     public ModelAndView addUser(@RequestParam("name") String name, @RequestParam("surname") String surname,
 	    @RequestParam("email") String email, @RequestParam("password") String password, ModelMap model,
 	    RedirectAttributes redir) {
-	boolean nameMatches = false;
-	boolean surnameMatches = false;
-	boolean emailMatches = false;
-	boolean passwordMatches = false;
-	Subscriber subscriber = new Subscriber(name, surname, email, password);
+	boolean isError = false;
 
 	// RequestParmaters input checks
 	if (name.matches(
 		"^[a-zA-Z0-9Ã¡Ã Ã¢Ã¤Ã£Ã¥Ã§Ã©Ã¨ÃªÃ«Ã­Ã¬Ã®Ã¯Ã±Ã³Ã²Ã´Ã¶ÃµÃºÃ¹Ã»Ã¼Ã½Ã¿Ã¦Å“Ã�Ã€Ã‚Ã„ÃƒÃ…Ã‡Ã‰ÃˆÃŠÃ‹Ã�ÃŒÃŽÃ�Ã‘Ã“Ã’Ã”Ã–Ã•ÃšÃ™Ã›ÃœÃ�Å¸Ã†Å’.\\s-]{1,35}$")) {
-	    nameMatches = true;
 	    redir.addFlashAttribute("name", name);
 	} else {
-	    redir.addFlashAttribute("nameError", "Beetween 1 and 35 characters required");
+	    isError = true;
+	    redir.addFlashAttribute("nameError", "Between 1 and 35 characters required");
 	}
 	if (surname.matches(
 		"^[a-zA-Z0-9Ã¡Ã Ã¢Ã¤Ã£Ã¥Ã§Ã©Ã¨ÃªÃ«Ã­Ã¬Ã®Ã¯Ã±Ã³Ã²Ã´Ã¶ÃµÃºÃ¹Ã»Ã¼Ã½Ã¿Ã¦Å“Ã�Ã€Ã‚Ã„ÃƒÃ…Ã‡Ã‰ÃˆÃŠÃ‹Ã�ÃŒÃŽÃ�Ã‘Ã“Ã’Ã”Ã–Ã•ÃšÃ™Ã›ÃœÃ�Å¸Ã†Å’.\\s-]{1,35}$")) {
-	    surnameMatches = true;
 	    redir.addFlashAttribute("surname", surname);
 	} else {
-	    redir.addFlashAttribute("surnameError", "Beetween 1 and 35 characters required");
+	    isError = true;
+	    redir.addFlashAttribute("surnameError", "Between 1 and 35 characters required");
 	}
 	if (email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")) {
-	    emailMatches = true;
 	    redir.addFlashAttribute("email", email);
 	} else {
-	    redir.addFlashAttribute("emailError", "Invalid email adress format");
+	    isError = true;
+	    redir.addFlashAttribute("emailError", "Invalid email address format");
 	}
 	if (pwdPolicy(password).isEmpty()) {
-	    passwordMatches = true;
 	} else {
+	    isError = true;
 	    redir.addFlashAttribute("pwdErrors", pwdPolicy(password));
 	}
 
 	// Creating user when checks are ok
-	if (nameMatches && surnameMatches && emailMatches && passwordMatches) {
+	if (!isError) {
 	    User user = new User(name, surname, email, password, User.Role.USER, true);
 	    userService.add(user);
 	}
@@ -97,31 +91,6 @@ public class UserController {
 	}
 	return errors;
     }
-    /*
-     * @RequestMapping(value="/addUser", method=RequestMethod.POST) public
-     * ModelAndView addUser(@Valid Subscriber subscriber, BindingResult result,
-     * ModelMap model, RedirectAttributes redir) {
-     * System.out.println(subscriber.toString()); if(result.hasErrors()){
-     * System.out.println("Result has errors");
-     * redir.addAttribute(result.getModel()); //ModelAndView mav = new
-     * ModelAndView("redirect:/users", model);
-     * //mav.addAllObjects(result.getModel()); //return mav; return new
-     * ModelAndView("redirect:/users"); } else { User user = new
-     * User(subscriber.getName(), subscriber.getSurname(),
-     * subscriber.getEmail(), subscriber.getPassword(), User.Role.USER, true);
-     * userService.add(user); return new ModelAndView("redirect:/users"); } }
-     */
-    /*
-     * @RequestMapping(value="addUser", method=RequestMethod.POST) public String
-     * addUser(@Valid Subscriber subscriber, BindingResult result, ModelMap
-     * model) { System.out.println(subscriber.toString());
-     * if(result.hasErrors()){ System.out.println("Result has errors"); return
-     * "users"; } else { User user = new User(subscriber.getName(),
-     * subscriber.getSurname(), subscriber.getEmail(), subscriber.getPassword(),
-     * User.Role.USER, true); userService.add(user);
-     * model.addAttribute("message", "Successfully saved user: " +
-     * subscriber.toString()); return "users"; } }
-     */
 
     @RequestMapping("/addAnyUser")
     public ModelAndView addAnyUser(@RequestParam("name") String name, @RequestParam("surname") String surname,
@@ -152,8 +121,7 @@ public class UserController {
 
     @RequestMapping("/password")
     public ModelAndView password(ModelMap model) {
-	boolean isPasswordPage = true;
-	model.addAttribute("isPasswordPage", isPasswordPage);
+	model.addAttribute("isPasswordPage", true);
 	return new ModelAndView("password", model);
     }
 
@@ -175,12 +143,5 @@ public class UserController {
 	    return new ModelAndView("redirect:/password");
 	}
     }
-
-    // @RequestMapping("/userById")
-    // public ModelAndView getById(@RequestParam("id") Integer id, ModelMap
-    // model) {
-    // User user = userService.getById(id);
-    // model.addAttribute("user", user);
-    // }
 
 }

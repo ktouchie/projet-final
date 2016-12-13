@@ -43,9 +43,7 @@ public class MessageController {
 	model.addAttribute("unopenedMessageList", unopenedMessageList);
 	List<Message> openedMessageList = messageService.getOpenedMessageList();
 	model.addAttribute("openedMessageList", openedMessageList);
-	boolean isMessageInbox = true;
-	model.addAttribute("isMessageInbox", isMessageInbox);
-
+	model.addAttribute("isMessageInbox", true);
 	return new ModelAndView("adminInbox", model);
     }
 
@@ -53,8 +51,7 @@ public class MessageController {
     public ModelAndView getAdminOutbox(ModelMap model) {
 	List<Message> adminMessageRepliedList = messageService.getAdminMessageRepliedList();
 	model.addAttribute("adminMessageRepliedList", adminMessageRepliedList);
-	boolean isMessageOutbox = true;
-	model.addAttribute("isMessageOutbox", isMessageOutbox);
+	model.addAttribute("isMessageOutbox", true);
 	return new ModelAndView("adminOutbox", model);
     }
 
@@ -62,15 +59,11 @@ public class MessageController {
     public ModelAndView getUserInbox(ModelMap model) {
 	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 	User user = userService.getByEmail(currentEmail);
-
 	List<Message> unopenedRepliedMessageList = messageService.getUnopenedRepliedMessageList(user.getId());
 	model.addAttribute("unopenedRepliedMessageList", unopenedRepliedMessageList);
 	List<Message> openedRepliedMessageList = messageService.getOpenedRepliedMessageList(user.getId());
 	model.addAttribute("openedRepliedMessageList", openedRepliedMessageList);
-
-	boolean isMessageInbox = true;
-	model.addAttribute("isMessageInbox", isMessageInbox);
-
+	model.addAttribute("isMessageInbox", true);
 	return new ModelAndView("userInbox", model);
     }
 
@@ -78,12 +71,9 @@ public class MessageController {
     public ModelAndView getUserOutbox(ModelMap model) {
 	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 	User user = userService.getByEmail(currentEmail);
-
 	List<Message> messageFromUserList = messageService.getMessageFromUserList(user.getId());
 	model.addAttribute("messageFromUserList", messageFromUserList);
-
-	boolean isMessageOutbox = true;
-	model.addAttribute("isMessageOutbox", isMessageOutbox);
+	model.addAttribute("isMessageOutbox", true);
 
 	return new ModelAndView("userOutbox", model);
     }
@@ -92,8 +82,7 @@ public class MessageController {
     public ModelAndView getAllUsers(ModelMap model) {
 	List<User> userList = userService.getAll();
 	model.addAttribute("userList", userList);
-	boolean isContactPage = true;
-	model.addAttribute("isContactPage", isContactPage);
+	model.addAttribute("isContactPage", true);
 	return new ModelAndView("contact", model);
     }
 
@@ -115,8 +104,7 @@ public class MessageController {
 
     @RequestMapping("/message")
     private ModelAndView getMessage(ModelMap model) {
-	boolean isMessagePage = true;
-	model.addAttribute("isMessagePage", isMessagePage);
+	model.addAttribute("isMessagePage", true);
 	return new ModelAndView("message", model);
     }
 
@@ -138,8 +126,7 @@ public class MessageController {
 		// if (messageRead.getUserId() != reply.getUserId()){
 		if (reply.getUser().getRole() == Role.USER) {
 		    // condition for not saving for peanuts : less DB saves vs.
-		    // more checks
-		    // speed up or down?
+		    // more checks speed up or down?
 		    if (!reply.isOpened()) {
 			reply.setOpened(true);
 			replyService.add(reply);
@@ -197,9 +184,8 @@ public class MessageController {
 	// reply from admin
 	else if (user.getRole() == Role.ADMIN) {
 	    // no read status actualization (read status only changes if user
-	    // replies)
-	    // del status actualization
-	    // check in order not to save for peanuts
+	    // replies) del status actualization check in order not to save for
+	    // peanuts
 	    if (message.isDelByUser()) {
 		message.setDelByUser(false);
 		messageService.add(message);
@@ -210,14 +196,15 @@ public class MessageController {
 	}
 
 	System.out.println(mailBoxSource);
-	if (mailBoxSource.equals("adminInbox"))
+	if (mailBoxSource.equals("adminInbox")) {
 	    return new ModelAndView("redirect:/adminInbox");
-	else if (mailBoxSource.equals("adminOutbox"))
+	} else if (mailBoxSource.equals("adminOutbox")) {
 	    return new ModelAndView("redirect:/adminOutbox");
-	else if (mailBoxSource.equals("userInbox"))
+	} else if (mailBoxSource.equals("userInbox")) {
 	    return new ModelAndView("redirect:/userInbox");
-	else
+	} else {
 	    return new ModelAndView("redirect:/userOutbox");
+	}
     }
 
     // Mail notification
@@ -238,10 +225,8 @@ public class MessageController {
     private ModelAndView disableThread(@RequestParam("messageId") Integer messageId,
 	    @RequestParam("mailBoxSource") String mailBoxSource, ModelMap model) {
 	Message messageToDisable = messageService.getById(messageId);
-
 	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 	User user = userService.getByEmail(currentEmail);
-
 	// disabled by admin
 	if (user.getRole() == Role.ADMIN) {
 	    messageToDisable.setDelByAdmin(true);
@@ -253,13 +238,14 @@ public class MessageController {
 	messageService.add(messageToDisable);
 
 	System.out.println(mailBoxSource);
-	if (mailBoxSource.equals("adminInbox"))
+	if (mailBoxSource.equals("adminInbox")) {
 	    return new ModelAndView("redirect:/adminInbox");
-	else if (mailBoxSource.equals("adminOutbox"))
+	} else if (mailBoxSource.equals("adminOutbox")) {
 	    return new ModelAndView("redirect:/adminOutbox");
-	else if (mailBoxSource.equals("userInbox"))
+	} else if (mailBoxSource.equals("userInbox")) {
 	    return new ModelAndView("redirect:/userInbox");
-	else
+	} else {
 	    return new ModelAndView("redirect:/userOutbox");
+	}
     }
 }
