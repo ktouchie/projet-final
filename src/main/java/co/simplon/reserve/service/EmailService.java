@@ -18,6 +18,10 @@ public class EmailService {
 	simpleMsg.setTo(toAddress);
 	simpleMsg.setSubject(subject);
 	simpleMsg.setText(msgBody);
-	mail.send(simpleMsg);
+
+	try {
+	    mail.send(simpleMsg);
+	} catch (Exception e) {
+	}
     }
 }
