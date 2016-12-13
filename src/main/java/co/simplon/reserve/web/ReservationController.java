@@ -62,6 +62,8 @@ public class ReservationController {
     private String searchRes;
     private String searchCompRes;
     private String searchRoomRes;
+    // clear editId
+    private Integer editId = 0;
 
     @RequestMapping("/reservations")
     public ModelAndView getAll(ModelMap model) {
@@ -88,6 +90,10 @@ public class ReservationController {
 	model.addAttribute("userReservationList", userReservationList);
 	boolean isReservationsPage = true;
 	model.addAttribute("isReservationsPage", isReservationsPage);
+
+	// allow editing for selected Reservation
+	model.addAttribute("editId", editId);
+
 	return new ModelAndView("reservations", model);
     }
 
@@ -120,7 +126,7 @@ public class ReservationController {
 
     @RequestMapping("/editReservation")
     public ModelAndView editReservation(@RequestParam("id") Integer id, ModelMap model) {
-	model.addAttribute("editId", id);
+	editId = id;
 	return new ModelAndView("redirect:/reservations", model);
     }
 
