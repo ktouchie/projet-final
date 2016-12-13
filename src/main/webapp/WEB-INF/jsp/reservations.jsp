@@ -85,19 +85,76 @@
  			
 			<security:authorize access="hasAuthority('ADMIN')">
 			<c:forEach items="${reservationList}" var="reservation">
-			<tr>
-				<td>${reservation.user.name} ${reservation.user.surname}</td>
-				<td>${reservation.computer.brand}-${reservation.computer.serial}</td>
-				<td>${reservation.room.name}</td>
-				<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${reservation.startTime}"/></td>
-				<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${reservation.endTime}"/></td>
-				<td>
-					<form action="deleteReservation">
+				<c:if test="${(reservation.id eq editId)}">
+					<form>
+						<tr>
+							<td>		
+								<select name="userId" required>
+									<c:forEach items="${userList}" var="user">
+										<c:if test="${(user.id eq reservation.user.id)}">
+											<option value="${user.id}" selected>${user.name} ${user.surname}</option>
+										</c:if>
+										<c:if test="${(user.id ne reservation.user.id)}">
+											<option value="${user.id}">${user.name} ${user.surname}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+							</td>
+							<td>		
+								<select name="computerId">
+									<c:forEach items="${computerList}" var="computer">
+										<c:if test="${(computer.id eq reservation.computer.id)}">
+											<option value="${computer.id}" selected>${computer.brand} ${computer.serial}</option>
+										</c:if>
+										<c:if test="${(computer.id ne reservation.computer.id)}">
+											<option value="${computer.id}">${computer.brand} ${computer.serial}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+							</td>
+							<td>		
+								<select name="roomId">
+									<c:forEach items="${roomList}" var="room">
+										<c:if test="${(room.id eq reservation.room.id)}">
+											<option value="${room.id}" selected>${room.name} ${room.capacity}</option>
+										</c:if>
+										<c:if test="${(room.id ne reservation.room.id)}">
+											<option value="${room.id}">${room.name} ${room.capacity}</option>
+										</c:if>
+									</c:forEach>
+								</select>
+							</td>
+							<td>
+								<input class ="datepicker" id="startTimePicker" type="text" name="startTime" value="${reservation.startTime}" required>
+							</td>
+							<td>
+								<input class ="datepicker" id="endTimePicker" type="text" name="endTime" value="${reservation.endTime}" required>
+							</td>
+						</tr>
 						<input name="id" value="${reservation.id}" type="hidden" />
-						<input class= "button submit" type="submit" value="Delete" />
 					</form>
-				</td>
-			</tr>
+				</c:if>
+				<c:if test="${(reservation.id ne editId)}">
+					<tr>
+						<td>${reservation.user.name} ${reservation.user.surname}</td>
+						<td>${reservation.computer.brand}-${reservation.computer.serial}</td>
+						<td>${reservation.room.name}</td>
+						<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${reservation.startTime}"/></td>
+						<td><fmt:formatDate type="both" timeStyle="short" dateStyle="short" value="${reservation.endTime}"/></td>
+						<td>
+							<form action="editReservation">
+								<input name="id" value="${reservation.id}" type="hidden" />
+								<input class= "button submit" type="submit" value="Edit" />
+							</form>
+						</td>
+						<td>
+							<form action="deleteReservation">
+								<input name="id" value="${reservation.id}" type="hidden" />
+								<input class= "button submit" type="submit" value="Delete" />
+							</form>
+						</td>
+					</tr>
+				</c:if>
 	      	</c:forEach>
 			</security:authorize>
 

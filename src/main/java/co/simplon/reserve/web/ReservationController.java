@@ -118,6 +118,12 @@ public class ReservationController {
 	return new ModelAndView("redirect:/reservations");
     }
 
+    @RequestMapping("/editReservation")
+    public ModelAndView editReservation(@RequestParam("id") Integer id, ModelMap model) {
+	model.addAttribute("editId", id);
+	return new ModelAndView("redirect:/reservations", model);
+    }
+
     @RequestMapping("/deleteReservation")
     public ModelAndView deleteReservation(@RequestParam("id") Integer id, ModelMap model) {
 	reservationService.delete(id);
