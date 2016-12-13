@@ -32,22 +32,15 @@
 				<form action="readMail">
 					<input name="messageId" value="${uMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="userInbox" type="hidden" />
-<<<<<<< 0aaba7f440b61b71a7f90a78c1834ae62ecaf74b
-					<input class="button" type="submit" value="Read" />
-=======
 					<input class="button submit" type="submit" value="Read" />
->>>>>>> Style app
 				</form>
 			</td>
 			<td>
 				<form action="disableThread">
 					<input name="messageId" value="${uMessage.id}" type="hidden" />
 					<input name="mailBoxSource" value="userInbox" type="hidden" />
-<<<<<<< 0aaba7f440b61b71a7f90a78c1834ae62ecaf74b
-					<input class="button" type="submit" value="Delete" />
-=======
 					<input class="button submit" type="submit" value="Delete" />
->>>>>>> Style app
+
 				</form>
 			</td>
 		</tr>

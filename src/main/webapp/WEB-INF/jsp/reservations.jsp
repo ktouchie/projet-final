@@ -63,6 +63,7 @@
 			</table>
     	</form>
 	</div>
+	</div>
     
 	<div class="section">
 		<p class="heading">RESERVATIONS</p>
