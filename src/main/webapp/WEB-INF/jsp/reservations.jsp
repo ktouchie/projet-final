@@ -85,9 +85,9 @@
  			
 			<security:authorize access="hasAuthority('ADMIN')">
 			<c:forEach items="${reservationList}" var="reservation">
-				<c:if test="${(reservation.id eq editId)}">
-					<form>
-						<tr>
+				<c:if test="${(reservation.id eq editId)}">					
+					<tr>
+						<form>
 							<td>		
 								<select name="userId" required>
 									<c:forEach items="${userList}" var="user">
@@ -130,9 +130,9 @@
 							<td>
 								<input class ="datepicker" id="endTimePicker" type="text" name="endTime" value="${reservation.endTime}" required>
 							</td>
-						</tr>
-						<input name="id" value="${reservation.id}" type="hidden" />
-					</form>
+							<input name="id" value="${reservation.id}" type="hidden" />
+						</form>
+					</tr>					
 				</c:if>
 				<c:if test="${(reservation.id ne editId)}">
 					<tr>
