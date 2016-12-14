@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,10 @@ import co.simplon.reserve.repository.UserRepository;
 
 @Service
 public class LoginService implements UserDetailsService {
+
+    @Autowired
+    @Qualifier("daoAuthenticationProvider")
+    private AuthenticationProvider authenticationProvider;
 
     @Autowired
     private UserRepository userRepository;
