@@ -23,6 +23,11 @@
 
     <authentication-manager erase-credentials="false">
         <authentication-provider ref="daoAuthenticationProvider" />
+        <authentication-provider>
+        	<user-service>
+        		<user name="${admin.name}" password="${admin.password}" authorities="ADMIN" />
+        	</user-service>
+        </authentication-provider>
     </authentication-manager>
     
     <beans:bean class="org.springframework.security.authentication.dao.DaoAuthenticationProvider" id="daoAuthenticationProvider">

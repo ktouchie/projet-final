@@ -11,6 +11,7 @@
 
 	<context:component-scan base-package="co.simplon.reserve" />
 	<context:annotation-config />
+	<context:property-placeholder location="classpath:META-INF/env.properties"/>
 	
 	
 	<import resource="spring-security-config.xml" />
