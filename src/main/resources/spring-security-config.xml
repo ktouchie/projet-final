@@ -25,7 +25,7 @@
         <authentication-provider ref="daoAuthenticationProvider" />
         <authentication-provider>
         	<user-service>
-        		<user name="${admin.name}" password="${admin.password}" authorities="ADMIN" />
+        		<user name="admin" password="admin" authorities="ADMIN" />
         	</user-service>
         </authentication-provider>
     </authentication-manager>
