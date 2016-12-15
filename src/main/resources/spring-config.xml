@@ -10,7 +10,8 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan base-package="co.simplon.reserve" />
-	<context:annotation-config />	
+	<context:annotation-config />
+	<context:property-placeholder location="classpath:META-INF/env.properties"/>
 	
 	<import resource="spring-security-config.xml" />
 	<import resource="mail-bean.xml" />
@@ -23,9 +24,9 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost/project?autoReconnect=true&amp;useSSL=false" />
-		<property name="username" value="test1" />
-		<property name="password" value="test" />
+		<property name="url" value="${mysql.url}" />
+		<property name="username" value="${mysql.username}" />
+		<property name="password" value="${mysql.password}" />
 	</bean>
 
 	<bean id="entityManagerFactory"

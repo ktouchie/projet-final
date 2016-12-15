@@ -10,7 +10,8 @@
  
 	<!-- package structure for files EmailAPI.java and EmailTest.java -->
 	<context:component-scan base-package="co.simplon.reserve.service" />
- 
+ 	<context:property-placeholder location="classpath:META-INF/env.properties"/>
+ 	
 	<!-- Production implementation of the JavaMailSender interface, supporting 
 		both JavaMail MimeMessages and Spring SimpleMailMessages -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">

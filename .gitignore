@@ -9,4 +9,3 @@
 /src/main/webapp/node_modules/
 /src/main/webapp/typings/
 *.log
-/src/main/resources/META-INF/env.properties
