@@ -27,9 +27,10 @@ public class LoginController {
     @RequestMapping(path = "/login")
     public ModelAndView login(ModelMap model) {
 	// If database is empty, create admin profile
-	List<User> userList = userService.getAll();
-	model.addAttribute("userList", userList);
-	if (userList.isEmpty()) {
+	try {
+	    List<User> userList = userService.getAll();
+	    model.addAttribute("userList", userList);
+	} catch (Exception e) {
 	    User user = new User("Admin", "Admin", "admin", "admin", Role.ADMIN, true);
 	    userService.add(user);
 	}

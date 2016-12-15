@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<Context>
+	<Resource name="jdbc/project" auth="Container" type="javax.sql.DataSource" username="test1" password="test" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost/project?autoReconnect=true&amp;useSSL=false?createDatabaseIfNotExist=true" maxActive="15" maxIdle="3"/>
+</Context>
