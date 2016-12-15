@@ -86,7 +86,8 @@ a.contact {
 	
 }
 
-input.button {
+input.button,
+a.cancel {
 	background: #c30044;
 	padding: 5px 0px;
 	border-radius: 5px;
@@ -119,7 +120,8 @@ a.login
 .contact,
 .enable,
 .submit,
-.msg {
+.msg,
+.cancel {
 	width: 70px;
 	cursor: pointer;
 }
