@@ -35,7 +35,8 @@ a.button,
 .navtitle,
 input.button,
 div.display,
-a.contact {
+a.contact,
+a.cancel {
 	float: left;
 	display: block;
 	text-decoration: none;

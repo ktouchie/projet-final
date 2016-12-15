@@ -69,4 +69,24 @@ public class Reservation {
 	return user;
     }
 
+    public void setStartTime(Date startTime) {
+	this.startTime = startTime;
+    }
+
+    public void setEndTime(Date endTime) {
+	this.endTime = endTime;
+    }
+
+    public void setComputer(Computer computer) {
+	this.computer = computer;
+    }
+
+    public void setRoom(Room room) {
+	this.room = room;
+    }
+
+    public void setUser(User user) {
+	this.user = user;
+    }
+
 }

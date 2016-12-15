@@ -130,6 +130,30 @@ public class ReservationController {
 	return new ModelAndView("redirect:/reservations", model);
     }
 
+    @RequestMapping("/modifyReservation")
+    public ModelAndView modifyReservation(@RequestParam("editReservationId") Integer editReservationId,
+	    @RequestParam("editUserId") Integer editUserId,
+	    @RequestParam(name = "editComputerId", defaultValue = "-1") Integer editComputerId,
+	    @RequestParam(name = "editRoomId", defaultValue = "-1") Integer editRoomId,
+	    @RequestParam("editStartTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH") Date editStartTime,
+	    @RequestParam("editEndTime") @DateTimeFormat(pattern = "yyyy-MM-dd HH") Date editEndTime, ModelMap model) {
+	Reservation reservation = reservationService.getById(editReservationId);
+	reservation.setUser(userService.getById(editUserId));
+	reservation.setComputer(computerService.getById(editComputerId));
+	reservation.setRoom(roomService.getById(editRoomId));
+	reservation.setStartTime(editStartTime);
+	reservation.setEndTime(editEndTime);
+	reservationService.add(reservation);
+	editId = 0;
+	return new ModelAndView("redirect:/reservations", model);
+    }
+
+    @RequestMapping("/cancelEdit")
+    public ModelAndView cancelEdit(@RequestParam("editId") Integer id, ModelMap model) {
+	editId = id;
+	return new ModelAndView("redirect:/reservations", model);
+    }
+
     @RequestMapping("/deleteReservation")
     public ModelAndView deleteReservation(@RequestParam("id") Integer id, ModelMap model) {
 	reservationService.delete(id);

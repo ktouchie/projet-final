@@ -24,7 +24,7 @@
 						<tr>
 							<td>
 								<select name="userId" required>
-									<option value="">Select a user</option>
+									<option value="">Select a User</option>
 									<c:forEach items="${userList}" var="user">
 										<option value="${user.id}">${user.name} ${user.surname}</option>
 									</c:forEach>
@@ -38,7 +38,7 @@
 					<tr>
 						<td>
 							<select name="computerId">
-								<option value="">Select a computer</option>
+								<option value="">Select a Computer</option>
 								<c:forEach items="${computerList}" var="computer">
 									<option value="${computer.id}">${computer.brand} ${computer.serial}</option>
 								</c:forEach>
@@ -48,7 +48,7 @@
 					<tr>
 						<td>
 							<select name="roomId">
-								<option value="">Select a room</option>
+								<option value="">Select a Room</option>
 								<c:forEach items="${roomList}" var="room">
 									<option value="${room.id}">${room.name} (${room.capacity})</option>
 								</c:forEach>
@@ -84,15 +84,16 @@
  					<th class="w200">Room</th>
  					<th class="w150">from</th>
  					<th class="w150">to</th>
- 					<th class="w100"></th>
+ 					<th class="w60"></th>
+ 					<th class="w60"></th>
  				</tr>
  				<security:authorize access="hasAuthority('ADMIN')">
 					<c:forEach items="${reservationList}" var="reservation">
 						<c:if test="${(reservation.id eq editId)}">					
 							<tr>
-								<form method="get" action="editReservation">
+								<form method="get" action="modifyReservation">
 									<td>		
-										<select name="userId" required>
+										<select name="editUserId" required>
 											<c:forEach items="${userList}" var="user">
 												<c:if test="${(user.id eq reservation.user.id)}">
 													<option value="${user.id}" selected>${user.name} ${user.surname}</option>
@@ -104,7 +105,8 @@
 										</select>
 									</td>
 									<td>		
-										<select name="computerId">
+										<select name="editComputerId">
+											<option value="">-- no computer --</option>
 											<c:forEach items="${computerList}" var="computer">
 												<c:if test="${(computer.id eq reservation.computer.id)}">
 													<option value="${computer.id}" selected>${computer.brand} ${computer.serial}</option>
@@ -116,7 +118,8 @@
 										</select>
 									</td>
 									<td>		
-										<select name="roomId">
+										<select name="editRoomId">											
+											<option value="">-- no room --</option>
 											<c:forEach items="${roomList}" var="room">
 												<c:if test="${(room.id eq reservation.room.id)}">
 													<option value="${room.id}" selected>${room.name} ${room.capacity}</option>
@@ -128,18 +131,21 @@
 										</select>
 									</td>
 									<td>
-										<input class ="datepicker" id="startTimePicker" type="text" name="startTime" value="${reservation.startTime}" required>
+										<input class ="datepicker" id="editStartTimePicker" type="text" name="editStartTime" required>
 									</td>
 									<td>
-										<input class ="datepicker" id="endTimePicker" type="text" name="endTime" value="${reservation.endTime}" required>
+										<input class ="datepicker" id="editEndTimePicker" type="text" name="editEndTime" required>
 									</td>
 									<td>
-										<input name="id" value="${reservation.id}" type="hidden" />
+										<input name="editReservationId" value="${reservation.id}" type="hidden" />
 										<input class="button submit" type="submit" value="Submit">
 									</td>
 								</form>
 								<td>
-									<a class="cancel" href="reservations">Cancel</a>
+									<form action="cancelEdit">
+										<input name="editId" value=0 type="hidden" />
+										<input class="button submit" type="submit" value="Cancel">
+									</form>
 								</td>
 							</tr>					
 						</c:if>
