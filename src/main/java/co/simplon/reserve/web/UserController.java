@@ -148,13 +148,19 @@ public class UserController {
 //	    userService.add(user);
 //	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
 //	    return new ModelAndView("redirect:/password");
-	if (passwordEncoder.matches(currentPasswordInput, currentPassword) && Objects.equals(newPassword, confirmPassword)) {
+	System.out.println("currentpswdInput : " + currentPasswordInput + "\n" +
+						"currentpswd : " + currentPassword);
+	if (Objects.equals(currentPasswordInput, currentPassword) && Objects.equals(newPassword, confirmPassword)) {
 	    user.setPassword(passwordEncoder.encode(newPassword));
 	    userService.add(user);
 	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
 	    return new ModelAndView("redirect:/password");
-	} else {
-	    redirectAttrs.addFlashAttribute("error", "Error Password Confirmation: Please re-enter your password.");
+	} else if (!Objects.equals(currentPasswordInput, currentPassword)) {
+	    redirectAttrs.addFlashAttribute("error", "Initial Password Error.");
+	    return new ModelAndView("redirect:/password");
+	}
+	else {
+		redirectAttrs.addFlashAttribute("error", "Error Password Confirmation: Please re-enter your password.");
 	    return new ModelAndView("redirect:/password");
 	}
     }
