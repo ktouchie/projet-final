@@ -5,7 +5,10 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +22,16 @@ import co.simplon.reserve.service.UserService;
 @Controller
 @RequestMapping
 public class UserController {
-
+	
+	@Autowired
+	@Qualifier("daoAuthenticationProvider")
+	private AuthenticationProvider authenticationProvider;
+	
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @RequestMapping("/users")
     public ModelAndView getAll(ModelMap model) {
@@ -66,7 +76,7 @@ public class UserController {
 
 	// Creating user when checks are ok
 	if (!isError) {
-	    User user = new User(name, surname, email, password, User.Role.USER, true);
+	    User user = new User(name, surname, email, passwordEncoder.encode(password), User.Role.USER, true);
 	    userService.add(user);
 	}
 	return new ModelAndView("redirect:/users");
@@ -96,7 +106,7 @@ public class UserController {
     public ModelAndView addAnyUser(@RequestParam("name") String name, @RequestParam("surname") String surname,
 	    @RequestParam("email") String email, @RequestParam("password") String password,
 	    @RequestParam("role") User.Role role, ModelMap model) {
-	User user = new User(name, surname, email, password, role, true);
+	User user = new User(name, surname, email, passwordEncoder.encode(password), role, true);
 	userService.add(user);
 	return new ModelAndView("redirect:/users");
     }
@@ -133,8 +143,13 @@ public class UserController {
 	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 	User user = userService.getByEmail(currentEmail);
 	String currentPassword = (SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
-	if (Objects.equals(currentPassword, currentPasswordInput) && Objects.equals(newPassword, confirmPassword)) {
-	    user.setPassword(newPassword);
+//	if (Objects.equals(currentPassword, currentPasswordInput) && Objects.equals(newPassword, confirmPassword)) {
+//	    user.setPassword(newPassword);
+//	    userService.add(user);
+//	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
+//	    return new ModelAndView("redirect:/password");
+	if (passwordEncoder.matches(currentPasswordInput, currentPassword) && Objects.equals(newPassword, confirmPassword)) {
+	    user.setPassword(passwordEncoder.encode(newPassword));
 	    userService.add(user);
 	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
 	    return new ModelAndView("redirect:/password");
