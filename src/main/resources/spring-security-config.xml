@@ -5,19 +5,18 @@
     http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
     <http auto-config="true"  >
-        <intercept-url pattern="/*" access="permitAll" />
- <!--        <intercept-url pattern="/users" access="hasAuthority('ADMIN')" />
+		<intercept-url pattern="/users" access="hasAuthority('ADMIN')" />
         <intercept-url pattern="/addUser" access="permitAll" />
         <intercept-url pattern="/addAnyUser" access="hasAuthority('ADMIN')"/>
         <intercept-url pattern="/computers" access="hasAuthority('ADMIN')" />
         <intercept-url pattern="/addComputer" access="hasAuthority('ADMIN')" />
         <intercept-url pattern="/rooms" access="hasAuthority('ADMIN')" />
         <intercept-url pattern="/addRoom" access="hasAuthority('ADMIN')" />
-        <intercept-url pattern="/reservations" access="permitAll" /> -->
+        <intercept-url pattern="/reservations" access="permitAll" />
         <form-login login-page="/login"
                      username-parameter="email"
                      password-parameter="password"
-                     authentication-failure-url="/accessDenied" />
+                     authentication-failure-url="/login?error=1" />
         <csrf/>
     </http>
 

@@ -12,6 +12,12 @@
 </head>
 <jsp:include page="/WEB-INF/jsp/header.jsp"/>
 <div class="page">
+	<c:if test="${not empty param['error']}">
+		<div style="color:red; font-weight:bold">
+			<p>Oops! Did you enter the correct Email and Password?</p>
+			<p>...because at least one of them ain't right!</p>
+		</font>
+	</c:if>
 	<form action="login" method="post">
 		<input type="text"  name="email" placeholder="Email">
 		<input type="password" name="password" placeholder="Password">
