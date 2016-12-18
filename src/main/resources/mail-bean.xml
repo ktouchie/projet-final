@@ -15,9 +15,9 @@
 	<!-- Production implementation of the JavaMailSender interface, supporting 
 		both JavaMail MimeMessages and Spring SimpleMailMessages -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="simplon.reservation.assistance@gmail.com" />
+		<property name="host" value="${mail.host}" />
+		<property name="port" value="${mail.port}" />
+		<property name="username" value="${mail.username}" />
 		<property name="password" value="${mail.password}" />
  
 		<!-- The name of the property, following JavaBean naming conventions -->
