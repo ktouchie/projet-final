@@ -24,18 +24,26 @@
 						<tr>
 							<td><label for="nameInput">Name</label></td>
 							<td><input type="text" name="name" id="nameInput" maxlength="35" value="${name}"/></td>
+							<td>${nameError}</td>
 						</tr>
 						<tr>
 							<td><label for="surnameInput">Surname</label></td>
 							<td><input type="text" name="surname" id="surnameInput" maxlength="35" value="${surname}"/></td>
+							<td>${surnameError}</td>
 						</tr>
 						<tr>
 							<td><form:label for="emailInput">Email</form:label></td>
 							<td><input type="text" name="email" id="emailInput" value="${email}"/></td>
+							<td>${emailError}</td>
 						</tr>
 						<tr>
 							<td><form:label for="pwdInput">Password</form:label></td>
 							<td><input type="password" name="password" id="pwdInput"/></td>
+							<td>
+								<c:forEach items="${pwdErrors}" var="pwdError">
+									${pwdError}. 
+								</c:forEach>
+							</td>
 						</tr>
 						<tr>
 							<td><input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}"/></td>
@@ -44,6 +52,7 @@
 					</table>
 				</form>
 				
+				<!-- 
 				</div>${nameError}<div>
 				</div>${surnameError}<div>
 				</div>${emailError}<div>
@@ -52,6 +61,8 @@
 						<p>${pwdError}</p>
 					</c:forEach>
 				<div>
+				-->
+				
 		</security:authorize>
 
 		<security:authorize access="hasAuthority('ADMIN')">
