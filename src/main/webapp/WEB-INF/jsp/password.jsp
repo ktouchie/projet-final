@@ -17,25 +17,33 @@
 			<tr>
 				<td>Current Password:</td>
 				<td><input name="currentPasswordInput" type="password"></td>
+				<td>${currentError}</td>
 			</tr>
 			<tr>
+				<td></td>
 				<td></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td>New Password:</td>
 				<td><input name="newPassword" type="password"></td>
+				<td>
+					<c:forEach items="${pwdErrors}" var="pwdError">
+						${pwdError}. 
+					</c:forEach>
+				</td>
 			</tr>
 			<tr>
 				<td>Confirm New Password:</td>
 				<td><input name="confirmPassword" type="password"></td>
+				<td>${confirmationError}</td>
 			</tr>
 			<tr>
 				<td></td>
 				<td class="right"><input class="button submit" type="submit" value="Submit"></td>
+				<td></td>
 			</tr>
 		</table>
 	</form>
 	<div>${success}</div>
-	<div>${error}</div>
 </div>

@@ -47,7 +47,7 @@ public class UserController {
 	    RedirectAttributes redir) {
 	boolean isError = false;
 
-	// RequestParmaters input checks
+	// RequestParameters input checks
 	if (name.matches(
 		"^[a-zA-Z0-9Ã¡Ã Ã¢Ã¤Ã£Ã¥Ã§Ã©Ã¨ÃªÃ«Ã­Ã¬Ã®Ã¯Ã±Ã³Ã²Ã´Ã¶ÃµÃºÃ¹Ã»Ã¼Ã½Ã¿Ã¦Å“Ã�Ã€Ã‚Ã„ÃƒÃ…Ã‡Ã‰ÃˆÃŠÃ‹Ã�ÃŒÃŽÃ�Ã‘Ã“Ã’Ã”Ã–Ã•ÃšÃ™Ã›ÃœÃ�Å¸Ã†Å’.\\s-]{1,35}$")) {
 	    redir.addFlashAttribute("name", name);
@@ -85,16 +85,16 @@ public class UserController {
     public List<String> pwdPolicy(String password) {
 	List<String> errors = new ArrayList<String>();
 	if (password.length() < 8) {
-	    errors.add("8 or more characters needed");
+	    errors.add("8 or more characters required");
 	}
 	if (!password.matches(".*[0-9].*")) {
-	    errors.add("At least 1 digit needed");
+	    errors.add("At least 1 digit required");
 	}
 	if (!password.matches(".*[a-z].*")) {
-	    errors.add("At least 1 lowercase charcater needed");
+	    errors.add("At least 1 lowercase character required");
 	}
 	if (!password.matches(".*[A-Z].*")) {
-	    errors.add("At least 1 uppercase character needed");
+	    errors.add("At least 1 uppercase character required");
 	}
 	if (password.matches(".*\\s.*")) {
 	    errors.add("No whitespace allowed");
@@ -137,26 +137,28 @@ public class UserController {
 
     @RequestMapping("/changePassword")
     public ModelAndView changePassword(@RequestParam("currentPasswordInput") String currentPasswordInput,
-	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
-	    RedirectAttributes redirectAttrs) {
-	// get current User
-	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-	User user = userService.getByEmail(currentEmail);
-	String currentPassword = (SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
-
-	if (Objects.equals(currentPasswordInput, currentPassword) && Objects.equals(newPassword, confirmPassword)) {
-	    user.setPassword(passwordEncoder.encode(newPassword));
-	    userService.add(user);
-	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
-	    return new ModelAndView("redirect:/password");
-	} else if (!Objects.equals(currentPasswordInput, currentPassword)) {
-	    redirectAttrs.addFlashAttribute("error", "Initial Password Error.");
-	    return new ModelAndView("redirect:/password");
-	}
-	else {
-		redirectAttrs.addFlashAttribute("error", "Error Password Confirmation: Please re-enter your password.");
-	    return new ModelAndView("redirect:/password");
-	}
+		    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
+		    RedirectAttributes redirectAttrs) {
+		// get current User
+		String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+		User user = userService.getByEmail(currentEmail);
+		String currentPassword = (SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
+	
+		if (!Objects.equals(currentPasswordInput, currentPassword)) {
+		    redirectAttrs.addFlashAttribute("currentError", "Wrong current password.");
+		}
+		else if (!pwdPolicy(newPassword).isEmpty()) {
+			redirectAttrs.addFlashAttribute("pwdErrors", pwdPolicy(newPassword));
+		}
+		else if (!Objects.equals(newPassword, confirmPassword)) {
+			redirectAttrs.addFlashAttribute("confirmationError", "Error Password Confirmation: Please re-enter your password.");
+		}
+	    else {
+	    	user.setPassword(passwordEncoder.encode(newPassword));
+		    userService.add(user);
+		    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
+	    }
+		return new ModelAndView("redirect:/password");
     }
 
 }
