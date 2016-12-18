@@ -22,14 +22,14 @@ import co.simplon.reserve.service.UserService;
 @Controller
 @RequestMapping
 public class UserController {
-	
-	@Autowired
-	@Qualifier("daoAuthenticationProvider")
-	private AuthenticationProvider authenticationProvider;
-	
+
+    @Autowired
+    @Qualifier("daoAuthenticationProvider")
+    private AuthenticationProvider authenticationProvider;
+
     @Autowired
     private UserService userService;
-    
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -137,28 +137,26 @@ public class UserController {
 
     @RequestMapping("/changePassword")
     public ModelAndView changePassword(@RequestParam("currentPasswordInput") String currentPasswordInput,
-		    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
-		    RedirectAttributes redirectAttrs) {
-		// get current User
-		String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-		User user = userService.getByEmail(currentEmail);
-		String currentPassword = (SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
-	
-		if (!Objects.equals(currentPasswordInput, currentPassword)) {
-		    redirectAttrs.addFlashAttribute("currentError", "Wrong current password.");
-		}
-		else if (!pwdPolicy(newPassword).isEmpty()) {
-			redirectAttrs.addFlashAttribute("pwdErrors", pwdPolicy(newPassword));
-		}
-		else if (!Objects.equals(newPassword, confirmPassword)) {
-			redirectAttrs.addFlashAttribute("confirmationError", "Error Password Confirmation: Please re-enter your password.");
-		}
-	    else {
-	    	user.setPassword(passwordEncoder.encode(newPassword));
-		    userService.add(user);
-		    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
-	    }
-		return new ModelAndView("redirect:/password");
+	    @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword,
+	    RedirectAttributes redirectAttrs) {
+	// get current User
+	String currentEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+	User user = userService.getByEmail(currentEmail);
+	String currentPassword = (SecurityContextHolder.getContext().getAuthentication().getCredentials().toString());
+
+	if (!Objects.equals(currentPasswordInput, currentPassword)) {
+	    redirectAttrs.addFlashAttribute("currentError", "Wrong current password.");
+	} else if (!pwdPolicy(newPassword).isEmpty()) {
+	    redirectAttrs.addFlashAttribute("pwdErrors", pwdPolicy(newPassword));
+	} else if (!Objects.equals(newPassword, confirmPassword)) {
+	    redirectAttrs.addFlashAttribute("confirmationError",
+		    "Error Password Confirmation: Please re-enter your password.");
+	} else {
+	    user.setPassword(passwordEncoder.encode(newPassword));
+	    userService.add(user);
+	    redirectAttrs.addFlashAttribute("success", "Success! Your password has been changed.");
+	}
+	return new ModelAndView("redirect:/password");
     }
 
 }
