@@ -48,4 +48,12 @@ public class Room {
 	this.enabled = enabled;
     }
 
+    public void setName(String name) {
+	this.name = name;
+    }
+
+    public void setCapacity(Integer capacity) {
+	this.capacity = capacity;
+    }
+
 }

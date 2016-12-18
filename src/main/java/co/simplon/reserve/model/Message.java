@@ -37,6 +37,18 @@ public class Message {
 
     }
 
+    public void setUser(User user) {
+	this.user = user;
+    }
+
+    public void setTitle(String title) {
+	this.title = title;
+    }
+
+    public void setContent(String content) {
+	this.content = content;
+    }
+
     public Message(User user, String title, String content, Date creationDate) {
 	this.user = user;
 	this.title = title;

@@ -12,78 +12,84 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Reply {
-	
-	@Id
+
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-	
-	@ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = Message.class)
+
+    @ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = Message.class)
     @JoinColumn(name = "messageId")
-	private Message message;
-	
-	@ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = User.class)
+    private Message message;
+
+    @ManyToOne(cascade = { CascadeType.MERGE }, targetEntity = User.class)
     @JoinColumn(name = "userId")
     private User user;
-	
-	private String content;
-	
-	private Date replyDate;
-	
-	private boolean opened;
-	
-	
-	public Reply() {
-		
-	}
 
-	public Reply(Message message, User user, String content, Date replyDate) {
-		super();
-		this.message = message;
-		this.user = user;
-		this.content = content;
-		this.replyDate = replyDate;
-		this.opened = false;
-	}
+    private String content;
 
+    private Date replyDate;
 
-	public boolean isOpened() {
-		return opened;
-	}
+    private boolean opened;
 
+    public Reply() {
 
-	public void setOpened(boolean opened) {
-		this.opened = opened;
-	}
+    }
 
+    public void setMessage(Message message) {
+	this.message = message;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setUser(User user) {
+	this.user = user;
+    }
 
+    public void setContent(String content) {
+	this.content = content;
+    }
 
-	public Message getMessage() {
-		return message;
-	}
+    public Reply(Message message, User user, String content, Date replyDate) {
+	super();
+	this.message = message;
+	this.user = user;
+	this.content = content;
+	this.replyDate = replyDate;
+	this.opened = false;
+    }
 
-	public Integer getMessageId()
-	{
-		return message.getId();
-	}
+    public boolean isOpened() {
+	return opened;
+    }
 
-	public User getUser() {
-		return user;
-	}
-	
-	public String getContent() {
-		return content;
-	}
+    public void setOpened(boolean opened) {
+	this.opened = opened;
+    }
 
-	public Date getReplyDate() {
-		return replyDate;
-	}
-	
-	public Integer getUserId(){
-		return user.getId();
-	}
+    public Integer getId() {
+	return id;
+    }
+
+    public Message getMessage() {
+	return message;
+    }
+
+    public Integer getMessageId() {
+	return message.getId();
+    }
+
+    public User getUser() {
+	return user;
+    }
+
+    public String getContent() {
+	return content;
+    }
+
+    public Date getReplyDate() {
+	return replyDate;
+    }
+
+    public Integer getUserId() {
+	return user.getId();
+    }
 
 }

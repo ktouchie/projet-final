@@ -48,4 +48,12 @@ public class Computer {
 	this.enabled = enabled;
     }
 
+    public void setBrand(String brand) {
+	this.brand = brand;
+    }
+
+    public void setSerial(String serial) {
+	this.serial = serial;
+    }
+
 }
